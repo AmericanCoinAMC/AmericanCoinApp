@@ -1,0 +1,78 @@
+<md-dialog
+        aria-label="Member Comments"
+        flex-xs="100"
+        flex-sm="100"
+        flex-gt-sm="75"
+        flex-md="65"
+        flex-gt-md="55"
+
+        flex-offset-xs="0"
+        flex-offset-sm="0"
+        flex-offset-gt-sm="25"
+        flex-offset-md="35"
+        flex-offset-gt-md="45"
+        style="height: 100%;"  id="dialog-container">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-icon aria-label="whatshot" class="material-icons step">whatshot</md-icon>
+                <h2>Destacados</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="closeDialog()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div ng-show="loading"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+
+        <md-dialog-content style="height: 100%;" class="dialog-content-scroll">
+            <div class="md-dialog-content" flex style="padding:0px;">
+                <div layout="column"
+                     flex infinite-scroll="nextPaginationLot()"
+                     infinite-scroll-distance="3"
+                     infinite-scroll-disabled="false"
+                     infinite-scroll-immediate-check="false"
+                     infinite-scroll-container="'.dialog-content-scroll'">
+
+                    <md-card ng-repeat="post in postsArray">
+                        <md-card-header>
+                            <md-card-avatar>
+                                <img ng-src="{{post.source.fileUrl}}" alt="{{post.source.name}}"/>
+                            </md-card-avatar>
+                            <md-card-header-text>
+                                <span class="md-title">{{post.source.name}}</span>
+                                <div>
+                                    <md-tooltip md-direction="top" class="material-tooltip">
+                                        {{post.eventDate | amDateFormat:'dddd, Do MMMM YYYY'}}
+                                    </md-tooltip>
+                                    <span class="md-subhead" am-time-ago="post.eventDate"></span>
+                                </div>
+                            </md-card-header-text>
+
+                                <md-icon aria-label="whatshot" class="material-icons step">whatshot</md-icon>
+                            <md-button class="md-icon-button">
+                                <md-icon aria-label="star_border" class="material-icons step">star_border</md-icon>
+                            </md-button>
+                        </md-card-header>
+                        <md-card-title style="padding-top:0px;" ng-click="displayPost($event, post)">
+                            <md-card-title-text>
+                                <span class="md-headline"  ng-if="post.title">{{post.title}}</span>
+                                <span class="md-subhead"  ng-if="post.description">{{post.description | limitTo:180}}...</span>
+                                <a href="#" ng-show="post.hashtag.name">
+                                    <md-tooltip md-direction="top" class="material-tooltip">
+                                        {{post.hashtag.description}}
+                                    </md-tooltip>
+                                    #{{post.hashtag.name}}
+                                </a>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-lg"><img ng-src="{{post.image}}" class="md-card-image" alt="{{post.title}}"  ng-if="post.image"></div>
+                            </md-card-title-media>
+                        </md-card-title>
+                    </md-card>
+                </div>
+            </div>
+        </md-dialog-content>
+
+</md-dialog>
+
+

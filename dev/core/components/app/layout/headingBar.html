@@ -1,0 +1,102 @@
+<md-toolbar md-whiteframe="4" class="heading-toolbar md-hue-2" md-theme="{{$root.userInfo.theme}}" md-theme-watch="true">
+    <div class="md-toolbar-tools ">
+        <md-button
+                hide-gt-md
+                ng-click="toggleLeftNav()"
+                class="md-icon-button"
+                aria-label="Menu">
+            <md-icon aria-label="menu" class="material-icons step">menu</md-icon>
+        </md-button>
+        <div layout="column" flex layout-align-xs="center center" layout-align-sm="center center" layout-align-md="center center">
+            <img src="assets/img/logo.png" alt="Logo" id="logo" style="max-width: 200px;">
+        </div>
+
+
+
+        <md-button ng-click="showOutstandingFeed($event)" class="md-icon-button" aria-label="Sign Out"
+                   hide-md hide-sm hide-xs>
+            <md-tooltip md-direction="left" class="material-tooltip">Noticias Destacadas</md-tooltip>
+            <md-icon aria-label="whatshot" class="material-icons step">whatshot</md-icon>
+        </md-button>
+
+        <md-button ng-click="null" class="md-icon-button" aria-label="Favoritos"
+                   hide-md hide-sm hide-xs>
+            <md-tooltip md-direction="left" class="material-tooltip">Noticias Importantes</md-tooltip>
+            <md-icon aria-label="star" class="material-icons step">star</md-icon>
+        </md-button>
+
+        <md-button ng-click="null" class="md-icon-button" aria-label="Hashtags"
+                   hide-md hide-sm hide-xs>
+            <md-tooltip md-direction="left" class="material-tooltip">Hashtags en Seguimiento</md-tooltip>
+            <md-icon aria-label="bookmark" class="material-icons step">bookmark</md-icon>
+        </md-button>
+
+
+        <md-menu-bar style="padding:0px;">
+            <md-menu md-position-mode="target-right target">
+                <md-button aria-label="Buscar" class="md-icon-button" ng-click="$mdOpenMenu()">
+                    <md-tooltip md-direction="left" class="material-tooltip">Otros</md-tooltip>
+                    <md-icon aria-label="more_vert" class="material-icons step">more_vert</md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item>
+                        <md-button ng-click="null">
+                            <md-icon aria-label="person" class="material-icons step">person</md-icon> Mi Cuenta
+                        </md-button>
+                    </md-menu-item>
+
+                    <md-menu-divider></md-menu-divider>
+
+
+                    <md-menu-item hide-gt-md>
+                        <md-button ng-click="showOutstandingFeed($event)">
+                            <md-icon aria-label="whatshot" class="material-icons step">whatshot</md-icon> Destacados
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item hide-gt-md>
+                        <md-button ng-click="null">
+                            <md-icon aria-label="favorite" class="material-icons step">favorite</md-icon> Noticias Importantes
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item hide-gt-md>
+                        <md-button ng-click="null">
+                            <md-icon aria-label="bookmark" class="material-icons step">bookmark</md-icon> Hashtags en Seguimiento
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-divider hide-gt-md></md-menu-divider>
+
+                    <md-menu-item>
+                        <md-button ng-click="showThemeSheet()">
+                            <md-icon aria-label="color_lens"
+                                     class="material-icons step">color_lens</md-icon> Color de la Aplicación
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button ng-click="null">
+                            <md-icon md-font-icon="fa-bullhorn" class="fa" alt="Publicidad" style="font-size:19px;"></md-icon> Publicidad
+                        </md-button>
+                    </md-menu-item>
+
+                    <md-menu-divider></md-menu-divider>
+
+                    <md-menu-item>
+                        <md-button ng-click="null">
+                            <md-icon aria-label="business" class="material-icons step">business</md-icon> ¿Quiénes Somos?
+                        </md-button>
+                    </md-menu-item>
+
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button ng-click="signUserOut()">
+                            <md-icon aria-label="exit_to_app"
+                                     class="material-icons step">exit_to_app</md-icon> Cerrar Sesión
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+    </div>
+</md-toolbar>
+
+

@@ -1,0 +1,26 @@
+<md-toolbar class="md-hue-1" md-whiteframe="2" style="margin:0px;"  md-theme="{{$root.userInfo.theme}}" md-theme-watch="true">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>Principal</span>
+        </h2>
+    </div>
+</md-toolbar>
+
+<div layout="column" class="md-padding">
+    <div flex
+         infinite-scroll="nextPaginationLot()"
+         infinite-scroll-distance="3"
+         infinite-scroll-disabled="false"
+         infinite-scroll-immediate-check="false"
+         infinite-scroll-container="'.views-container'">
+        <div deckgrid
+             class="deckgrid-2-col"
+             source="hashtagsArray">
+
+            <hashtag-card hashtag="card"></hashtag-card>
+
+        </div>
+    </div>
+
+    <infinite-scroll-preloader paginating="paginating" items-remaining="itemsRemaining"></infinite-scroll-preloader>
+</div>

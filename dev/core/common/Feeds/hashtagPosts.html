@@ -1,0 +1,35 @@
+<md-dialog
+        aria-label="Member Comments"
+        flex-xs="100"
+        flex-sm="100"
+        flex-gt-sm="75"
+        flex-md="65"
+        flex-gt-md="55"
+
+        flex-offset-xs="0"
+        flex-offset-sm="0"
+        flex-offset-gt-sm="25"
+        flex-offset-md="35"
+        flex-offset-gt-md="45"
+        style="height: 100%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-icon md-font-icon="fa-hashtag" class="fa" alt="Hashtag" style="font-size:19px;"></md-icon>
+            <h2>{{hashtag.name}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeDialog()">
+                <md-icon aria-label="close" class="material-icons step">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div ng-show="loading"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+
+    <md-dialog-content style="height: 100%;" class="dialog-content-scroll">
+        <div class="md-dialog-content" flex style="padding:0px;">
+            <infinite-scroll-wrapper config="config"></infinite-scroll-wrapper>
+        </div>
+    </md-dialog-content>
+
+</md-dialog>
+
+

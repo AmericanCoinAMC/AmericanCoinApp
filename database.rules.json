@@ -1,0 +1,15 @@
+{
+    "rules": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "pendingPosts": {
+            ".indexOn": ["url"]
+        },
+        "posts": {
+            ".indexOn": ["url"]
+        },
+        "users": {
+            ".indexOn": ["isAdmin"]
+        }
+    }
+}

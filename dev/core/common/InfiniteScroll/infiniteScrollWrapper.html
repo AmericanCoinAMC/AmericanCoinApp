@@ -1,0 +1,18 @@
+<div layout="column">
+    <div ng-hide="firstLotLoaded()" layout="row" layout-align="center center" class="margin-45">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <div flex infinite-scroll="nextLot()"
+         infinite-scroll-distance="config.distance"
+         infinite-scroll-immediate-check="false"
+         infinite-scroll-disabled="!firstLotLoaded()"
+         infinite-scroll-container="config.parentContainer">
+        <div id="infinite-scroll-content" bind-html-compile="config.template"></div>
+    </div>
+
+    <div ng-show="fetching()" layout="row" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</div>
+

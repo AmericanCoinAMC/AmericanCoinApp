@@ -1,0 +1,27 @@
+{
+  "name": "minoticierovenezuela",
+  "repository": {
+    "type": "git",
+    "url": "https://JessDotJS@bitbucket.org/minoticierovenezuela/main.web.git"
+  },
+  "version": "1.0.0",
+  "description": "Mi Noticiero's main web app.",
+  "main": "main.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "keywords": [],
+  "author": "Jesus Graterol",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.1.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-ignore": "^2.0.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-uglify": "^2.0.0",
+    "run-sequence": "^1.2.2"
+  }
+}

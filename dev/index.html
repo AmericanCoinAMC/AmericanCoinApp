@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mi Noticiero</title>
+    <meta name="description" content="Todas tus noticias en un sitio."/>
+
+    <!-- Google Icons CDNS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Angular Material Related Dependencies -->
+    <link rel="stylesheet" href="vendors/bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="vendors/bower_components/mdPickers/dist/mdPickers.min.css">
+
+    <!-- Template Layout -->
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/materialize.css">
+    <link rel="stylesheet" href="assets/css/corrector.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/themes.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="vendors/font-awesome-4.6.3/css/font-awesome.min.css">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="overflow-y: hidden">
+
+<preloader status="$root.preloader"></preloader>
+
+<ui-view></ui-view>
+
+
+
+
+
+
+<!-- Core Dependencies -->
+
+
+<!-- Front End -->
+<script src="vendors/bower_components/angular/angular.min.js"></script>
+<script src="vendors/bower_components/angular-messages/angular-messages.min.js"></script>
+<script src="vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="vendors/bower_components/angular-material/angular-material.min.js"></script>
+<script src="vendors/bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="vendors/bower_components/angular-aria/angular-aria.min.js"></script>
+
+
+<!-- Back End -->
+<script src="vendors/bower_components/firebase/firebase.js"></script>
+<script src="vendors/bower_components/angularfire/dist/angularfire.min.js"></script>
+
+
+
+<!-- Date Format -->
+<script src="vendors/bower_components/moment/moment.js"></script>
+<script src="vendors/bower_components/moment/locale/es.js"></script>
+<script src="vendors/bower_components/angular-moment/angular-moment.js"></script>
+
+
+<!-- Date & Time Input -->
+<script src="vendors/bower_components/mdPickers/dist/mdPickers.min.js"></script>
+
+
+<!-- HTML Compiler -->
+
+<script src="vendors/bower_components/angular-bind-html-compile/angular-bind-html-compile.min.js"></script>
+
+<!-- Angular Grid -->
+<script src="vendors/bower_components/angulargrid/angulargrid.min.js"></script>
+
+<!-- Infinite Scroll -->
+<script src="vendors/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+
+<!-- Core -->
+<script src="app.js"></script>
+
+
+<!-- Config -->
+<script src="core/config/run.js"></script>
+<script src="core/config/states.js"></script>
+<script src="core/config/theme.js"></script>
+<script src="core/config/icons.js"></script>
+<script src="core/config/validations.js"></script>
+
+<!-- Common -->
+
+<!-- Object Builders -->
+<script src="core/common/ObjectBuilder/SourceObjectService.js"></script>
+<script src="core/common/ObjectBuilder/CategoryObjectService.js"></script>
+<script src="core/common/ObjectBuilder/PostObjectService.js"></script>
+<script src="core/common/ObjectBuilder/HashtagObjectService.js"></script>
+<script src="core/common/ObjectBuilder/LeaderObjectService.js"></script>
+<script src="core/common/ObjectBuilder/OrionLogObjectService.js"></script>
+
+
+<!-- Helpers -->
+<script src="core/common/Message/Message.js"></script>
+<script src="core/common/Auth/Auth.js"></script>
+<script src="core/common/SideNavigation/SideNavigation.js"></script>
+<script src="core/common/Dialog/Dialog.js"></script>
+<script src="core/common/truncate/truncate.js"></script>
+<script src="core/common/User/UserService.js"></script>
+<script src="core/common/GetData/GetDataService.js"></script>
+<script src="core/common/ImageError/OnImageError.js"></script>
+<script src="core/common/Server/Server.js"></script>
+
+<!-- Preloaders -->
+<script src="core/common/Preloader/preloader.js"></script>
+<script src="core/common/Preloader/sectionPreloader.js"></script>
+
+<!-- Infinite Scroll -->
+<script src="core/common/InfiniteScroll/infiniteScrollWrapper.js"></script>
+<script src="core/common/InfiniteScroll/IS01.js"></script>
+<script src="core/common/InfiniteScroll/IS02.js"></script>
+
+<!-- Feeds -->
+<script src="core/common/Feeds/FeedService.js"></script>
+<script src="core/common/Feeds/OutstandingPostsFeed.js"></script>
+<script src="core/common/Feeds/HashtagsPostsFeed.js"></script>
+<script src="core/common/Feeds/TwitterProfileFeed.js"></script>
+
+<!-- Posts -->
+<script src="core/common/Post/PostDialogService.js"></script>
+<script src="core/common/Post/postHashtags.js"></script>
+<script src="core/common/Post/postLeaders.js"></script>
+<script src="core/common/Post/postCard.js"></script>
+
+<!-- Sources -->
+<script src="core/common/Source/ignoredSources.js"></script>
+
+
+<!-- Atomic Updates -->
+<script src="core/common/AtomicUpdates/SourceAtomicUpdates.js"></script>
+<script src="core/common/AtomicUpdates/CategoryAtomicUpdates.js"></script>
+<script src="core/common/AtomicUpdates/PostAtomicUpdates.js"></script>
+<script src="core/common/AtomicUpdates/HashtagAtomicUpdates.js"></script>
+<script src="core/common/AtomicUpdates/LeaderAtomicUpdates.js"></script>
+
+
+
+<!-- Intro Components -->
+<script src="core/components/intro/intro.js"></script>
+<script src="core/components/intro/authenticate.js"></script>
+
+<!-- App Components -->
+<script src="core/components/app/app.js"></script>
+
+<!-- Layout Components -->
+<script src="core/components/app/layout/headingBar.js"></script>
+<script src="core/components/app/layout/leftNavigation.js"></script>
+<script src="core/components/app/layout/sourcesNav.js"></script>
+
+<!-- Main Components -->
+<script src="core/components/app/main/main.js"></script>
+
+<!-- News Components -->
+<script src="core/components/app/news/news.js"></script>
+
+<!-- News Components -->
+<script src="core/components/app/sourcePosts/sourcePosts.js"></script>
+
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyA69SsboLf-7z7ReFZkFcaF_sN1fuuxUyo",
+        authDomain: "news-9d456.firebaseapp.com",
+        databaseURL: "https://news-9d456.firebaseio.com",
+        storageBucket: "news-9d456.appspot.com"
+    };
+    /*var config = {
+        apiKey: "AIzaSyD4H1A6DcKKo1a7-8CWz7CNMOlURorFwh0",
+        authDomain: "newsadmin-c3eca.firebaseapp.com",
+        databaseURL: "https://newsadmin-c3eca.firebaseio.com",
+        storageBucket: "newsadmin-c3eca.appspot.com",
+    };*/
+    firebase.initializeApp(config);
+    var rootRef = firebase.database().ref();
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+
+
+</script>
+
+<script>
+    window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+        return t;
+    }(document, "script", "twitter-wjs"));
+
+
+</script>
+
+
+
+</body>
+</html>

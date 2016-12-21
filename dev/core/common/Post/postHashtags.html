@@ -1,0 +1,13 @@
+<md-list ng-show="post.primaryHashtag.id" class="margin-0 padding-0">
+    <md-list-item ng-click="displayHashtagFeed($event, post.primaryHashtag)">
+        <div layout="row" flex class="padding-0">
+            <md-icon md-font-icon="fa-hashtag" class="fa color-blue" alt="Hashtag"></md-icon>
+            <span class="color-blue">{{post.primaryHashtag.name | characters: 25}}</span>
+            <span flex></span>
+            <md-icon ng-show="post.secondaryHashtags"
+                     aria-label="more_vert"
+                     class="material-icons step color-blue">more_vert</md-icon>
+        </div>
+
+    </md-list-item>
+</md-list>

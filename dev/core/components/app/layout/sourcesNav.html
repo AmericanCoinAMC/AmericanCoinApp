@@ -1,0 +1,33 @@
+<div class="zoomIn-animation">
+    <md-list-item class="md-2-line"  ng-click="toggleSourceNav()" ng-class="{ 'active': sourceExpanded}">
+        <div layout="row" layout-align="center center" flex>
+            <md-icon md-font-icon="fa-binoculars" class="fa" alt="Newspaper" style="font-size:19px;"></md-icon>
+            <div class="md-list-item-text"><h3 style="margin-left:10px;">Medios Digitales</h3></div>
+            <span flex></span>
+            <md-icon aria-label="keyboard_arrow_up" class="material-icons step" ng-show="sourceExpanded">keyboard_arrow_up</md-icon>
+            <md-icon aria-label="keyboard_arrow_down" class="material-icons step" ng-hide="sourceExpanded">keyboard_arrow_down</md-icon>
+        </div>
+    </md-list-item>
+    <md-divider ></md-divider>
+    <md-list ng-show="sourceExpanded" class="md-dense" flex>
+        <md-list-item ng-repeat="source in sourcesArray"
+                      ui-sref="app.sourcePosts({sourceId: source.$id})"
+                      ui-sref-active="active"
+                      ng-click="null"
+                      aria-label="{{source.name}}">
+            <div flex>
+                <source-element source="source"></source-element>
+            </div>
+        </md-list-item>
+
+
+        <md-list-item  ng-hide="paginating || !itemsRemaining" ng-click="nextPaginationLot()" aria-label="{{source.name}}">
+            <div layout="row" layout-align="center center" flex>
+                <h3 class="md-subhead">Ver más</h3>
+            </div>
+        </md-list-item>
+
+        <infinite-scroll-preloader paginating="paginating" items-remaining="itemsRemaining"></infinite-scroll-preloader>
+    </md-list>
+    <md-divider ng-show="sourceExpanded"></md-divider>
+</div>

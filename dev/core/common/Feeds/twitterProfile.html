@@ -1,0 +1,47 @@
+<md-dialog
+        aria-label="Member Comments"
+        flex-xs="100"
+        flex-sm="100"
+        flex-gt-sm="65"
+        flex-md="55"
+        flex-gt-md="45"
+
+        flex-offset-xs="0"
+        flex-offset-sm="0"
+        flex-offset-gt-sm="35"
+        flex-offset-md="45"
+        flex-offset-gt-md="55"
+        style="height: 100%;">
+
+    <div md-whiteframe="6" style="z-index:2;">
+        <div layout="row" layout-align="center center">
+            <div layout="row" layout-align="center center">
+                <img ng-src="{{twitterObject.avatar}}"  class="rounded-img">
+                <div layout="column" class="m-left-10">
+                    <h3 class="md-title m-left-5" style="margin:0px;">{{twitterObject.name}}</h3>
+                    <a href="#" target="_blank">@{{twitterObject.twitterName}}</a>
+                </div>
+
+            </div>
+
+            <span flex></span>
+            <md-button class="md-icon-button" href="{{twitterObject.wikiUrl}}" target="_blank">
+                <md-tooltip md-direction="left" class="material-tooltip">Ver en Wikipedia</md-tooltip>
+                <md-icon md-font-icon="fa-wikipedia-w" class="fa" alt="Hashtag" style="font-size:19px;"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="closeDialog()">
+                <md-icon aria-label="close" class="material-icons step">close</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <div ng-show="loading"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+    <md-dialog-content style="height: 100%;">
+        <div class="md-dialog-content" flex style="padding:0px;">
+            <a class="twitter-timeline" data-chrome="nofooter noborders noheader" href="https://twitter.com/{{twitterObject.twitterName}}"></a>
+        </div>
+    </md-dialog-content>
+
+</md-dialog>
+
+

@@ -1,0 +1,47 @@
+<md-dialog
+        aria-label="Post"
+        flex-xs="100"
+        flex-sm="100"
+        flex-gt-sm="75"
+        flex-md="70"
+        flex-gt-md="65"
+        style="overflow-y: hidden;">
+
+    <div class="margin-0 padding-0" md-whiteframe="6">
+        <md-list flex>
+            <md-list-item class="md-2-line" ng-click="test()">
+                <img ng-src="{{postObject.source.fileUrl}}" style="max-width: 60px;height: 60px;">
+                <div class="md-list-item-text">
+                    <h3>{{postObject.source.name}}</h3>
+                    <p am-time-ago="postObject.eventDate"></p>
+                </div>
+                <md-button class="md-icon-button" hide-xs>
+                    <md-icon aria-label="star_border" class="material-icons step">star_border</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="closeDialog()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </md-list-item>
+        </md-list>
+
+    </div>
+
+    <md-dialog-content>
+        <div class="md-dialog-content content-container">
+            <div layout="row" layout-align="center center" flex>
+                <div layout="column">
+                    <img ng-src="{{postObject.image}}" alt="{{postObject.title}}"
+                         ng-if="postObject.source.postConfig.imageOnPost && postObject.image">
+                </div>
+            </div>
+            <div layout="column">
+                <h3 class="headline" style="margin:15px 0px 10px 0px;"
+                    ng-if="postObject.source.postConfig.titleOnPost && postObject.title">{{postObject.title}}</h3>
+                <div ng-bind-html="htmlContent"></div>
+            </div>
+        </div>
+    </md-dialog-content>
+
+</md-dialog>
+
+

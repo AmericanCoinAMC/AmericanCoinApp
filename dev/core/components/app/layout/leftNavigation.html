@@ -1,0 +1,50 @@
+<md-sidenav class="md-sidenav-left"
+            md-whiteframe="2"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-md')"
+            flex>
+    <md-content>
+        <div layout="column">
+
+            <md-list flex class="padding-0">
+                <md-list-item class="md-2-line" ui-sref="app.main"  ui-sref-active="active">
+                    <div layout="row" layout-align="center center" flex>
+                        <md-icon aria-label="home" class="material-icons step">home</md-icon>
+                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Principal</h3></div>
+                    </div>
+                </md-list-item>
+
+                <md-divider></md-divider>
+                <md-list-item class="md-2-line" ui-sref="app.news"  ui-sref-active="active">
+                    <div layout="row" layout-align="center center" flex>
+                        <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="Newspaper" style="font-size:19px;"></md-icon>
+                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Noticias</h3></div>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+
+                <sources-nav></sources-nav>
+
+
+                <md-list-item class="md-2-line" ui-sref="app.hashtags"  ui-sref-active="active">
+                    <div layout="row" layout-align="center center" flex>
+                        <md-icon md-font-icon="fa-hashtag" class="fa" alt="Hashtag" style="font-size:19px;"></md-icon>
+                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Hashtags</h3></div>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+
+
+                <md-list-item class="md-2-line" ui-sref="app.leaders"  ui-sref-active="active">
+                    <div layout="row" layout-align="center center" flex>
+                        <md-icon md-svg-src="assets/icons/politician-icon.svg"></md-icon>
+                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Líderes Politicos</h3></div>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+            </md-list>
+        </div>
+    </md-content>
+</md-sidenav>
+
+

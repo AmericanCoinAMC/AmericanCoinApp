@@ -1,0 +1,12 @@
+<md-button class="md-icon-button"
+           ng-click="toggleHashtag(hashtag)"
+           aria-label="star_border">
+    <md-tooltip md-direction="left" class="material-tooltip" ng-if="!hasHashtag">Seguir #{{hashtag.name}}</md-tooltip>
+    <md-tooltip md-direction="left" class="material-tooltip" ng-if="hasHashtag">Dejar de Seguir</md-tooltip>
+    <md-icon aria-label="bookmark_border"
+             class="material-icons step"
+             ng-hide="hasHashtag">bookmark_border</md-icon>
+    <md-icon aria-label="bookmark"
+             class="material-icons step"
+             ng-show="hasHashtag">bookmark</md-icon>
+</md-button>

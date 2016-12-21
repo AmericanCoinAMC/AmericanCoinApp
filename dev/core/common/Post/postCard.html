@@ -1,0 +1,36 @@
+<md-card ng-class="{'md-whiteframe-6dp': post.outstanding, 'md-whiteframe-4dp': post.hashtag}">
+    <div class="no-outline">
+        <md-card-header style="padding-right:0px;">
+            <md-card-avatar>
+                <img ng-src="{{post.source.fileUrl}}" alt="{{post.source.name}}"/>
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">{{post.source.name}}</span>
+                <div>
+                    <md-tooltip md-direction="bottom" class="material-tooltip">
+                        {{post.eventDate | amDateFormat:'dddd, Do MMMM YYYY'}}
+                    </md-tooltip>
+                    <span class="md-subhead" am-time-ago="post.eventDate"></span>
+                </div>
+            </md-card-header-text>
+            <user-post-element post="post"></user-post-element>
+        </md-card-header>
+
+        <div ng-click="displayPost($event, post)" class="no-outline">
+            <img ng-src="{{post.image}}" class="md-card-image grid-img" alt="{{post.title}}" ng-show="post.image">
+            <md-card-title ng-show="post.title">
+                <md-card-title-text>
+                    <span class="md-title">{{post.title}}</span>
+                </md-card-title-text>
+
+            </md-card-title>
+            <md-card-content>
+                <p ng-show="post.description">{{post.description | characters:150}}</p>
+            </md-card-content>
+        </div>
+
+        <post-hashtags post="post"></post-hashtags>
+
+        <post-leaders post="post"></post-leaders>
+    </div>
+</md-card>

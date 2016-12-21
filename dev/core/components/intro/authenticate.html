@@ -1,0 +1,47 @@
+<div layout="row" layout-align="center center" layout-fill>
+    <div class="content-panel md-padding"
+         md-whiteframe="3"
+         flex-xs="100"
+         flex-sm="100"
+         flex-md="80"
+         flex-gt-md="50">
+
+        <form name="emailAuthenticationForm" ng-submit="emailAuthentication()" flex>
+
+            <md-input-container class="md-block">
+                <md-icon
+                        aria-label="email"
+                        class="material-icons step">
+                    email
+                </md-icon>
+                <input ng-model="email" name="email" type="email" placeholder="Email" ng-required="true">
+                <div ng-messages="emailAuthenticationForm.email.$error">
+                    <div ng-message="required">Ingresa tu correo electronico.</div>
+                    <div ng-message="email">Tu correo electronico debe tener el formato correcto.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-icon
+                        aria-label="lock"
+                        class="material-icons step">
+                    lock
+                </md-icon>
+                <input ng-model="password" name="password" type="password" placeholder="Contrasena" ng-required="true">
+                <div ng-messages="emailAuthenticationForm.password.$error">
+                    <div ng-message="required">Ingresa tu Contraseña!</div>
+                </div>
+            </md-input-container>
+
+            <div class="align-right">
+                <md-button type="submit"
+                           class="md-primary" ng-disabled="emailAuthenticationForm.$invalid || submitting">
+                    <span ng-hide="submitting">Iniciar Sesion</span>
+                    <span ng-show="submitting">Procesando...</span>
+                </md-button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
