@@ -2,8 +2,10 @@
  * Created by Jess on 05-Jul-16.
  */
 
-app.run(['$rootScope', '$state', '$stateParams', 'Auth', 'Message', '$mdMedia', 'SideNavigation', 'UserService', 'amMoment',
-    function($rootScope, $state, $stateParams, Auth, Message, $mdMedia, SideNavigation, UserService, amMoment) {
+app.run(['$rootScope', '$state', '$stateParams', 'Auth', 'Message',
+    '$mdMedia', 'SideNavigation', 'UserService', 'amMoment', '$window',
+    function($rootScope, $state, $stateParams, Auth, Message,
+             $mdMedia, SideNavigation, UserService, amMoment, $window) {
         amMoment.changeLocale('es');
 
         $rootScope.preloader = false;
@@ -11,6 +13,8 @@ app.run(['$rootScope', '$state', '$stateParams', 'Auth', 'Message', '$mdMedia', 
         $rootScope.userInfo = {};
         $rootScope.firebaseUser = {};
 
+        $rootScope.navigatorLanguage = $window.navigator.language || $window.navigator.userLanguage;
+        console.log($rootScope.navigatorLanguage);
 
         /*
         * Handle Auth Updates

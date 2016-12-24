@@ -10,15 +10,17 @@ app.factory('HashtagPostsFeed',
                         templateUrl: '/core/common/Feeds/hashtagPosts.html',
                         parent: angular.element(document.body),
                         targetEvent: ev,
-                        clickOutsideToClose:true,
+                        //clickOutsideToClose:true,
                         fullscreen: true,
                         escapeToClose: true,
                         locals: {
                             hashtag: hashtag
                         },
                         controller:
-                            ['$rootScope', '$scope', '$mdDialog', '$firebaseArray', 'PostDialogService', '$timeout', 'hashtag', 'PostObjectService',
-                                function DialogController($rootScope, $scope, $mdDialog, $firebaseArray, PostDialogService, $timeout, hashtag, PostObjectService) {
+                            ['$rootScope', '$scope', '$mdDialog', '$firebaseArray',
+                                'PostDialogService', '$timeout', 'hashtag', 'PostObjectService',
+                                function DialogController($rootScope, $scope, $mdDialog, $firebaseArray, PostDialogService,
+                                                          $timeout, hashtag, PostObjectService) {
                                     $scope.hashtag = hashtag;
                                     if(hashtag.id == undefined) {
                                         $scope.hashtagId = hashtag.$id;
@@ -29,11 +31,13 @@ app.factory('HashtagPostsFeed',
                                     $scope.config = {
                                         ref: rootRef.child('hashtagPosts/' + $scope.hashtagId),
                                         objectBuilder: PostObjectService,
-                                        templateUrl: '/core/common/Post/postList.html',
-                                        parentContainer: '.dialog-content-scroll'
+                                        templateUrl: '/core/common/Post/postList.tpl.html',
+                                        parentContainer: '.dialog-content-scroll',
+                                        type: 'temporary'
                                     };
 
                                     $scope.closeDialog = function() {
+                                        $rootScope.$broadcast('temporaryInstanceAssigned');
                                         $mdDialog.hide();
                                     };
                                 }]

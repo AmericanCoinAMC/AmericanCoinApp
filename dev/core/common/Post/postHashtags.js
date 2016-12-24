@@ -17,6 +17,7 @@ app.directive('postHashtags',
                     $mdBottomSheet.show({
                         templateUrl: '/core/common/Post/postHashtagBottomSheet.html',
                         escapeToClose: true,
+                        clickOutsideToClose: true,
                         disableParentScroll: false,
                         locals: {
                           post: scope.post

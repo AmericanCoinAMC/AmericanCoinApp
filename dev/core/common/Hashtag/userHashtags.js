@@ -4,11 +4,17 @@
 
 app.factory('UserHashtags', ['$firebaseArray', function($firebaseArray){
     var UserHashtags = $firebaseArray.$extend({
-        userHasHashtag: function(post){
-            if(post){
+        userHasHashtag: function(hashtag){
+            if(hashtag){
                 var found = false;
+                var hashtagId;
+                if(hashtag.$id == undefined){
+                    hashtagId = hashtag.id
+                }else{
+                    hashtagId = hashtag.$id
+                }
                 angular.forEach(this.$list, function(rec){
-                    if(post.$id == rec.$id){
+                    if(hashtagId == rec.$id){
                         found = true;
                     }
                 });
@@ -22,12 +28,20 @@ app.factory('UserHashtags', ['$firebaseArray', function($firebaseArray){
         return new UserHashtags(ref);
     }
 }])
-    .factory('UserHashtagsService', ['$q', '$rootScope', function($q, $rootScope){
+    .factory('UserHashtagsService', [
+        '$q', '$rootScope', 'HashtagObjectService',
+        function($q, $rootScope, HashtagObjectService){
         return{
             addHashtag: function(hashtag){
                 var deferred = $q.defer();
-                var ref = rootRef.child('userHashtags/' + $rootScope.userInfo.$id + '/' + hashtag.$id);
-                ref.setWithPriority(this.buildHashtagObject(hashtag), hashtag.$priority).then(function(){
+                var hashtagId;
+                if(hashtag.$id == undefined){
+                    hashtagId = hashtag.id
+                }else{
+                    hashtagId = hashtag.$id
+                }
+                var ref = rootRef.child('userHashtags/' + $rootScope.userInfo.$id + '/' + hashtagId);
+                ref.set(HashtagObjectService.buildMinifiedWithPriority(hashtag)).then(function(){
                     deferred.resolve(true);
                 }).catch(function(err){
                     deferred.reject(err);
@@ -37,23 +51,19 @@ app.factory('UserHashtags', ['$firebaseArray', function($firebaseArray){
 
             removeHashtag: function(hashtag){
                 var deferred = $q.defer();
-                var ref = rootRef.child('userHashtags/' + $rootScope.userInfo.$id + '/' + hashtag.$id);
+                var hashtagId;
+                if(hashtag.$id == undefined){
+                    hashtagId = hashtag.id
+                }else{
+                    hashtagId = hashtag.$id
+                }
+                var ref = rootRef.child('userHashtags/' + $rootScope.userInfo.$id + '/' + hashtagId);
                 ref.remove().then(function(){
                     deferred.resolve(true);
                 }).catch(function(err){
                     deferred.reject(err);
                 });
                 return deferred.promise;
-            },
-
-            buildHashtagObject: function(hashtag){
-                return {
-                    name: hashtag.name,
-                    description: hashtag.description,
-                    fileUrl: hashtag.fileUrl,
-                    creationDate: hashtag.creationDate,
-                    lastPost: hashtag.lastPost
-                };
             }
 
         }
@@ -66,7 +76,7 @@ app.factory('UserHashtags', ['$firebaseArray', function($firebaseArray){
             scope: {
                 hashtag: '='
             },
-            templateUrl: '/core/common/UserHashtags/userHashtags.html',
+            templateUrl: '/core/common/Hashtag/userHashtags.html',
             link: function(scope, element, attrs) {
                 scope.userHashtags = UserHashtags(rootRef.child('userHashtags/' + $rootScope.userInfo.$id));
 

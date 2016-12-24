@@ -1,0 +1,1 @@
+app.factory("OrionLogObjectService",function(){return{buildFromSnapshot:function(t){return{$id:t.key,code:t.val().code,eventDate:t.val().eventDate,title:t.val().title,type:t.val().type,data:t.val().data,timestamp:t.val().timestamp,$priority:t.getPriority()}}}});

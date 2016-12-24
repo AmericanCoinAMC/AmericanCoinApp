@@ -3,27 +3,13 @@
  */
 
 app.factory('GetDataService',
-    ['$q',
-    function($q){
+    ['$q', 'SourceObjectService',
+    function($q, SourceObjectService){
     return{
         getSourceData: function(sourceId){
             var deferred = $q.defer();
             rootRef.child('sources/'+sourceId).once('value', function(snapshot) {
-                var sourceObject = {
-                    $id: snapshot.key,
-                    name: snapshot.val().name,
-                    description: snapshot.val().description,
-                    fileName:  snapshot.val().fileName,
-                    fileUrl:  snapshot.val().fileUrl,
-                    compatibility:  snapshot.val().compatibility,
-                    ogConfig:  snapshot.val().ogConfig,
-                    postConfig:  snapshot.val().postConfig,
-                    profile:  snapshot.val().profile,
-                    selector:  snapshot.val().selector,
-                    status:  snapshot.val().status,
-                    $priority: snapshot.getPriority()
-                };
-                deferred.resolve(sourceObject);
+                deferred.resolve(SourceObjectService.buildFromSnapshot(snapshot));
             });
             return deferred.promise;
         },

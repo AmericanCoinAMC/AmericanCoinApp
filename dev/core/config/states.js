@@ -42,9 +42,20 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
 
+        .state('app.news.category', {
+            url: '/:categoryId',
+            template: '<news-category></news-category>',
+            resolve: {
+
+            }
+        })
+
         .state('app.sourcePosts', {
-            url: '/sourcePosts/:sourceId',
+            url: '/sourcePosts',
             template: '<source-posts source-data="$resolve.sourceData" source-categories-data="$resolve.sourceCategoriesData"></source-posts>',
+            params: {
+                sourceId: null
+            },
             resolve: {
                 sourceData: [
                     '$rootScope', 'GetDataService', '$stateParams', '$q',
@@ -62,9 +73,29 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                     });
                     return defer.promise;
                 }],
-                sourceCategoriesData: function($firebaseArray, $stateParams){
+                sourceCategoriesData: ['$firebaseArray', '$stateParams',function($firebaseArray, $stateParams){
                     return $firebaseArray(rootRef.child('sourcesCategories/' + $stateParams.sourceId).orderByPriority()).$loaded();
-                }
+                }]
+            }
+        })
+
+        .state('app.sourcePosts.category', {
+            url: '/category',
+            template: '<source-posts-category></source-posts-category>',
+            params: {
+                sourceId: null,
+                categoryId: null
+            },
+            resolve: {
+
+            }
+        })
+
+        .state('app.hashtags', {
+            url: '/hashtags',
+            template: '<hashtags></hashtags>',
+            resolve: {
+
             }
         })
 }]);

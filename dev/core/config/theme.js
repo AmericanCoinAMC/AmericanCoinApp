@@ -3,7 +3,7 @@
  */
 
 
-app.config(function($mdThemingProvider){
+app.config(['$mdThemingProvider', function($mdThemingProvider){
 
     $mdThemingProvider.theme('default')
         .primaryPalette("blue", {
@@ -246,4 +246,4 @@ app.config(function($mdThemingProvider){
         });
 
     $mdThemingProvider.alwaysWatchTheme(true);
-});
+}]);

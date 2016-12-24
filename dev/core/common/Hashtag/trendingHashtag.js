@@ -1,13 +1,13 @@
 /**
  * Created by Computadora on 31-Oct-16.
  */
-app.directive('trendingHashtag', function(){
+app.directive('trendingHashtag', [function(){
     return {
         restrict: 'E',
         scope: {
             lastPost: '='
         },
-        templateUrl: '/core/common/TrendingHashtag/trendingHashtag.html',
+        templateUrl: '/core/common/Hashtag/trendingHashtag.html',
         link: function(scope, element, attrs) {
             scope.$watch('lastPost', function(newValue, oldValue) {
                 if(newValue != undefined){
@@ -39,4 +39,4 @@ app.directive('trendingHashtag', function(){
             }, true);
         }
     }
-})
+}]);

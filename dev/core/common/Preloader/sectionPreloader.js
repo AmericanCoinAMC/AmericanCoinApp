@@ -1,7 +1,7 @@
 /**
  * Created by Jess on 28-Oct-16.
  */
-app.directive('sectionPreloader', function() {
+app.directive('sectionPreloader', [function() {
     return {
         restrict: 'E',
         scope: {
@@ -17,4 +17,4 @@ app.directive('sectionPreloader', function() {
             }, true);
         }
     };
-});
+}]);

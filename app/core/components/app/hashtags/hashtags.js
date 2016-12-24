@@ -1,0 +1,1 @@
+app.component("hashtags",{templateUrl:"/core/components/app/hashtags/hashtags.html",bindings:{},controller:["$scope","HashtagObjectService",function(t,a){t.config={gridWidth:500,ref:rootRef.child("hashtags"),objectBuilder:a,templateUrl:"/core/common/Hashtag/hashtagCards.tpl.html",grid:!0,type:"dynamic"}}]});

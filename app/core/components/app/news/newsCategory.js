@@ -1,0 +1,1 @@
+app.component("newsCategory",{template:'<infinite-scroll-wrapper config="config"></infinite-scroll-wrapper>',bindings:{},controller:["$rootScope","$scope","PostObjectService","$stateParams",function(o,e,t,r){e.config={ref:rootRef.child("categoryPosts/"+r.categoryId),objectBuilder:t,templateUrl:"/core/common/Post/postGrid.html",grid:!0,type:"dynamic"}}]});

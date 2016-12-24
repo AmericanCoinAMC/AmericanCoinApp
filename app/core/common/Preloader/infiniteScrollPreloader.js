@@ -1,0 +1,1 @@
+app.directive("isPreloader",[function(){return{restrict:"E",scope:{fetching:"="},templateUrl:"/core/common/Preloader/infiniteScrollPreloader.html",link:function(e,i,t){e.$watch("fetching",function(i,t){void 0!=i&&(e.fetching=i)},!0)}}}]);

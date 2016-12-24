@@ -15,8 +15,6 @@ app.directive('postCard',
                 PostDialogService.displayPost(event, postObject);
             };
 
-
-
             /*
              * Watchers
              * */

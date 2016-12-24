@@ -1,0 +1,1 @@
+app.factory("FeedService",["OutstandingPostsFeed","HashtagPostsFeed","TwitterProfileFeed",function(e,d,t){return{loadOutstandingFeed:function(d){e.loadFeed(d)},loadHashtagFeed:function(e,t){d.loadFeed(e,t)},loadTwitterProfileFeed:function(e,d){t.loadFeed(e,d)}}}]);

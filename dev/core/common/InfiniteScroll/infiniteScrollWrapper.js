@@ -3,8 +3,8 @@
  */
 
 app.directive('infiniteScrollWrapper',
-    ['IS01', 'IS02', '$templateCache', '$timeout', '$http', '$q', '$rootScope', 'angularGridInstance',
-        function(IS01, IS02, $templateCache, $timeout, $http, $q, $rootScope, angularGridInstance){
+    ['InstanceManager', '$templateCache', '$timeout', '$http', '$q', '$rootScope', 'angularGridInstance',
+        function(InstanceManager, $templateCache, $timeout, $http, $q, $rootScope, angularGridInstance){
             return {
                 restrict: 'E',
                 scope: {
@@ -12,19 +12,13 @@ app.directive('infiniteScrollWrapper',
                 },
                 templateUrl: '/core/common/InfiniteScroll/infiniteScrollWrapper.html',
                 link: function(scope, element, attrs) {
-                    var instanceIS;
+                    var instanceIS = InstanceManager.getInstance(scope.config.type);
 
-                    scope.configIS = {
+                    scope.configAg = {
                         gridWidth : scope.config.gridWidth || 250,
                         gutterSize : scope.config.gutterSize || 5,
-                        refreshOnImgLoad : scope.config.gutterSize || true
+                        refreshOnImgLoad : scope.config.refreshOnImgLoad || true
                     };
-
-                    if(IS01.isAvailable()){
-                        instanceIS = IS01;
-                    }else{
-                        instanceIS = IS02;
-                    }
 
                     scope.prepare = function(){
                         var deferred = $q.defer();
@@ -69,7 +63,8 @@ app.directive('infiniteScrollWrapper',
                             template: $templateCache.get(scope.config.templateUrl) || null,
                             ref: scope.config.ref || null,
                             objectBuilder: scope.config.objectBuilder || null,
-                            grid: scope.config.grid || null
+                            grid: scope.config.grid || null,
+                            type: scope.config.type
                         };
                     };
 

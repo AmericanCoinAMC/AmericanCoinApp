@@ -2,7 +2,7 @@
  * Created by Jess on 15-Oct-16.
  */
 
-app.directive('preloader', function() {
+app.directive('preloader', [function() {
     return {
         restrict: 'E',
         scope: {
@@ -18,4 +18,4 @@ app.directive('preloader', function() {
             }, true);
         }
     };
-});
+}]);

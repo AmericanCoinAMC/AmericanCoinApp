@@ -1,0 +1,1 @@
+app.component("headingBar",{templateUrl:"/core/components/app/layout/headingBar.html",bindings:{},controller:["$rootScope","$scope","UserService","SideNavigation","FeedService","$timeout","$mdBottomSheet",function(e,t,o,n,i,a,c){t.toggleLeftNav=function(){n.toggle("left")},t.signUserOut=function(){o.signOut()}}]});

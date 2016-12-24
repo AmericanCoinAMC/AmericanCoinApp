@@ -1,15 +1,52 @@
 {
     "rules": {
-        ".read": "auth != null",
+        ".read": "true",
         ".write": "auth != null",
-        "pendingPosts": {
-            ".indexOn": ["url"]
-        },
-        "posts": {
-            ".indexOn": ["url"]
-        },
+
+        //Users Related
         "users": {
-            ".indexOn": ["isAdmin"]
+            ".indexOn": ["isAdmin", "email"]
+        },
+
+        //Posts Related
+        "posts": {
+            ".indexOn": ["url", "timestamp"]
+        },
+        "sourcePosts": {
+            "$sourceKey": {
+                "$categoryKey": {
+                    ".indexOn": ["timestamp"]
+                }
+            }
+        },
+        "categoryPosts": {
+            "$categoryKey": {
+                ".indexOn": ["timestamp"]
+            }
+        },
+        "hashtagPosts": {
+            "$hashtagKey": {
+                ".indexOn": ["timestamp"]
+            }
+        },
+        "pendingPosts": {
+            ".indexOn": ["url", "timestamp"]
+        },
+        "userPendingPosts": {
+            "$userKey": {
+                ".indexOn": ["timestamp"]
+            }
+        },
+
+        //Sources Related
+        "sources": {
+            ".indexOn": ["timestamp"]
+        },
+
+        //Orion Related
+        "orionConsole": {
+            ".indexOn": ["timestamp", "type"]
         }
+
     }
 }

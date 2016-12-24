@@ -1,0 +1,1 @@
+app.directive("sectionPreloader",[function(){return{restrict:"E",scope:{status:"="},templateUrl:"/core/common/Preloader/sectionPreloader.html",link:function(t,e,o){t.$watch("status",function(e,o){void 0!=e&&(t.status=e)},!0)}}}]);

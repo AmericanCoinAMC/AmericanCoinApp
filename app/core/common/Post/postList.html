@@ -1,0 +1,39 @@
+<md-card ng-class="{'md-whiteframe-8dp': post.outstanding, 'md-whiteframe-6dp': post.hashtag, 'md-whiteframe-4dp': post.leaders}">
+    <md-card-header  class="no-outline">
+        <md-card-avatar>
+            <img ng-src="{{post.source.fileUrl}}" alt="{{post.source.name}}"/>
+        </md-card-avatar>
+        <md-card-header-text>
+            <span class="md-title">{{post.source.name}}</span>
+            <div>
+                <md-tooltip md-direction="top" class="material-tooltip">
+                    {{post.eventDate | amDateFormat:'dddd, Do MMMM YYYY'}}
+                </md-tooltip>
+                <span class="md-subhead" am-time-ago="post.eventDate"></span>
+            </div>
+        </md-card-header-text>
+
+        <user-post-element post="post"></user-post-element>
+    </md-card-header>
+    <md-card-title style="padding-top:0px;" ng-click="toggleContent()"  class="no-outline">
+        <md-card-title-text ng-hide="contentDisplayed" class="zoomIn-animation">
+            <span class="md-headline"  ng-if="post.title">{{post.title}}</span>
+            <span class="md-subhead"  ng-if="post.description">{{post.description}}...</span>
+        </md-card-title-text>
+        <md-card-title-media ng-hide="contentDisplayed"  class="zoomIn-animation">
+            <div class="md-media-lg"><img ng-src="{{post.image}}" class="md-card-image" alt="{{post.title}}"  ng-if="post.image"></div>
+        </md-card-title-media>
+        <div ng-show="contentDisplayed"  class="zoomIn-animation">
+            <div ng-bind-html="htmlContent"></div>
+        </div>
+    </md-card-title>
+    <md-divider></md-divider>
+    <md-card-actions layout="row" layout-align="center center"  class="no-outline padding-0 margin-0">
+        <div flex="70">
+            <post-hashtags post="post"></post-hashtags>
+        </div>
+        <div flex="30">
+            <post-leaders post="post"></post-leaders>
+        </div>
+    </md-card-actions>
+</md-card>

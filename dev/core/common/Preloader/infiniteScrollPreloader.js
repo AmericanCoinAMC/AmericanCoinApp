@@ -1,27 +1,19 @@
 /**
  * Created by Computadora on 20-Dec-16.
  */
-app.directive('infiniteScrollPreloader', function() {
+app.directive('isPreloader', [function() {
     return {
         restrict: 'E',
         scope: {
-            paginating: '=',
-            itemsRemaining: '='
+            fetching: '='
         },
-        templateUrl: '/core/common/InfiniteScroll/preloader.html',
+        templateUrl: '/core/common/Preloader/infiniteScrollPreloader.html',
         link: function(scope, elem, attrs) {
-
-            scope.$watch('paginating', function(newValue, oldValue) {
+            scope.$watch('fetching', function(newValue, oldValue) {
                 if(newValue != undefined){
-                    scope.paginating = newValue;
-                }
-            }, true);
-
-            scope.$watch('itemsRemaining', function(newValue, oldValue) {
-                if(newValue != undefined){
-                    scope.itemsRemaining = newValue;
+                    scope.fetching = newValue;
                 }
             }, true);
         }
     };
-});
+}]);

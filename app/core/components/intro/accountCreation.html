@@ -1,0 +1,116 @@
+<div layout="row">
+    <div class="content-panel"
+         md-whiteframe="3"
+         flex>
+
+        <form name="accountCreationForm" ng-submit="createEmailAccount()" flex>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Crea una Cuenta</h2>
+                </div>
+            </md-toolbar>
+            <div ng-class="{'visible-loader' : !submitting}"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+            <div class="md-padding">
+                <div layout="column">
+                    <div layout="row">
+                        <div flex="50">
+                            <md-input-container class="md-block">
+                                <input ng-model="user.name" name="name" type="text" placeholder="Nombre y Apellido" ng-required="true">
+                                <div ng-messages="accountCreationForm.name.$error">
+                                    <div ng-message="required">Ingresa tu nombre y apellido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div flex="50">
+                            <md-input-container class="md-block">
+                                <input ng-model="user.email"
+                                       name="email"
+                                       type="email"
+                                       placeholder="Email"
+                                       required>
+                                <div ng-messages="accountCreationForm.email.$error">
+                                    <div ng-message="required">Ingresa tu correo electronico.</div>
+                                    <div ng-message="email">Tu correo electronico debe tener el formato correcto.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-select ng-model="user.gender" name="gender" placeholder="Género" class="md-no-underline" required>
+                                <md-option value="male">Masculino</md-option>
+                                <md-option value="female">Femenino</md-option>
+                                <md-option value="other">Otro</md-option>
+                            </md-select>
+                        </div>
+
+                        <div flex="50">
+                            <md-input-container class="md-block">
+                                <input ng-model="user.birthday"
+                                       name="birthday"
+                                       type="text"
+                                       placeholder="Fecha de nacimiento."
+                                       ng-required="true"
+                                       user-birthday>
+                                <div class="hint">Ejm: 31/01/1989</div>
+                                <div ng-messages="accountCreationForm.birthday.$error">
+                                    <div ng-message="required">Ingresa tu fecha de nacimiento.</div>
+                                    <div ng-message="validBirthday">Tu fecha de nacimiento debe tener el siguiente formato: DD/MM/YYYY.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-input-container class="md-block">
+                                <input ng-model="user.password"
+                                       name="password"
+                                       type="password"
+                                       placeholder="Contraseña"
+                                       ng-required="true"
+                                       password-strength>
+                                <div ng-messages="accountCreationForm.password.$error">
+                                    <div ng-message="required">Ingresa tu Contraseña.</div>
+                                    <div ng-message="validPassword">Tu Contraseña debe tener entre
+                                        4-8 caracteres y debe incluir como minimo: 1 letra mayuscula, 1 minuscula y 1 numero.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <div flex="50">
+                            <md-input-container class="md-block">
+
+                                <input ng-model="repeatPassword"
+                                       name="repeatPassword"
+                                       type="password"
+                                       placeholder="Repetir Contraseña"
+                                       ng-required="true"
+                                       equal-to="user.password">
+                                <div ng-messages="accountCreationForm.repeatPassword.$error">
+                                    <div ng-message="required">Debes confirmar tu Contraseña.</div>
+                                    <div ng-message="passwordConfirmed">Tus Contraseñas deben coincidir.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div layout="row">
+                    <md-button class="md-warn"
+                               ng-click="signIn()"
+                               ng-disabled="submitting">
+                        <span ng-hide="submitting">Cancelar</span>
+                    </md-button>
+                    <span flex></span>
+                    <md-button type="submit"
+                               class="md-primary md-raised" ng-disabled="accountCreationForm.$invalid || submitting">
+                        <span ng-hide="submitting">Crear Cuenta</span>
+                        <span ng-show="submitting">Procesando...</span>
+                    </md-button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

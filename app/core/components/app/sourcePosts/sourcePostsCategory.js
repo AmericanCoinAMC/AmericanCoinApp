@@ -1,0 +1,1 @@
+app.component("sourcePostsCategory",{template:'<infinite-scroll-wrapper config="config"></infinite-scroll-wrapper>',bindings:{},controller:["$rootScope","$scope","$stateParams","PostObjectService",function(o,e,t,r){e.config={ref:rootRef.child("sourcePosts/"+t.sourceId+"/"+t.categoryId),objectBuilder:r,templateUrl:"/core/common/Post/postGrid.html",grid:!0,type:"dynamic"}}]});

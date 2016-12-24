@@ -33,6 +33,20 @@ app.factory('HashtagObjectService', function(){
             };
         },
 
+        buildMinifiedWithPriority: function(hashtag){
+            return {
+                name: hashtag.name,
+                description: hashtag.description,
+                fileUrl: hashtag.fileUrl,
+                fileName: hashtag.fileName,
+                lastPost: hashtag.lastPost,
+                timestamp: hashtag.timestamp,
+                views: hashtag.views,
+                subscriptions: hashtag.subscriptions,
+                '.priority': -(hashtag.lastPost)
+            };
+        },
+
         buildMinifiedAlt: function(hashtag){
             return {
                 id: hashtag.$id,

@@ -1,0 +1,1 @@
+app.factory("Auth",["$firebaseAuth",function(t){return t()}]);

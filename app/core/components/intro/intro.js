@@ -1,0 +1,1 @@
+app.component("intro",{templateUrl:"/core/components/intro/intro.html",bindings:{},controller:["$rootScope","$scope","$timeout",function(n,o,i){o.signingIn=!1,o.creatingAccount=!1,i(function(){o.signingIn=!0},500),n.$on("signingIn",function(n,i){o.signingIn=!0,o.creatingAccount=!1}),n.$on("creatingAccount",function(n,i){o.signingIn=!1,o.creatingAccount=!0})}]});

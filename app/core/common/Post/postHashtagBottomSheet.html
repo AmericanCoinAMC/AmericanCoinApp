@@ -1,0 +1,19 @@
+<md-bottom-sheet class="md-list md-has-header">
+    <md-list ng-cloak>
+        <md-subheader ng-cloak>{{post.title}}</md-subheader>
+
+        <md-list-item ng-click="displayFeed(post.primaryHashtag)">
+            <div layout="row">
+                <md-icon md-font-icon="fa-hashtag" class="fa color-blue" alt="Hashtag"></md-icon>
+                <span class="md-inline-list-icon-label color-blue">{{ post.primaryHashtag.name }}</span>
+            </div>
+        </md-list-item>
+
+        <md-list-item ng-repeat="hashtag in post.secondaryHashtags" ng-click="displayFeed(hashtag)">
+            <div layout="row">
+                <md-icon md-font-icon="fa-hashtag" class="fa color-blue" alt="Hashtag"></md-icon>
+                <span class="md-inline-list-icon-label color-blue">{{hashtag.name}}</span>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-bottom-sheet>

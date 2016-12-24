@@ -1,0 +1,1 @@
+app.directive("postLeaders",["FeedService",function(t){return{restrict:"E",scope:{post:"="},templateUrl:"/core/common/Post/postLeaders.html",link:function(t,e,o){t.$watch("post",function(e,o){void 0!=e&&(t.post=e)},!0)}}}]);

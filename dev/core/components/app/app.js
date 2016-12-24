@@ -7,8 +7,10 @@ app.component('app', {
     bindings: {
         ignoredSources: '='
     },
-    controller: ['$scope', function($scope){
-        $scope.ignoredSources = this.ignoredSources;
+    controller: [
+        '$rootScope','$scope',
+        function($rootScope, $scope){
+            $scope.ignoredSources = this.ignoredSources;
 
-    }]
+        }]
 });

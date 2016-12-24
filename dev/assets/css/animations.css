@@ -27,6 +27,9 @@
     animation: fadeIn 1s;
 }
 
+.fadeInLeft-animation.ng-hide-remove {
+    animation: fadeInLeft 0.7s;
+}
 
 .slide-animation .ng-hide-remove{
     animation: slideInUp 0.5s;
@@ -34,8 +37,14 @@
 
 
 
-.zoomIn-animation .ng-hide-remove{
-    animation: zoomIn 1s;
+.slideInLeft-animation.ng-hide-remove, .slideInLeft-animation.ng-enter{
+    animation: slideInLeft 0.5s;
+}
+
+
+
+.zoomIn-animation.ng-hide-remove, .zoomIn-animation.ng-enter{
+    animation: zoomIn 0.6s;
 }
 
 /*.zoom-animation .ng-hide-add, .zoom-animation.ng-leave{

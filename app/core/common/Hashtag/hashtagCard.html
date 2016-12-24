@@ -1,0 +1,20 @@
+<md-card>
+    <div class="no-outline">
+        <md-card-header>
+            <md-card-avatar class="no-outline" ng-click="displayHashtagFeed($event, hashtag)">
+                <img ng-src="assets/icons/hashtag_themes/{{$root.userInfo.preferences.theme}}.png" alt="{{hashtag.name}}"/>
+            </md-card-avatar>
+            <md-card-header-text class="no-outline" ng-click="displayHashtagFeed($event, hashtag)">
+                <span class="md-title">{{hashtag.name}} <trending-hashtag last-post="hashtag.lastPost"></trending-hashtag></span>
+                <div>
+                    <span class="md-subhead" am-time-ago="hashtag.lastPost"></span>
+                </div>
+            </md-card-header-text>
+            <user-hashtag-element hashtag="hashtag"></user-hashtag-element>
+        </md-card-header>
+        <img ng-src="{{hashtag.fileUrl}}" class="md-card-image no-outline" alt="{{hashtag.name}}" ng-show="hashtag.name"  ng-click="displayHashtagFeed($event, hashtag)">
+        <md-card-content class="padding-0 margin-0">
+            <hashtag-posts hashtag="hashtag"></hashtag-posts>
+        </md-card-content>
+    </div>
+</md-card>
