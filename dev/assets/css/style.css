@@ -535,20 +535,20 @@ md-dialog.fullscreen-dialog {
     width: 32px;
 }
 .circle.sm{
-    height: 38px;
-    width: 38px;
+    max-height: 38px;
+    max-width: 38px;
 }
 .circle.medium{
-    height: 44px;
-    width: 44px;
+    max-height: 44px;
+    max-width: 44px;
 }
 .circle.large{
-    height: 66px;
-    width: 66px;
+    max-height: 66px;
+    max-width: 66px;
 }
 .circle.xlarge{
-    height: 88px;
-    width: 88px;
+    max-height: 88px;
+    max-width: 88px;
 }
 a.circle {
     color: transparent;
