@@ -1,0 +1,19 @@
+<md-bottom-sheet style="z-index: 100">
+    <div class="dynamic-grid"
+         ag-id="colorSheet"
+         angular-grid="themes"
+         ag-grid-width="80"
+         ag-gutter-size="10">
+        <div ng-repeat="theme in themes"
+             md-theme="{{theme.name}}"
+             class="grid">
+            <md-button class="md-raised md-primary md-fab"
+                       ng-click="changeTheme(theme.name)">
+                <md-tooltip md-direction="top" class="material-tooltip">{{theme.alias}}</md-tooltip>
+                <md-icon aria-label="color_lens"
+                         class="material-icons step">color_lens</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+</md-bottom-sheet>

@@ -1,0 +1,87 @@
+<md-dialog
+        aria-label="Leaders"
+        flex-xs="100"
+        flex-sm="100"
+        flex-gt-sm="95"
+        flex-md="85"
+        flex-gt-md="70"
+        style="height: 100%;">
+    <md-toolbar md-theme="{{$root.userInfo.preferences.theme}}"
+                md-theme-watch="true">
+        <div class="md-toolbar-tools"
+                layout="row">
+            <md-icon aria-label="bookmark" class="material-icons step">bookmark</md-icon>
+            <h2>Marcadores</h2>
+            <span flex></span>
+            <div flex ng-show="searching" class="fadeIn-animation">
+                <div layout="row" layout-align="center center">
+                    <md-button class="md-icon-button" ng-click="disableSearch()">
+                        <md-icon aria-label="arrow_forward" class="material-icons step">arrow_forward</md-icon>
+                    </md-button>
+                    <div style="margin-top:20px;" flex>
+                        <div layout="row">
+                            <md-input-container flex>
+                                <input ng-model="searchQuery"
+                                       id="bookmarkSearch"
+                                       type="text"
+                                       aria-label="Search"
+                                       style="color:white;width:100%;">
+                            </md-input-container>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <md-button class="md-icon-button" ng-click="enableSearch()" ng-hide="searching">
+                <md-icon aria-label="search" class="material-icons step">search</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="closeDialog()">
+                <md-icon aria-label="close" class="material-icons step">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content style="height: 100%;" class="dialog-content-scroll">
+        <md-tabs md-dynamic-height
+                 md-center-tabs
+                 md-selected="activeSection"
+                 md-theme="{{$root.userInfo.preferences.theme}}"
+                 md-theme-watch="true">
+
+
+            <md-tab label="Noticias">
+                <div style="margin-top: 120px;" ng-show="!postsActive"><loader show="!postsActive"></loader></div>
+                <div ng-show="postsActive" class="zoomIn-animation">
+                    <div ng-repeat="post in bookmarkPosts | filter:searchQuery" class="zoomInOut-animation">
+                        <post-list post="post"></post-list>
+                    </div>
+                </div>
+            </md-tab>
+
+            <md-tab label="Hashtags">
+                <div style="margin-top: 120px;" ng-show="!hashtagsActive"><loader show="!hashtagsActive"></loader></div>
+                <div ng-show="hashtagsActive" class="zoomIn-animation">
+                    <div ng-repeat="hashtag in bookmarkHashtags | filter:searchQuery" class="zoomInOut-animation">
+                        <div style="padding: 10px 15px 10px 15px">
+                            <hashtag-card hashtag="hashtag"></hashtag-card>
+                        </div>
+                    </div>
+                </div>
+            </md-tab>
+
+            <md-tab label="Líderes Políticos">
+                <div style="margin-top: 120px;" ng-show="!leadersActive"><loader show="!leadersActive"></loader></div>
+                <div ng-show="leadersActive" class="zoomIn-animation">
+                    <div ng-repeat="leader in bookmarkLeaders | filter:searchQuery" class="zoomInOut-animation">
+                        <div  style="padding: 10px 15px 10px 15px">
+                            <leader-card leader="leader"></leader-card>
+                        </div>
+                    </div>
+                </div>
+            </md-tab>
+
+            <md-tab label=""></md-tab>
+        </md-tabs>
+    </md-dialog-content>
+</md-dialog>

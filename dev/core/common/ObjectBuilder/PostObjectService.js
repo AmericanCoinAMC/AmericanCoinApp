@@ -26,26 +26,17 @@ app.factory('PostObjectService', function(){
                 eventDate: postSnapshot.val().eventDate,
                 category: postSnapshot.val().category,
                 source: postSnapshot.val().source,
-                primaryHashtag: postSnapshot.val().primaryHashtag,
-                secondaryHashtags: postSnapshot.val().secondaryHashtags,
-                leaders: postSnapshot.val().leaders,
-                timestamp: postSnapshot.val().timestamp,
-                views: postSnapshot.val().views,
-                subscriptions: postSnapshot.val().subscriptions,
+                primaryHashtag: postSnapshot.val().primaryHashtag || null,
+                secondaryHashtags: postSnapshot.val().secondaryHashtags || null,
+                leaders: postSnapshot.val().leaders || null,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: postSnapshot.val().views || 0,
+                subscriptions: postSnapshot.val().subscriptions || 0,
                 $priority: postSnapshot.getPriority()
             };
         },
 
         buildMinified: function(post){
-            if(post.primaryHashtag == undefined){
-                post.primaryHashtag = null;
-            }
-            if(post.secondaryHashtags == undefined){
-                post.secondaryHashtags = null;
-            }
-            if(post.leaders == undefined){
-                post.leaders = null;
-            }
             return {
                 url: post.url,
                 title: post.title,
@@ -57,26 +48,17 @@ app.factory('PostObjectService', function(){
                 eventDate: post.eventDate,
                 category: post.category,
                 source: post.source,
-                primaryHashtag: post.primaryHashtag,
-                secondaryHashtags: post.secondaryHashtags,
-                leaders: post.leaders,
-                timestamp: post.timestamp,
-                views: post.views,
-                subscriptions: post.subscriptions,
+                primaryHashtag: post.primaryHashtag || null,
+                secondaryHashtags: post.secondaryHashtags || null,
+                leaders: post.leaders || null,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: post.views || 0,
+                subscriptions: post.subscriptions || 0,
                 '.priority': post.$priority
             };
         },
 
         buildMinifiedAlt: function(post){
-            if(post.primaryHashtag == undefined){
-                post.primaryHashtag = null;
-            }
-            if(post.secondaryHashtags == undefined){
-                post.secondaryHashtags = null;
-            }
-            if(post.leaders == undefined){
-                post.leaders = null;
-            }
             return {
                 url: post.url,
                 title: post.title,
@@ -88,12 +70,12 @@ app.factory('PostObjectService', function(){
                 eventDate: post.eventDate,
                 category: post.category,
                 source: post.source,
-                primaryHashtag: post.primaryHashtag,
-                secondaryHashtags: post.secondaryHashtags,
-                leaders: post.leaders,
-                timestamp: post.timestamp,
-                views: post.views,
-                subscriptions: post.subscriptions,
+                primaryHashtag: post.primaryHashtag || null,
+                secondaryHashtags: post.secondaryHashtags || null,
+                leaders: post.leaders || null,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: post.views || 0,
+                subscriptions: post.subscriptions || 0,
                 '.priority': post.$priority
             };
         }

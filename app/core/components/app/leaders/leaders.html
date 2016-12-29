@@ -1,0 +1,18 @@
+<md-toolbar class="md-hue-1"
+            md-whiteframe="5"
+            style="margin:0px;"
+            md-theme="{{$root.userInfo.preferences.theme}}"
+            md-theme-watch="true">
+    <div class="md-toolbar-tools">
+        <md-icon md-svg-src="assets/icons/leaders/white.svg" style="width: 30px;height:30px;"></md-icon>
+        <h2 style="margin-left:5px;">
+            <span>Líderes Políticos</span>
+        </h2>
+        <span flex></span>
+        <preferences></preferences>
+    </div>
+</md-toolbar>
+
+<div class="md-padding">
+    <infinite-display-wrapper config="config"></infinite-display-wrapper>
+</div>

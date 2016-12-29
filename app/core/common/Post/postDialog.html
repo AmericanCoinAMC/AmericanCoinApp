@@ -6,24 +6,30 @@
         flex-md="70"
         flex-gt-md="65"
         style="overflow-y: hidden;">
-    <div class="margin-0" md-whiteframe="8" style="z-index:5;height:80px;">
+    <div class="margin-0" md-whiteframe="7" style="z-index:5;height:70px;">
         <div layout="row" layout-align="center center" class="margin-5">
-            <div ng-click="test()" layout="row" class="post-header-source">
-                <img ng-src="{{postObject.source.fileUrl}}" style="max-width: 60px;height: 60px;">
+            <div layout="row"
+                 layout-align="start start"
+                 ng-click="loadSource()"
+                 class="no-outline post-header-source">
+                <img ng-src="{{post.source.fileUrl}}" style="max-width: 60px;height: 60px;">
                 <div layout="column" class="margin-10">
-                    <h3 class="md-title margin-0">{{postObject.source.name}}</h3>
-                    <p class="margin-0" am-time-ago="postObject.eventDate"></p>
+                    <span class="md-title">{{post.source.name}}</span>
+                    <div>
+                        <md-tooltip md-direction="top" class="material-tooltip">{{post.eventDate | amDateFormat:'dddd, Do MMMM YYYY'}}</md-tooltip>
+                        <span class="md-subhead" am-time-ago="post.eventDate"></span>
+                    </div>
                 </div>
-
+                <div class="margin-10" ng-show="post.newItem"><div class="badge bg-{{$root.userInfo.preferences.theme}}">NUEVO</div></div>
             </div>
 
             <span flex></span>
 
-            <user-post-element post="postObject"></user-post-element>
+            <bookmark-post-element post="post"></bookmark-post-element>
 
             <md-button class="md-icon-button" ng-click="closeDialog()">
                 <md-tooltip md-direction="left" class="material-tooltip">Cerrar</md-tooltip>
-                <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                <md-icon aria-label="close" class="material-icons step color-{{$root.userInfo.preferences.theme}}">close</md-icon>
             </md-button>
         </div>
     </div>
@@ -32,13 +38,13 @@
         <div class="md-dialog-content content-container">
             <div layout="row" layout-align="center center" flex>
                 <div layout="column">
-                    <img ng-src="{{postObject.image}}" alt="{{postObject.title}}"
-                         ng-if="postObject.source.postConfig.imageOnPost && postObject.image">
+                    <img ng-src="{{post.image}}" alt="{{post.title}}"
+                         ng-if="post.source.postConfig.imageOnPost && post.image">
                 </div>
             </div>
             <div layout="column">
                 <h3 class="headline" style="margin:15px 0px 10px 0px;"
-                    ng-if="postObject.source.postConfig.titleOnPost && postObject.title">{{postObject.title}}</h3>
+                    ng-if="post.source.postConfig.titleOnPost && post.title">{{post.title}}</h3>
                 <div ng-bind-html="htmlContent"></div>
             </div>
         </div>
@@ -47,13 +53,13 @@
     <md-dialog-actions
             layout="row"
             layout-align="center center"
-            ng-show="postObject.primaryHashtag || postObject.leaders"
+            ng-show="post.primaryHashtag || post.leaders"
             style="padding:0px;z-index:5">
-        <div flex="70">
-            <post-hashtags post="postObject"></post-hashtags>
+        <div flex>
+            <post-hashtags post="post"></post-hashtags>
         </div>
-        <div flex="30">
-            <post-leaders post="postObject"></post-leaders>
+        <div flex="30" ng-show="post.leaders">
+            <post-leaders post="post"></post-leaders>
         </div>
     </md-dialog-actions>
 </md-dialog>

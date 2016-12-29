@@ -1,0 +1,1 @@
+app.factory("ActiveSources",["$rootScope","$firebaseArray","$q",function(r,t,n){var e=t.$extend({getTotal:function(){var r=0;return angular.forEach(this.$list,function(t){r+=1}),r}});return function(r){return new e(r)}}]);

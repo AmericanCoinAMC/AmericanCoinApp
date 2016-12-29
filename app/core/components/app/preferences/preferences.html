@@ -1,35 +1,25 @@
-<md-fab-speed-dial md-direction="left" md-open="isOpen"
-                   class="md-scale md-fab-bottom-right"
-                   ng-mouseenter="isOpen=true" ng-mouseleave="isOpen=false">
-    <md-fab-trigger>
-        <md-button aria-label="menu" class="md-fab md-primary" md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
-            <md-tooltip md-direction="top" class="material-tooltip">Configuración</md-tooltip>
+<md-menu-bar style="padding:0px;">
+    <md-menu md-position-mode="target-right target">
+        <md-button aria-label="Configuración" class="md-icon-button" ng-click="$mdOpenMenu()">
+            <md-tooltip md-direction="left" class="material-tooltip">Configuración</md-tooltip>
             <md-icon aria-label="settings" class="material-icons step">settings</md-icon>
         </md-button>
-    </md-fab-trigger>
+        <md-menu-content>
 
-    <md-fab-actions>
-        <md-button aria-label="Settings"
-                   class="md-fab md-raised md-mini"
-                   ng-click="toggleCardSize()">
-            <div ng-if="$root.userInfo.preferences.card == 'compress'">
-                <md-tooltip md-direction="top">Agrandar Noticias</md-tooltip>
-                <md-icon md-font-icon="fa-expand"
-                         class="fa" alt="Expand"
-                         style="font-size:19px;"></md-icon>
-            </div>
-            <div ng-if="$root.userInfo.preferences.card == 'expand'">
-                <md-tooltip md-direction="top">Empequeñecer Noticias</md-tooltip>
-                <md-icon md-font-icon="fa-compress"
-                         class="fa" alt="Compress"
-                         style="font-size:19px;"></md-icon>
-            </div>
-        </md-button>
-        <md-button aria-label="Settings"
-                   class="md-fab md-raised md-mini"
-                   ng-click="showThemeSheet()">
-            <md-tooltip md-direction="top">Color de la Aplicación</md-tooltip>
-            <md-icon aria-label="color_lens" class="material-icons step">color_lens</md-icon>
-        </md-button>
-    </md-fab-actions>
-</md-fab-speed-dial>
+            <md-menu-item>
+                <md-button ng-click="showThemeSheet()">
+                    <md-icon aria-label="color_lens" class="material-icons step">color_lens</md-icon>
+                    Color
+                </md-button>
+            </md-menu-item>
+            <md-divider class="md-menu-divider"></md-divider>
+
+            <md-menu-item>
+                <md-button ng-click="showSizeSheet()">
+                    <md-icon aria-label="flip_to_front" class="material-icons step">flip_to_front</md-icon>
+                    Tamaño
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</md-menu-bar>

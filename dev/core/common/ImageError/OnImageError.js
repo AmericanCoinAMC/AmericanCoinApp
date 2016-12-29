@@ -4,9 +4,9 @@
 app.directive('img', function () {
     return {
         restrict: 'E',
-        link: function (scope, el, attr) {
-            el.on('error', function () {
-                el.attr('src', 'assets/img/notfound.png');
+        link: function (scope, element, attr) {
+            element.on('error', function () {
+                element.css("display", "none");
             })
         }
     }

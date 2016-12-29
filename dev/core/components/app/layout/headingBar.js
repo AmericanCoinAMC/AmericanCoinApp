@@ -8,17 +8,18 @@ app.component('headingBar', {
 
     },
     controller: [
-        '$rootScope','$scope','UserService','SideNavigation','FeedService','$timeout','$mdBottomSheet',
-        function($rootScope, $scope, UserService, SideNavigation, FeedService, $timeout, $mdBottomSheet){
-        $scope.toggleLeftNav = function(){
-            SideNavigation.toggle('left');
+        '$rootScope','$scope','UserService','SideNavigation',
+        function($rootScope, $scope, UserService, SideNavigation){
 
-        };
+            $scope.toggleLeftNav = function(){
+                SideNavigation.toggle('left');
 
-        $scope.signUserOut = function(){
-            UserService.signOut();
-        }
-    }]
+            };
+
+            $scope.signUserOut = function(){
+                UserService.signOut();
+            }
+        }]
 });
 
 

@@ -14,7 +14,6 @@ var app = angular.module('app', [
     'mdPickers',
     'angularMoment',
     'infinite-scroll',
-    'angular-bind-html-compile',
     'angularGrid']);
 
 

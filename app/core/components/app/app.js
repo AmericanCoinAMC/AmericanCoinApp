@@ -1,1 +1,1 @@
-app.component("app",{templateUrl:"/core/components/app/app.html",bindings:{ignoredSources:"="},controller:["$rootScope","$scope",function(o,e){e.ignoredSources=this.ignoredSources}]});
+app.component("app",{templateUrl:"/core/components/app/app.html",bindings:{},controller:["$rootScope","$scope",function(p,o){}]});

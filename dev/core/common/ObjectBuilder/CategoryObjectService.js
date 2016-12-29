@@ -12,6 +12,7 @@ app.factory('CategoryObjectService', function(){
                 fileUrl: snapshot.val().fileUrl,
                 fileName: snapshot.val().fileName,
                 autoSave: snapshot.val().autoSave,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
                 $priority: snapshot.getPriority()
             };
         },
@@ -23,6 +24,7 @@ app.factory('CategoryObjectService', function(){
                 fileUrl: category.fileUrl,
                 fileName: category.fileName,
                 autoSave: category.autoSave,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
                 '.priority': category.$priority
             };
         },
@@ -35,6 +37,7 @@ app.factory('CategoryObjectService', function(){
                 fileUrl: category.fileUrl,
                 fileName: category.fileName,
                 autoSave: category.autoSave,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
                 '.priority': category.$priority
             };
         }

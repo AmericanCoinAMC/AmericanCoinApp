@@ -1,0 +1,12 @@
+<md-button class="md-icon-button"
+           ng-click="toggle()"
+           aria-label="bookmark">
+        <md-tooltip md-direction="left" class="material-tooltip" ng-if="!isBookmarked">Marcar</md-tooltip>
+        <md-tooltip md-direction="left" class="material-tooltip" ng-if="isBookmarked">Desmarcar</md-tooltip>
+        <md-icon aria-label="bookmark_border"
+                 class="material-icons step color-{{$root.userInfo.preferences.theme}}"
+                 ng-hide="isBookmarked">bookmark_border</md-icon>
+        <md-icon aria-label="bookmark"
+                 class="material-icons step color-{{$root.userInfo.preferences.theme}}"
+                 ng-show="isBookmarked">bookmark</md-icon>
+</md-button>

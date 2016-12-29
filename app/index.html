@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Mi Noticiero</title>
     <meta name="description" content="Todas tus noticias en un sitio."/>
+    <link rel="icon" type="image/png" href="assets/icons/fav/{{$root.userFav}}">
 
     <!-- Google Icons CDNS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
@@ -66,11 +67,6 @@
 <!-- Date & Time Input -->
 <script src="vendors/bower_components/mdPickers/dist/mdPickers.min.js"></script>
 
-
-<!-- HTML Compiler -->
-
-<script src="vendors/bower_components/angular-bind-html-compile/angular-bind-html-compile.min.js"></script>
-
 <!-- Angular Grid -->
 <script src="vendors/bower_components/angulargrid/angulargrid.min.js"></script>
 
@@ -91,7 +87,7 @@
 <script src="core/config/theme.js"></script>
 <script src="core/config/icons.js"></script>
 <script src="core/config/validations.js"></script>
-
+<script src="core/config/filters.js"></script>
 <!-- Common -->
 
 <!-- Object Builders -->
@@ -108,35 +104,26 @@
 <script src="core/common/Auth/Auth.js"></script>
 <script src="core/common/SideNavigation/SideNavigation.js"></script>
 <script src="core/common/Dialog/Dialog.js"></script>
-<script src="core/common/truncate/truncate.js"></script>
 <script src="core/common/GetData/GetDataService.js"></script>
 <script src="core/common/ImageError/OnImageError.js"></script>
 <script src="core/common/Server/Server.js"></script>
 
 <!-- Preloaders -->
 <script src="core/common/Preloader/preloader.js"></script>
-<script src="core/common/Preloader/sectionPreloader.js"></script>
-<script src="core/common/Preloader/infiniteScrollPreloader.js"></script>
+<script src="core/common/Preloader/loader.js"></script>
 
-<!-- Infinite Scroll Instances -->
-<script src="core/common/InfiniteScrollInstances/InstanceManager.js"></script>
-<script src="core/common/InfiniteScrollInstances/DI01.js"></script>
-<script src="core/common/InfiniteScrollInstances/DI02.js"></script>
-<script src="core/common/InfiniteScrollInstances/DI03.js"></script>
-<script src="core/common/InfiniteScrollInstances/SI01.js"></script>
-<script src="core/common/InfiniteScrollInstances/TI01.js"></script>
+<!-- Infinite Display  -->
+<script src="core/common/InfiniteDisplay/InfiniteDisplay.js"></script>
+<script src="core/common/InfiniteDisplay/InfiniteDisplayHelpers.js"></script>
+<script src="core/common/InfiniteDisplay/infiniteDisplayWrapper.js"></script>
 
-<!-- Infinite Scroll -->
-<script src="core/common/InfiniteScroll/infiniteScrollWrapper.js"></script>
-<script src="core/common/InfiniteScroll/loadMoreWrapper.js"></script>
 
 
 
 <!-- Feeds -->
 <script src="core/common/Feeds/FeedService.js"></script>
-<script src="core/common/Feeds/OutstandingPostsFeed.js"></script>
 <script src="core/common/Feeds/HashtagsPostsFeed.js"></script>
-<script src="core/common/Feeds/TwitterProfileFeed.js"></script>
+<script src="core/common/Feeds/LeaderFeed.js"></script>
 
 <!-- Posts -->
 <script src="core/common/Post/PostDialogService.js"></script>
@@ -144,21 +131,33 @@
 <script src="core/common/Post/postLeaders.js"></script>
 <script src="core/common/Post/postCard.js"></script>
 <script src="core/common/Post/postList.js"></script>
+<script src="core/common/Post/itemWhiteframe.js"></script>
 
 <!-- Sources -->
-<script src="core/common/Source/ignoredSources.js"></script>
+<script src="core/common/Source/IgnoredSources.js"></script>
+<script src="core/common/Source/ActiveSources.js"></script>
 <script src="core/common/Source/ignoreSwitch.js"></script>
 
 <!-- Hashtag -->
 <script src="core/common/Hashtag/trendingHashtag.js"></script>
-<script src="core/common/Hashtag/userHashtags.js"></script>
 <script src="core/common/Hashtag/hashtagCard.js"></script>
 <script src="core/common/Hashtag/hashtagPosts.js"></script>
+<script src="core/common/Hashtag/trendingHashtagsSection.js"></script>
+
+<!-- Leader -->
+<script src="core/common/Leader/trendingLeader.js"></script>
+<script src="core/common/Leader/leaderCard.js"></script>
+<script src="core/common/Leader/leaderPosts.js"></script>
+<script src="core/common/Leader/trendingLeadersSection.js"></script>
 
 <!-- User -->
 <script src="core/common/User/UserService.js"></script>
-<script src="core/common/User/UserPosts.js"></script>
 
+<!-- Bookmarks -->
+<script src="core/common/Bookmark/BookmarkPosts.js"></script>
+<script src="core/common/Bookmark/BookmarkHashtags.js"></script>
+<script src="core/common/Bookmark/BookmarkLeaders.js"></script>
+<script src="core/common/Bookmark/UserBookmarks.js"></script>
 
 <!-- Atomic Updates -->
 <script src="core/common/AtomicUpdates/SourceAtomicUpdates.js"></script>
@@ -182,13 +181,13 @@
 <!-- Layout Components -->
 <script src="core/components/app/layout/headingBar.js"></script>
 <script src="core/components/app/layout/leftNavigation.js"></script>
-<script src="core/components/app/layout/sourcesNav.js"></script>
+<script src="core/components/app/layout/navigationElement.js"></script>
 
 <!-- Preferences Components -->
 <script src="core/components/app/preferences/preferences.js"></script>
 
-<!-- Main Components -->
-<script src="core/components/app/main/main.js"></script>
+<!-- Mi Noticiero Components -->
+<script src="core/components/app/minoticiero/minoticiero.js"></script>
 
 <!-- News Components -->
 <script src="core/components/app/news/news.js"></script>
@@ -200,6 +199,9 @@
 
 <!-- Hashtags Components -->
 <script src="core/components/app/hashtags/hashtags.js"></script>
+
+<!-- Leaders Components -->
+<script src="core/components/app/leaders/leaders.js"></script>
 
 <script>
     // Initialize Firebase

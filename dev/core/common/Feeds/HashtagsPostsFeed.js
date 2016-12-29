@@ -2,26 +2,26 @@
  * Created by Jess on 20-Sep-16.
  */
 app.factory('HashtagPostsFeed',
-    ['$mdDialog',
-        function($mdDialog){
+    ['$mdDialog', '$rootScope',
+        function($mdDialog, $rootScope){
             return{
                 loadFeed: function(ev, hashtag){
                     $mdDialog.show({
                         templateUrl: '/core/common/Feeds/hashtagPosts.html',
                         parent: angular.element(document.body),
                         targetEvent: ev,
-                        //clickOutsideToClose:true,
+                        clickOutsideToClose:false,
                         fullscreen: true,
-                        escapeToClose: true,
+                        escapeToClose: false,
                         locals: {
                             hashtag: hashtag
                         },
                         controller:
-                            ['$rootScope', '$scope', '$mdDialog', '$firebaseArray',
-                                'PostDialogService', '$timeout', 'hashtag', 'PostObjectService',
-                                function DialogController($rootScope, $scope, $mdDialog, $firebaseArray, PostDialogService,
-                                                          $timeout, hashtag, PostObjectService) {
+                            ['$rootScope', '$scope', '$mdDialog', 'hashtag', 'PostObjectService',
+                                function DialogController($rootScope, $scope, $mdDialog, hashtag, PostObjectService) {
                                     $scope.hashtag = hashtag;
+                                    $rootScope.$broadcast('deactivateInfiniteDisplay');
+
                                     if(hashtag.id == undefined) {
                                         $scope.hashtagId = hashtag.$id;
                                     }else{
@@ -29,15 +29,19 @@ app.factory('HashtagPostsFeed',
                                     }
 
                                     $scope.config = {
+                                        parentContainer: '.dialog-content-scroll',
                                         ref: rootRef.child('hashtagPosts/' + $scope.hashtagId),
+                                        firstLotSize: 8,
+                                        nextLotSize: 10,
                                         objectBuilder: PostObjectService,
                                         templateUrl: '/core/common/Post/postList.tpl.html',
-                                        parentContainer: '.dialog-content-scroll',
-                                        type: 'temporary'
+                                        wrapper: 'infiniteScroll',
+                                        filters: ['activeSources'],
+                                        deactivators: ['deactivateInfiniteDisplay']
                                     };
 
                                     $scope.closeDialog = function() {
-                                        $rootScope.$broadcast('temporaryInstanceAssigned');
+                                        $rootScope.$broadcast('deactivateInfiniteDisplay');
                                         $mdDialog.hide();
                                     };
                                 }]

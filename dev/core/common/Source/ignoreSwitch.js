@@ -5,9 +5,7 @@
  * Created by Computadora on 23-Dec-16.
  */
 
-app.directive('ignoreSwitch', [
-    '$rootScope', 'IgnoredSourcesService', 'Message', 'IgnoredSources',
-    function($rootScope, IgnoredSourcesService, Message, IgnoredSources){
+app.directive('ignoreSwitch', ['$rootScope', function($rootScope){
     return {
         restrict: 'E',
         scope: {
@@ -15,42 +13,20 @@ app.directive('ignoreSwitch', [
         },
         templateUrl: '/core/common/Source/ignoreSwitch.html',
         link: function(scope, element, attrs) {
-            scope.ignoredSources = IgnoredSources(rootRef.child('ignoredSources/' + $rootScope.userInfo.$id));
+            scope.userIgnoredSources = $rootScope.userIgnoredSources;
 
-            scope.ignoredSources.$loaded().then(function(){
-                scope.isIgnored = !scope.ignoredSources.isSourceIgnored(scope.source);
-            });
-
-            scope.$watch('isIgnored', function(newValue, oldValue) {
+            scope.$watch('userIgnoredSources.isIgnored(source)', function(newValue, oldValue) {
                 if(newValue != undefined){
-                    scope.isIgnored = newValue;
+                    scope.isIgnored = !newValue;
                 }
             }, true);
 
-            scope.toggleSource = function(source){
-                if(scope.ignoredSources.isSourceIgnored(source)){
-                    scope.unignoreSource(source);
+            scope.toggleSource = function(){
+                if(scope.userIgnoredSources.isIgnored(scope.source)){
+                    scope.userIgnoredSources.unignoreSource(scope.source);
                 }else{
-                    scope.ignoreSource(source);
+                    scope.userIgnoredSources.ignoreSource(scope.source);
                 }
-            };
-
-            scope.ignoreSource = function (source) {
-                IgnoredSourcesService.ignoreSource(source).then(function(){
-
-                }).catch(function(err){
-                    console.log(err);
-                    Message.toast({text: 'Hubo un error.', theme: 'toast-red'})
-                });
-            };
-
-            scope.unignoreSource = function (source) {
-                IgnoredSourcesService.unignoreSource(source).then(function(){
-
-                }).catch(function(err){
-                    console.log(err);
-                    Message.toast({text: 'Hubo un error.', theme: 'toast-red'})
-                });
             };
         }
     }

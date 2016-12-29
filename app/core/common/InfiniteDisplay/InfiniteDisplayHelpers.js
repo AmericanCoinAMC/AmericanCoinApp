@@ -1,0 +1,1 @@
+app.factory("InfiniteDisplayFilters",["$rootScope",function(r){return{activeSources:function(r){return r.source.status.active},userIgnoredSources:function(t){var e=r.userIgnoredSources.isIgnored(t.source);return!e}}}]).factory("InfiniteDisplaySort",[function(){return{desc:function(r,t){return parseFloat(r.$priority)-parseFloat(t.$priority)}}}]);

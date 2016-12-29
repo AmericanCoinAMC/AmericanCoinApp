@@ -1,1 +1,0 @@
-app.component("main",{templateUrl:"/core/components/app/main/main.html",bindings:{},controller:["$rootScope","$scope","$timeout","FeedService","PostDialogService",function(e,o,n,t,i){}]});

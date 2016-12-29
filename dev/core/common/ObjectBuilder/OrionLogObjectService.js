@@ -12,7 +12,7 @@ app.factory('OrionLogObjectService', function(){
                 title: snapshot.val().title,
                 type: snapshot.val().type,
                 data: snapshot.val().data,
-                timestamp: snapshot.val().timestamp,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
                 $priority: snapshot.getPriority()
             };
         }

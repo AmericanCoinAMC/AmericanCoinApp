@@ -1,14 +1,24 @@
-<md-toolbar class="md-hue-1" md-whiteframe="2" style="margin:0px;"  md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
-    <div class="md-toolbar-tools">
-        <h2>
+
+<md-toolbar class="md-hue-1"
+            md-whiteframe="5"
+            style="margin:0px;"
+            md-theme="{{$root.userInfo.preferences.theme}}"
+            md-theme-watch="true"
+            layout="row"
+            layout-align="start center">
+    <div class="md-toolbar-tools" flex>
+        <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="fa-newspaper-o" style="font-size:19px;"></md-icon>
+        <h2 style="margin-left:5px;">
             <span>{{activeSource.name}}</span>
         </h2>
+        <span flex></span>
+        <preferences></preferences>
     </div>
+
 </md-toolbar>
 
 <div layout="column">
     <md-tabs md-dynamic-height
-             md-border-bottom
              md-center-tabs
              md-selected="selectedIndex"
              md-theme="{{$root.userInfo.preferences.theme}}"
@@ -19,7 +29,4 @@
     <div class="md-padding">
         <ui-view></ui-view>
     </div>
-
-
-
 </div>

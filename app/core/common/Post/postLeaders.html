@@ -1,8 +1,8 @@
 <div ng-show="post.leaders">
     <div layout="row" layout-align="end center" class="m-right-15">
-        <a class="circle" ng-click="null" href="javascript:void(0)" ng-repeat="leader in post.leaders">
+        <a ng-click="displayLeaderFeed($event, leader)" href="javascript:void(0)" ng-repeat="leader in post.leaders">
             <md-tooltip md-direction="top" class="material-tooltip">{{leader.name}}</md-tooltip>
-            <img ng-src="{{leader.avatar}}" alt="leader.name" class="md-avatar">
+            <img ng-src="{{leader.avatar}}" alt="leader.name" class="circle sm">
         </a>
     </div>
 </div>

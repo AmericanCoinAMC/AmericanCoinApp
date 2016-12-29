@@ -4,36 +4,39 @@
 app.directive('hashtagPosts',
     ['PostDialogService', '$firebaseArray', 'FeedService',
         function(PostDialogService, $firebaseArray, FeedService){
-    return {
-        restrict: 'E',
-        scope: {
-            hashtag: '='
-        },
-        templateUrl: '/core/common/Hashtag/hashtagPosts.html',
-        link: function(scope, element, attrs) {
-            if(scope.hashtag != undefined){
-                scope.hashtagId = '';
-                if(scope.hashtag.$id == undefined){
-                    scope.hashtagId = scope.hashtag.id;
-                }else{
-                    scope.hashtagId = scope.hashtag.$id;
-                }
-                scope.posts = $firebaseArray(rootRef.child('hashtagPosts/' + scope.hashtagId).limitToFirst(3));
-                scope.$watch('hashtag', function(newValue, oldValue) {
-                    if(newValue != undefined){
-                        scope.hashtag = newValue;
+            return {
+                restrict: 'E',
+                scope: {
+                    hashtag: '='
+                },
+                templateUrl: '/core/common/Hashtag/hashtagPosts.html',
+                link: function(scope, element, attrs) {
+                    if(scope.hashtag != undefined){
+                        scope.hashtagId = '';
+                        scope.postsLoaded = false;
+
+                        if(scope.hashtag.$id == undefined){
+                            scope.hashtagId = scope.hashtag.id;
+                        }else{
+                            scope.hashtagId = scope.hashtag.$id;
+                        }
+
+                        $firebaseArray(rootRef.child('hashtagPosts/' + scope.hashtagId).limitToFirst(10))
+                            .$loaded().then(function(posts){
+                                scope.posts = posts;
+                                scope.postsLoaded = true;
+                            });
+
+                        scope.displayPost = function(event, post){
+                            PostDialogService.displayPost(event, post);
+                        };
+
+                        scope.$watch('hashtag', function(newValue, oldValue) {
+                            if(newValue != undefined){
+                                scope.hashtag = newValue;
+                            }
+                        }, true);
                     }
-                }, true);
-
-                scope.displayPost = function(event, postObject){
-                    PostDialogService.displayPost(event, postObject);
-                };
-
-                scope.displayHashtagFeed = function(event, hashtag){
-                    FeedService.loadHashtagFeed(event, hashtag);
-                };
-
+                }
             }
-        }
-    }
-}]);
+        }]);

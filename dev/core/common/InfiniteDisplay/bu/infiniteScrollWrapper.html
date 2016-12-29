@@ -1,0 +1,21 @@
+<div layout="column">
+    <div flex infinite-scroll="nextLot()"
+         infinite-scroll-distance="configAg.distance"
+         infinite-scroll-immediate-check="false"
+         infinite-scroll-disabled="!firstLotLoaded()"
+         infinite-scroll-container="configAg.parentContainer">
+
+        <div style="margin-top: 120px;" ng-show="!contentLoaded">
+            <loader show="!contentLoaded"></loader>
+        </div>
+
+        <div ng-show="contentLoaded" ng-class="{'{{configAg.animation}}': configAg.animation}">
+            <div id="infinite-scroll-content" ng-include="configAg.templateUrl"></div>
+        </div>
+    </div>
+
+    <div style="margin-top:35px;" ng-show="fetching()">
+        <loader show="fetching()"></loader>
+    </div>
+</div>
+

@@ -24,8 +24,16 @@
                 ".indexOn": ["timestamp"]
             }
         },
+        "outstandingPosts": {
+            ".indexOn": ["timestamp"]
+        },
         "hashtagPosts": {
             "$hashtagKey": {
+                ".indexOn": ["timestamp"]
+            }
+        },
+        "leaderPosts": {
+            "$leaderKey": {
                 ".indexOn": ["timestamp"]
             }
         },
@@ -38,8 +46,18 @@
             }
         },
 
+        //Hashtags Related
+        "hashtags": {
+            ".indexOn": ["timestamp"]
+        },
+
         //Sources Related
         "sources": {
+            ".indexOn": ["timestamp", "status/active"]
+        },
+
+        //Leaders Related
+        "leaders": {
             ".indexOn": ["timestamp"]
         },
 

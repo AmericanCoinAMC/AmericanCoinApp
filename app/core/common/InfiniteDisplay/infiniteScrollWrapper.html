@@ -1,0 +1,21 @@
+<div layout="column">
+    <div flex infinite-scroll="InfiniteDisplay.loadNextLot()"
+         infinite-scroll-distance="viewObject.distance"
+         infinite-scroll-immediate-check="false"
+         infinite-scroll-disabled="!InfiniteDisplay.firstLotLoaded"
+         infinite-scroll-container="viewObject.parentContainer">
+
+        <div style="margin-top: 120px;" ng-show="!contentLoaded">
+            <loader show="!contentLoaded"></loader>
+        </div>
+
+        <div ng-show="contentLoaded" ng-class="{'{{viewObject.animation}}': viewObject.animation}">
+            <div id="infinite-scroll-content" ng-include="viewObject.templateUrl"></div>
+        </div>
+    </div>
+
+    <div style="margin-top:35px;" ng-show="InfiniteDisplay.fetching">
+        <loader show="InfiniteDisplay.fetching"></loader>
+    </div>
+</div>
+

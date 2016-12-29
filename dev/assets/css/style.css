@@ -2,6 +2,61 @@
     max-width: 250px;
 }
 
+.display-none{
+    display: none;
+}
+
+
+/* SideNav */
+
+.sidenav{
+
+}
+.sidenav-item{
+
+}
+
+.sidenav-item p{
+    margin: 0 0 0 10px;
+    font-size:15px;
+    font-weight: 400;
+}
+
+
+/*
+* Badges
+*/
+
+.badge{
+    border-radius: 3px;
+    color:white;
+    padding:3px 3px 3px 3px;
+    text-align: center;
+    font-size: 10px;
+    min-width: 20px;
+    line-height: 10px;
+}
+
+/*
+* Hashtag Dialog
+*/
+.hashtag-bg{
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    width: 300px;
+    height:200px;
+    margin-top:8px;
+}
+
+.s-posts-container{
+    overflow-y: scroll;height: 200px;max-height: 200px;margin:0px;
+}
+
+
+
+.md-menu-divider{
+    margin:10px 0 10px 0;
+}
 
 
 .views-container{
@@ -11,11 +66,20 @@
     width: 100%;
 }
 
+.static-views-container{
+    max-height: 100%;
+    overflow: scroll;
+    overflow-x:hidden;
+    height:100%;
+    width: 100%;
+}
+
 .news-avatar{
     max-width: 40px;
     margin-right:10px;
     max-height: 40px;
 }
+
 
 
 
@@ -51,7 +115,24 @@
     font-size: 17px;
 }
 
+/*
+Media
+*/
 
+.media-small{
+    width: 30px;
+    height:30px;
+}
+
+.media-sm{
+    width: 36px;
+    height:36px;
+}
+
+.media-medium{
+    width: 42px;
+    height:42px;
+}
 
 /*
 * Alignment
@@ -249,24 +330,7 @@ md-bottom-sheet{
 }
 
 
-/*
-* Badges
-*/
 
-span.badge {
-    min-width: 2rem;
-    border-radius: 50%;
-    padding: 0 2px;
-    text-align: center;
-    font-size: 13px;
-    line-height: inherit;
-    color: #fff;
-    position: absolute;
-    right: 15px;
-    box-sizing: border-box;
-    background-color: #0a931b;
-    font-weight: 600;
-}
 
 
 
@@ -373,6 +437,13 @@ span.badge {
     background: #d50000;
 }
 
+/*
+* Icons
+*/
+
+.fa{
+    font-size:19px;
+}
 
 /*
 * Lists
@@ -456,19 +527,36 @@ md-dialog.fullscreen-dialog {
     margin: 5px;
     border: 1px solid rgba(255,255,255,0.4);
     border-radius: 50%;	/* relative value */
-    /*box-shadow: 0px 0px 5px rgba(0,0,0,0.4);*/
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
     transition: linear 0.25s;
+}
+.circle.small{
     height: 32px;
     width: 32px;
 }
-.circle img {
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
+.circle.sm{
+    height: 38px;
+    width: 38px;
+}
+.circle.medium{
+    height: 44px;
+    width: 44px;
+}
+.circle.large{
+    height: 66px;
+    width: 66px;
+}
+.circle.xlarge{
+    height: 88px;
+    width: 88px;
 }
 a.circle {
     color: transparent;
 } /* IE fix: removes blue border */
+
+
+
+
 
 
 
@@ -479,6 +567,9 @@ a.circle {
 .post-header-source{
     cursor: pointer;
 }
+
+
+
 
 
 

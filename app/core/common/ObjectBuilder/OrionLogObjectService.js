@@ -1,1 +1,1 @@
-app.factory("OrionLogObjectService",function(){return{buildFromSnapshot:function(t){return{$id:t.key,code:t.val().code,eventDate:t.val().eventDate,title:t.val().title,type:t.val().type,data:t.val().data,timestamp:t.val().timestamp,$priority:t.getPriority()}}}});
+app.factory("OrionLogObjectService",function(){return{buildFromSnapshot:function(e){return{$id:e.key,code:e.val().code,eventDate:e.val().eventDate,title:e.val().title,type:e.val().type,data:e.val().data,timestamp:firebase.database.ServerValue.TIMESTAMP,$priority:e.getPriority()}}}});

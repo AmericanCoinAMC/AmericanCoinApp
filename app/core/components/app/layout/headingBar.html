@@ -1,4 +1,4 @@
-<md-toolbar md-whiteframe="4" class="heading-toolbar md-hue-2" md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
+<md-toolbar md-whiteframe="7" class="heading-toolbar md-hue-3" md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
     <div class="md-toolbar-tools ">
         <md-button
                 hide-gt-md
@@ -7,21 +7,20 @@
                 aria-label="Menu">
             <md-icon aria-label="menu" class="material-icons step">menu</md-icon>
         </md-button>
-        <div layout="column" flex layout-align-xs="center center" layout-align-sm="center center" layout-align-md="center center">
-            <img src="assets/img/logo.png" alt="Logo" id="logo" style="max-width: 200px;">
+        <div layout="column"
+             flex
+             layout-align-xs="center center"
+             layout-align-sm="center center"
+             layout-align-md="center center"
+             style="cursor: pointer;">
+            <img src="assets/img/logo.png" alt="Logo" id="logo" style="max-width: 200px;"
+                 hide-md hide-sm hide-xs
+                 ui-sref="app.dashboard">
+            <img src="assets/img/logo-mini.png" alt="Logo" id="logo-mini" style="max-width: 50px;"
+                 hide-gt-md
+                 ui-sref="app.dashboard"
+                 >
         </div>
-
-        <md-button ng-click="null" class="md-icon-button" aria-label="Favoritos"
-                   hide-md hide-sm hide-xs>
-            <md-tooltip md-direction="left" class="material-tooltip">Noticias Importantes</md-tooltip>
-            <md-icon aria-label="star" class="material-icons step">star</md-icon>
-        </md-button>
-
-        <md-button ng-click="null" class="md-icon-button" aria-label="Hashtags"
-                   hide-md hide-sm hide-xs>
-            <md-tooltip md-direction="left" class="material-tooltip">Hashtags en Seguimiento</md-tooltip>
-            <md-icon aria-label="bookmark" class="material-icons step">bookmark</md-icon>
-        </md-button>
 
 
         <md-menu-bar style="padding:0px;">
@@ -31,34 +30,13 @@
                     <md-icon aria-label="more_vert" class="material-icons step">more_vert</md-icon>
                 </md-button>
                 <md-menu-content>
-                    <md-menu-item>
-                        <md-button ng-click="null">
-                            <md-icon aria-label="person" class="material-icons step">person</md-icon> Mi Cuenta
-                        </md-button>
-                    </md-menu-item>
-
-                    <md-menu-divider></md-menu-divider>
-
-                    <md-menu-item hide-gt-md>
-                        <md-button ng-click="null">
-                            <md-icon aria-label="favorite" class="material-icons step">favorite</md-icon> Noticias Importantes
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item hide-gt-md>
-                        <md-button ng-click="null">
-                            <md-icon aria-label="bookmark" class="material-icons step">bookmark</md-icon> Hashtags en Seguimiento
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-divider hide-gt-md></md-menu-divider>
-
 
                     <md-menu-item>
                         <md-button ng-click="null">
                             <md-icon md-font-icon="fa-bullhorn" class="fa" alt="Publicidad" style="font-size:19px;"></md-icon> Publicidad
                         </md-button>
                     </md-menu-item>
-
-                    <md-menu-divider></md-menu-divider>
+                    <md-divider class="md-menu-divider"></md-divider>
 
                     <md-menu-item>
                         <md-button ng-click="null">
@@ -66,7 +44,8 @@
                         </md-button>
                     </md-menu-item>
 
-                    <md-menu-divider></md-menu-divider>
+                    <md-divider class="md-menu-divider"></md-divider>
+
                     <md-menu-item>
                         <md-button ng-click="signUserOut()">
                             <md-icon aria-label="exit_to_app"

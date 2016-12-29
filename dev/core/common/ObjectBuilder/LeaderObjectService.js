@@ -14,7 +14,10 @@ app.factory('LeaderObjectService', function(){
                 twitterName: snapshot.val().twitterName,
                 wikiUrl: snapshot.val().wikiUrl,
                 lastPost: snapshot.val().lastPost,
-                $priority: snapshot.getPriority()
+                views: snapshot.val().views || 0,
+                subscriptions: snapshot.val().subscriptions || 0,
+                timestamp:  firebase.database.ServerValue.TIMESTAMP,
+                $priority: snapshot.getPriority() || -(snapshot.val().lastPost)
             };
         },
 
@@ -27,7 +30,10 @@ app.factory('LeaderObjectService', function(){
                 twitterName: leader.twitterName,
                 wikiUrl: leader.wikiUrl,
                 lastPost: leader.lastPost,
-                '.priority': leader.$priority
+                views: leader.views || 0,
+                subscriptions: leader.subscriptions || 0,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                '.priority': leader.$priority || -(leader.lastPost)
             };
         },
 
@@ -41,12 +47,15 @@ app.factory('LeaderObjectService', function(){
                 twitterName: leader.twitterName,
                 wikiUrl: leader.wikiUrl,
                 lastPost: leader.lastPost,
-                '.priority': leader.$priority
+                views: leader.views || 0,
+                subscriptions: leader.subscriptions || 0,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                '.priority': leader.$priority || -(leader.lastPost)
             };
         },
 
-        buildInverse: function(leader){
-            var negativeStamp = -(new Date().getTime());
+        buildWithPriority: function(leader){
+            var currentDate = new Date().getTime();
             return {
                 $id: leader.id,
                 name: leader.name,
@@ -55,8 +64,11 @@ app.factory('LeaderObjectService', function(){
                 wikiUrl: leader.wikiUrl,
                 avatar: leader.avatar,
                 fileName: leader.fileName,
-                lastPost: new Date().getTime(),
-                $priority: negativeStamp
+                lastPost: currentDate,
+                views: leader.views || 0,
+                subscriptions: leader.subscriptions || 0,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                $priority: -(currentDate)
             };
         }
     }

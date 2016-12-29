@@ -1,11 +1,14 @@
-<md-toolbar class="md-hue-1" md-whiteframe="2" style="margin:0px;"  md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
+<md-toolbar class="md-hue-1" md-whiteframe="5" style="margin:0px;"  md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
     <div class="md-toolbar-tools">
+        <md-icon md-font-icon="fa-hashtag" class="fa" alt="hashtag" style="font-size:19px;"></md-icon>
         <h2>
             <span>Hashtags</span>
         </h2>
+        <span flex></span>
+        <preferences></preferences>
     </div>
 </md-toolbar>
 
 <div class="md-padding">
-    <infinite-scroll-wrapper config="config"></infinite-scroll-wrapper>
+    <infinite-display-wrapper config="config"></infinite-display-wrapper>
 </div>

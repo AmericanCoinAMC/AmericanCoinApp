@@ -12,9 +12,10 @@ app.run(['$rootScope', '$state', '$stateParams', 'Auth', 'Message',
         $rootScope.userAuthenticated = false;
         $rootScope.userInfo = {};
         $rootScope.firebaseUser = {};
+        $rootScope.userFav = 'default.png';
+        $rootScope.appContainer = 'views-container';
 
         $rootScope.navigatorLanguage = $window.navigator.language || $window.navigator.userLanguage;
-        console.log($rootScope.navigatorLanguage);
 
         /*
         * Handle Auth Updates
@@ -25,17 +26,26 @@ app.run(['$rootScope', '$state', '$stateParams', 'Auth', 'Message',
                 $rootScope.firebaseUser = firebaseUser;
                 UserService.getUserInfo($rootScope.firebaseUser.uid).then(function(userInfo){
                     $rootScope.userInfo = userInfo;
+                    $rootScope.userFav = userInfo.preferences.theme + '.png';
                 });
                 if($state.current.name == 'intro'){
-                    $state.go("app.main");
+                    $state.go("app.minoticiero");
                 }
             }else{
                 $rootScope.userAuthenticated = false;
                 $rootScope.firebaseUser = {};
                 $rootScope.userInfo = {};
+                $rootScope.userFav = 'default.png';
                 $state.go('intro');
             }
         });
+
+        $rootScope.$watch('userInfo' ,function(){
+            if($rootScope.userInfo.preferences != undefined){
+                $rootScope.userFav = $rootScope.userInfo.preferences.theme + '.png';
+            }
+        },true);
+
 
 
 
@@ -47,12 +57,15 @@ app.run(['$rootScope', '$state', '$stateParams', 'Auth', 'Message',
             function(event, toState, toParams, fromState, fromParams, options) {
                 $rootScope.preloader = true;
                 $rootScope.toState = toState;
+                $rootScope.fromState = fromState;
                 $rootScope.toStateParams = toParams;
+                $rootScope.fromStateParams = fromParams;
             });
 
         $rootScope.$on("$stateChangeSuccess",
             function (event, toState, toParams, fromState, fromParams) {
                 $rootScope.preloader = false;
+                $rootScope.currentState = toState;
                 var navToggle = $mdMedia('xs') || $mdMedia('sm') || $mdMedia('md');
                 if(navToggle){SideNavigation.close('left')}
             });

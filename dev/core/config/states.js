@@ -15,20 +15,106 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         .state('app', {
             url: '/app',
             abstract: true,
-            template: '<app></app>',
+            template: '<app categories-data="$resolve.categoriesData"></app>',
             resolve: {
                 categoriesData: ['$firebaseArray', function($firebaseArray){
                     return $firebaseArray(rootRef.child('categories').orderByPriority()).$loaded();
                 }],
-                currentAuth: ['Auth', function(Auth) {
-                    return Auth.$requireSignIn();
-                }]
+                activeSources: ['ActiveSources', '$rootScope', '$q', function(ActiveSources, $rootScope, $q){
+                    var defer = $q.defer();
+                    ActiveSources(rootRef.child('sources').orderByChild('status/active').equalTo(true)).$loaded()
+                        .then(function(activeSources){
+                            $rootScope.activeSources = activeSources;
+                            defer.resolve(activeSources);
+                        });
+                    return defer.promise;
+                }],
+                userIgnoredSources: [
+                    '$q', 'IgnoredSources', 'Auth', '$rootScope',
+                    function($q, IgnoredSources, Auth, $rootScope){
+                    var defer = $q.defer();
+                    Auth.$requireSignIn().then(function(){
+                        var userInfo = Auth.$getAuth();
+                        IgnoredSources(rootRef.child('ignoredSources/' + userInfo.uid))
+                            .$loaded().then(function(userIgnoredSources){
+                                $rootScope.userIgnoredSources = userIgnoredSources;
+                                defer.resolve(userIgnoredSources);
+                            }).catch(function(err){
+                                console.log(err);
+                                defer.reject(err);
+                            });
+                    }).catch(function(err){
+                        console.log(err);
+                        defer.reject(err);
+                    });
+                    return defer.promise;
+                }],
+                bookmarkPosts: [
+                    '$q', 'BookmarkPosts', 'Auth', '$rootScope',
+                    function($q, BookmarkPosts, Auth, $rootScope){
+                        var defer = $q.defer();
+                        Auth.$requireSignIn().then(function(){
+                            var userInfo = Auth.$getAuth();
+                            BookmarkPosts(rootRef.child('bookmarkedPosts/' + userInfo.uid))
+                                .$loaded().then(function(bookmarkPosts){
+                                    $rootScope.bookmarkPosts = bookmarkPosts;
+                                    defer.resolve(bookmarkPosts);
+                                }).catch(function(err){
+                                    console.log(err);
+                                    defer.reject(err);
+                                });
+                        }).catch(function(err){
+                            console.log(err);
+                            defer.reject(err);
+                        });
+                        return defer.promise;
+                    }],
+                bookmarkHashtags: [
+                    '$q', 'BookmarkHashtags', 'Auth', '$rootScope',
+                    function($q, BookmarkHashtags, Auth, $rootScope){
+                        var defer = $q.defer();
+                        Auth.$requireSignIn().then(function(){
+                            var userInfo = Auth.$getAuth();
+                            BookmarkHashtags(rootRef.child('bookmarkedHashtags/' + userInfo.uid))
+                                .$loaded().then(function(bookmarkHashtags){
+                                    $rootScope.bookmarkHashtags = bookmarkHashtags;
+                                    defer.resolve(bookmarkHashtags);
+                                }).catch(function(err){
+                                    console.log(err);
+                                    defer.reject(err);
+                                });
+                        }).catch(function(err){
+                            console.log(err);
+                            defer.reject(err);
+                        });
+                        return defer.promise;
+                    }],
+                bookmarkLeaders: [
+                    '$q', 'BookmarkLeaders', 'Auth', '$rootScope',
+                    function($q, BookmarkLeaders, Auth, $rootScope){
+                        var defer = $q.defer();
+                        Auth.$requireSignIn().then(function(){
+                            var userInfo = Auth.$getAuth();
+                            BookmarkLeaders(rootRef.child('bookmarkedLeaders/' + userInfo.uid))
+                                .$loaded().then(function(bookmarkLeaders){
+                                    $rootScope.bookmarkLeaders = bookmarkLeaders;
+                                    defer.resolve(bookmarkLeaders);
+                                }).catch(function(err){
+                                    console.log(err);
+                                    defer.reject(err);
+                                });
+                        }).catch(function(err){
+                            console.log(err);
+                            defer.reject(err);
+                        });
+                        return defer.promise;
+                    }]
             }
         })
 
-        .state('app.main', {
-            url: '/main',
-            template: '<main></main>',
+        .state('app.minoticiero', {
+            url: '/minoticiero',
+            template: '<minoticiero></minoticiero>',
             resolve: {
 
             }
@@ -94,6 +180,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         .state('app.hashtags', {
             url: '/hashtags',
             template: '<hashtags></hashtags>',
+            resolve: {
+
+            }
+        })
+
+        .state('app.leaders', {
+            url: '/leaders',
+            template: '<leaders></leaders>',
             resolve: {
 
             }

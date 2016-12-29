@@ -16,11 +16,11 @@
 }*/
 
 
-.fade-animation.ng-hide-add {
-    animation: fadeOut 0s;
+.fade-animation.ng-hide-add,.fade-animation.ng-leave {
+    animation: fadeOut 0.5s;
 }
-.fade-animation.ng-hide-remove {
-    animation: fadeIn 1s;
+.fade-animation.ng-hide-remove,.fade-animation.ng-enter {
+    animation: fadeIn 0.5s;
 }
 
 .fadeIn-animation.ng-hide-remove {
@@ -47,9 +47,40 @@
     animation: zoomIn 0.6s;
 }
 
+.slideInUp-animation.ng-hide-remove, .slideInUp-animation.ng-enter{
+    animation: slideInUp 0.6s;
+}
+
+/*slideInOutRight*/
+.slideInOutRight-animation.ng-hide-add, .slideInOutRight-animation.ng-leave{
+    animation: slideInRight 0.5s;
+}
+.slideInOutRight-animation.ng-hide-remove, .slideInOutRight-animation.ng-enter{
+    animation: slideInRight 0.6s;
+}
+
+/*zoomInLeft*/
+.zoomInLeft-animation.ng-hide-remove, .zoomInLeft-animation.ng-enter{
+    animation: zoomInLeft 0.6s;
+}
+
+/*bounceIn*/
+.bounceIn-animation.ng-hide-remove, .bounceIn-animation.ng-enter{
+    animation: bounceIn 0.6s;
+}
+
+.zoomInOut-animation.ng-hide-add, .zoomInOut-animation.ng-leave{
+    animation: zoomOut 0.5s;
+}
+.zoomInOut-animation.ng-hide-remove, .zoomInOut-animation.ng-enter{
+    animation: zoomIn 0.5s;
+}
+
 /*.zoom-animation .ng-hide-add, .zoom-animation.ng-leave{
     animation: zoomOut 0.5s;
 }*/
 .zoom-animation .ng-hide-remove, .zoom-animation.ng-enter{
     animation: zoomIn 0.5s;
 }
+
+

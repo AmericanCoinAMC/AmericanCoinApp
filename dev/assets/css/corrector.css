@@ -32,7 +32,15 @@ md-card:focus, md-card:active{
 }
 
 
+/*
+* Leader Wiki Iframe
+*/
 
+
+.leader-iframe-container iframe{
+    border:0;
+    width: 100%;
+}
 
 
 /*

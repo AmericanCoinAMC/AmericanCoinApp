@@ -2,10 +2,8 @@
     <heading-bar></heading-bar>
     <div layout="row" flex>
         <left-navigation></left-navigation>
-        <div class="views-container" flex>
+        <div class="{{$root.appContainer}}" flex>
             <div class="animation-container" ui-view></div>
         </div>
     </div>
 </div>
-
-<preferences></preferences>

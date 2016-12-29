@@ -9,13 +9,13 @@ app.component('hashtags', {
     controller: ['$scope', 'HashtagObjectService', function($scope, HashtagObjectService){
 
         $scope.config = {
-            gridWidth: 500,
             ref: rootRef.child('hashtags'),
             objectBuilder: HashtagObjectService,
+            firstLotSize: 8,
+            nextLotSize: 10,
             templateUrl: '/core/common/Hashtag/hashtagCards.tpl.html',
-            grid: true,
-            type: 'dynamic'
+            wrapper: 'infiniteScroll',
+            deactivators: ['$stateChangeSuccess']
         };
-
     }]
 });

@@ -6,15 +6,25 @@ app.component('leftNavigation', {
     bindings: {
 
     },
-    controller: ['$scope', 'SideNavigation', function($scope, SideNavigation){
+    controller: [
+        '$scope', 'SideNavigation', '$stateParams', '$rootScope', 'UserBookmarks', '$timeout',
+        function($scope, SideNavigation, $stateParams, $rootScope, UserBookmarks, $timeout){
+            $scope.sourcesExpanded = false;
 
+            $scope.toggleSource = function(){
+                $scope.sourcesExpanded = !$scope.sourcesExpanded;
+            };
 
-        $scope.toggleLeft = function(){
-            SideNavigation.toggleLeft()
-        };
+            $scope.displayBookmark = function(ev, type){
+                UserBookmarks.load(ev, type);
+            };
 
-        $scope.close = function () {
-            SideNavigation.close('left');
-        };
-    }]
+            $scope.toggleLeft = function(){
+                SideNavigation.toggleLeft()
+            };
+
+            $scope.close = function () {
+                SideNavigation.close('left');
+            };
+        }]
 });

@@ -1,0 +1,23 @@
+<div md-whiteframe="8" style="overflow-y: scroll;" ng-style="{'height': '{{height}}px'}">
+    <div style="margin-top: 50px;" ng-show="!loaded">
+        <loader show="!loaded"></loader>
+    </div>
+    <md-list class="padding-0 md-dense">
+        <md-list-item class="md-2-line zoomInOut-animation"
+                      ng-repeat="leader in trendingLeaders"
+                      ng-click="loadFeed($event, leader)">
+            <img ng-src="{{leader.avatar}}" alt="{{leader.name}}" class="circle sm responsive-img"/>
+            <div class="md-list-item-text" style="margin-left:7px;" layout="column">
+                <h3>{{leader.name}}</h3>
+                <p>{{leader.roleName | characters:45}}</p>
+            </div>
+            <trending-leader last-post="leader.lastPost"></trending-leader>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item ui-sref="app.leaders" aria-label="Wrapper">
+            <div layout="row" layout-align="center center" flex>
+                <p class="margin-0">Ver todos</p>
+            </div>
+        </md-list-item>
+    </md-list>
+</div>

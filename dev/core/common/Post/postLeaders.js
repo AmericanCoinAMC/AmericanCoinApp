@@ -12,7 +12,9 @@ app.directive('postLeaders',
         },
         templateUrl: '/core/common/Post/postLeaders.html',
         link: function(scope, element, attrs) {
-
+            scope.displayLeaderFeed = function(event, leader){
+                FeedService.loadLeaderFeed(event, leader);
+            };
 
             /*
              * Watchers

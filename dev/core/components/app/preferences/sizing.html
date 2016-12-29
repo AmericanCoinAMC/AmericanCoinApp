@@ -1,0 +1,19 @@
+<md-bottom-sheet class="md-grid" layout="column">
+    <div layout="row"
+         layout-align="center start">
+        <div style="padding:15px;cursor:pointer;outline: none;"
+             ng-click="changeSize('expand')">
+            <img src="assets/img/expand.png" style="max-width: 300px;max-height:270px;" alt="Expand" md-whiteframe="5"
+                    ng-hide="$root.userInfo.preferences.card == 'expand'">
+            <img src="assets/img/expand.png" style="max-width: 300px;max-height:270px;" alt="Expand" md-whiteframe="20"
+                 ng-show="$root.userInfo.preferences.card == 'expand'">
+        </div>
+        <div style="padding:15px;cursor:pointer;outline: none;"
+             ng-click="changeSize('compress')">
+            <img src="assets/img/compress.png" style="max-width: 300px;max-height:270px;" alt="Expand" md-whiteframe="5"
+                 ng-hide="$root.userInfo.preferences.card == 'compress'">
+            <img src="assets/img/compress.png" style="max-width: 300px;max-height:270px;" alt="Expand" md-whiteframe="20"
+                 ng-show="$root.userInfo.preferences.card == 'compress'">
+        </div>
+    </div>
+</md-bottom-sheet>

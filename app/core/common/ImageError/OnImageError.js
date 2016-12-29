@@ -1,1 +1,1 @@
-app.directive("img",function(){return{restrict:"E",link:function(n,t,r){t.on("error",function(){t.attr("src","assets/img/notfound.png")})}}});
+app.directive("img",function(){return{restrict:"E",link:function(n,i,r){i.on("error",function(){i.css("display","none")})}}});

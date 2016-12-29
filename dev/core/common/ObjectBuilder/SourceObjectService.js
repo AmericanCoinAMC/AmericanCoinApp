@@ -17,6 +17,7 @@ app.factory('SourceObjectService', function(){
                 profile: snapshot.val().profile,
                 selector: snapshot.val().selector,
                 status: snapshot.val().status,
+                timestamp:  firebase.database.ServerValue.TIMESTAMP,
                 $priority: snapshot.getPriority()
             };
         },
@@ -33,6 +34,7 @@ app.factory('SourceObjectService', function(){
                 profile: source.profile,
                 selector: source.selector,
                 status: source.status,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
                 '.priority': source.$priority
             };
         },
@@ -50,6 +52,7 @@ app.factory('SourceObjectService', function(){
                 profile: source.profile,
                 selector: source.selector,
                 status: source.status,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
                 '.priority': source.$priority
             };
         }

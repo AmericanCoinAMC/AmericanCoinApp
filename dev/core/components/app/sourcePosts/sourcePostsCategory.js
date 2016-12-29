@@ -6,7 +6,7 @@
  */
 
 app.component('sourcePostsCategory', {
-    template: '<infinite-scroll-wrapper config="config"></infinite-scroll-wrapper>',
+    template: '<infinite-display-wrapper config="config"></infinite-display-wrapper>',
     bindings: {
 
     },
@@ -17,7 +17,12 @@ app.component('sourcePostsCategory', {
                 objectBuilder: PostObjectService,
                 templateUrl: '/core/common/Post/postGrid.html',
                 grid: true,
-                type: 'dynamic'
+                instanceType: 'dynamic',
+                wrapper: 'infiniteScroll',
+                filters: ['activeSources', 'userIgnoredSources'],
+                delayedStart: true,
+                animation: 'zoomInOut-animation',
+                deactivators: ['$stateChangeSuccess']
             };
 
         }]

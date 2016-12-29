@@ -11,8 +11,8 @@ app.directive('postCard',
         },
         templateUrl: '/core/common/Post/postCard.html',
         link: function(scope, element, attrs) {
-            scope.displayPost = function(event, postObject){
-                PostDialogService.displayPost(event, postObject);
+            scope.displayPost = function(event){
+                PostDialogService.displayPost(event, scope.post);
             };
 
             /*

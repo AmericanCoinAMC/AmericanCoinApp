@@ -1,38 +1,53 @@
-<md-card ng-class="{'md-whiteframe-8dp': post.outstanding, 'md-whiteframe-6dp': post.hashtag, 'md-whiteframe-4dp': post.leaders}">
-    <md-card-header  class="no-outline">
+<md-card item-whiteframe="post" class="margin-30">
+    <md-card-header  class="no-outline"  style="padding-right:0px;">
         <md-card-avatar>
             <img ng-src="{{post.source.fileUrl}}" alt="{{post.source.name}}"/>
         </md-card-avatar>
         <md-card-header-text>
-            <span class="md-title">{{post.source.name}}</span>
-            <div>
-                <md-tooltip md-direction="top" class="material-tooltip">
-                    {{post.eventDate | amDateFormat:'dddd, Do MMMM YYYY'}}
-                </md-tooltip>
-                <span class="md-subhead" am-time-ago="post.eventDate"></span>
+            <div layout="row" layout-align="start start" ng-click="loadSource()" class="no-outline">
+                <div layout="column">
+                    <span class="md-title">{{post.source.name}}</span>
+                    <div>
+                        <md-tooltip md-direction="top" class="material-tooltip">{{post.eventDate | amDateFormat:'dddd, Do MMMM YYYY'}}</md-tooltip>
+                        <span class="md-subhead" am-time-ago="post.eventDate"></span>
+                    </div>
+                </div>
+                <div class="m-left-5" ng-show="post.newItem"><div class="badge bg-{{$root.userInfo.preferences.theme}}">NUEVO</div></div>
             </div>
         </md-card-header-text>
 
-        <user-post-element post="post"></user-post-element>
+        <bookmark-post-element post="post"></bookmark-post-element>
     </md-card-header>
+
+
     <md-card-title style="padding-top:0px;" ng-click="toggleContent()"  class="no-outline">
-        <md-card-title-text ng-hide="contentDisplayed" class="zoomIn-animation">
+        <md-card-title-text ng-hide="contentDisplayed" class="fadeIn-animation">
             <span class="md-headline"  ng-if="post.title">{{post.title}}</span>
-            <span class="md-subhead"  ng-if="post.description">{{post.description}}...</span>
+            <span class="md-subhead"  ng-if="post.description">{{post.description}}</span>
         </md-card-title-text>
-        <md-card-title-media ng-hide="contentDisplayed"  class="zoomIn-animation">
-            <div class="md-media-lg"><img ng-src="{{post.image}}" class="md-card-image" alt="{{post.title}}"  ng-if="post.image"></div>
+        <md-card-title-media ng-hide="contentDisplayed"  class="fadeIn-animation">
+            <div class="md-media-md"><img ng-src="{{post.image}}" class="md-card-image" alt="{{post.title}}"  ng-if="post.image"></div>
         </md-card-title-media>
-        <div ng-show="contentDisplayed"  class="zoomIn-animation">
-            <div ng-bind-html="htmlContent"></div>
+        <div ng-show="contentDisplayed"  class="fadeIn-animation content-container">
+            <div layout="row" layout-align="center center" flex>
+                <div layout="column">
+                    <img ng-src="{{post.image}}" alt="{{post.title}}"
+                         ng-if="post.source.postConfig.imageOnPost && post.image">
+                </div>
+            </div>
+            <div layout="column">
+                <h3 class="headline" style="margin:15px 0px 10px 0px;"
+                    ng-if="post.source.postConfig.titleOnPost && post.title">{{post.title}}</h3>
+                <div ng-bind-html="htmlContent"></div>
+            </div>
         </div>
     </md-card-title>
     <md-divider></md-divider>
     <md-card-actions layout="row" layout-align="center center"  class="no-outline padding-0 margin-0">
-        <div flex="70">
+        <div flex>
             <post-hashtags post="post"></post-hashtags>
         </div>
-        <div flex="30">
+        <div flex="30" ng-show="post.leaders">
             <post-leaders post="post"></post-leaders>
         </div>
     </md-card-actions>

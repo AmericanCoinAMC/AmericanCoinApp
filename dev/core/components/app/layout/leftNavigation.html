@@ -1,47 +1,166 @@
 <md-sidenav class="md-sidenav-left"
-            md-whiteframe="2"
+            md-whiteframe="7"
             md-component-id="left"
             md-is-locked-open="$mdMedia('gt-md')"
             flex>
     <md-content>
         <div layout="column">
+            <md-subheader class="md-no-sticky">Principal</md-subheader>
 
             <md-list flex class="padding-0">
-                <md-list-item class="md-2-line" ui-sref="app.main"  ui-sref-active="active">
-                    <div layout="row" layout-align="center center" flex>
-                        <md-icon aria-label="home" class="material-icons step">home</md-icon>
-                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Principal</h3></div>
+                <md-list-item ui-sref="app.minoticiero">
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon md-svg-src="assets/icons/minoticiero/inactive.svg"
+                                 ng-hide="$root.toState.name == 'app.minoticiero'"></md-icon>
+                        <md-icon md-svg-src="assets/icons/minoticiero/{{$root.userInfo.preferences.theme}}.svg"
+                                 ng-show="$root.toState.name == 'app.minoticiero'"></md-icon>
+                        <p navigation-element
+                           views="['app.minoticiero']"
+                           active="[{'addClass': ['views-active']}]">Mi Noticiero</p>
                     </div>
                 </md-list-item>
 
-                <md-divider></md-divider>
-                <md-list-item class="md-2-line" ui-sref="app.news"  ui-sref-active="active">
-                    <div layout="row" layout-align="center center" flex>
-                        <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="Newspaper" style="font-size:19px;"></md-icon>
-                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Noticias</h3></div>
+                <md-list-item ng-click="null">
+                    <div layout="row"
+                         layout-align="center center"
+                         flex class="sidenav-item">
+                        <md-icon aria-label="card_membership"
+                                 class="material-icons">card_membership</md-icon>
+                        <p navigation-element
+                           custom-condition="sourcesExpanded"
+                           active="[{'addClass': ['custom-condition']}]">Cuenta Premium</p>
+                        <span flex></span>
+                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">38 Días</div>
                     </div>
                 </md-list-item>
-                <md-divider></md-divider>
 
-                <sources-nav></sources-nav>
+                <md-subheader class="md-no-sticky">Noticias</md-subheader>
 
-
-                <md-list-item class="md-2-line" ui-sref="app.hashtags"  ui-sref-active="active">
-                    <div layout="row" layout-align="center center" flex>
-                        <md-icon md-font-icon="fa-hashtag" class="fa" alt="Hashtag" style="font-size:19px;"></md-icon>
-                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Hashtags</h3></div>
+                <md-list-item ui-sref="app.news">
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon md-font-icon="fa-paper-plane-o" class="fa" alt="Plane" style="font-size:19px;"
+                                 navigation-element
+                                 views="['app.news', 'app.news.category']"
+                                 active="[{'addClass': ['views-active']}]"></md-icon>
+                        <p navigation-element
+                           views="['app.news', 'app.news.category']"
+                           active="[{'addClass': ['views-active']}]">Noticias</p>
                     </div>
                 </md-list-item>
-                <md-divider></md-divider>
 
 
-                <md-list-item class="md-2-line" ui-sref="app.leaders"  ui-sref-active="active">
-                    <div layout="row" layout-align="center center" flex>
-                        <md-icon md-svg-src="assets/icons/politician-icon.svg"></md-icon>
-                        <div class="md-list-item-text"><h3 style="margin-left:10px;">Líderes Politicos</h3></div>
+                <md-list-item ng-click="toggleSource()">
+                    <div layout="row"
+                         layout-align="center center"
+                         flex class="sidenav-item">
+                        <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="Newspaper" style="font-size:19px;"
+                                 navigation-element
+                                 custom-condition="sourcesExpanded"
+                                 active="[{'addClass': ['custom-condition']}]"></md-icon>
+                        <p navigation-element
+                           custom-condition="sourcesExpanded"
+                           active="[{'addClass': ['custom-condition']}]">Fuentes de Noticias</p>
+                        <span flex></span>
+                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.activeSources.getTotal()}}</div>
                     </div>
                 </md-list-item>
-                <md-divider></md-divider>
+
+
+                <md-list-item ng-repeat="source in $root.activeSources"
+                              ui-sref="app.sourcePosts({sourceId: source.$id})"
+                              ng-show="sourcesExpanded"
+                              aria-label="{{source.name}}">
+                    <div layout="row"
+                         layout-align="center center"
+                         flex  class="sidenav-item m-left-25"
+                         style="padding-right:0px;">
+                        <img ng-src="{{source.fileUrl}}" class="media-small margin-0" alt="{{source.name}}" />
+                        <p navigation-element
+                           views="['app.sourcePosts', 'app.sourcePosts.category']"
+                           custom-condition="$root.toStateParams.sourceId == source.$id"
+                           active="[{'addClass': ['views-active', 'custom-condition']}]">{{source.name}}</p>
+                        <span flex></span>
+                        <div style="max-height:30px;position:absolute;top:-5px;right:2px;">
+                            <ignore-switch source="source" class="margin-0"></ignore-switch>
+                        </div>
+                    </div>
+                </md-list-item>
+                <md-divider ng-show="sourcesExpanded"></md-divider>
+
+                <md-list-item ng-click="displayBookmark($event, 'posts')" ng-disabled="$root.bookmarkPosts.getTotal() == 0">
+                    <div layout="row"
+                         layout-align="start center"
+                         flex class="sidenav-item">
+                        <md-icon aria-label="bookmark"
+                                 class="material-icons step" alt="Newspaper">bookmark</md-icon>
+                        <p>Noticias en Marcadores</p>
+                        <span flex></span>
+                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.bookmarkPosts.getTotal()}}</div>
+                    </div>
+                </md-list-item>
+
+
+
+                <md-subheader class="md-no-sticky">Hashtags</md-subheader>
+
+                <md-list-item ui-sref="app.hashtags" >
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon md-font-icon="fa-hashtag" class="fa" alt="Hashtag" style="font-size:19px;"
+                                 navigation-element
+                                 views="['app.hashtags']"
+                                 active="[{'addClass': ['views-active']}]"></md-icon>
+                        <p navigation-element
+                           views="['app.hashtags']"
+                           active="[{'addClass': ['views-active']}]">Hashtags</p>
+                    </div>
+                </md-list-item>
+
+                <md-list-item  ng-click="displayBookmark($event, 'hashtags')" ng-disabled="$root.bookmarkHashtags.getTotal() == 0">
+                    <div layout="row"
+                         layout-align="center center"
+                         flex class="sidenav-item">
+                        <md-icon aria-label="bookmark"
+                                 class="material-icons step" alt="Newspaper">bookmark</md-icon>
+                        <p>Hashtags en Marcadores</p>
+                        <span flex></span>
+                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.bookmarkHashtags.getTotal()}}</div>
+                    </div>
+                </md-list-item>
+
+
+                <md-subheader class="md-no-sticky">Líderes Políticos</md-subheader>
+
+                <md-list-item ui-sref="app.leaders">
+                    <div layout="row"
+                         layout-align="start center"
+                         class="sidenav-item">
+                        <md-icon md-svg-src="assets/icons/leaders/inactive.svg"
+                                ng-hide="$root.toState.name == 'app.leaders'"></md-icon>
+                        <md-icon md-svg-src="assets/icons/leaders/{{$root.userInfo.preferences.theme}}.svg"
+                                 ng-show="$root.toState.name == 'app.leaders'"></md-icon>
+                        <p navigation-element
+                           views="['app.leaders']"
+                           active="[{'addClass': ['views-active']}]">Líderes Políticos</p>
+                    </div>
+                </md-list-item>
+
+                <md-list-item  ng-click="displayBookmark($event, 'leaders')" ng-disabled="$root.bookmarkLeaders.getTotal() == 0">
+                    <div layout="row"
+                         layout-align="center center"
+                         flex class="sidenav-item">
+                        <md-icon aria-label="bookmark"
+                                 class="material-icons step" alt="Bookmark">bookmark</md-icon>
+                        <p>Líderes en Marcadores</p>
+                        <span flex></span>
+                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.bookmarkLeaders.getTotal()}}</div>
+                    </div>
+                </md-list-item>
             </md-list>
         </div>
     </md-content>

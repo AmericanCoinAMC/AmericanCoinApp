@@ -6,13 +6,33 @@
 app.config(['$mdThemingProvider', function($mdThemingProvider){
 
     $mdThemingProvider.theme('default')
-        .primaryPalette("blue", {
+        .primaryPalette("teal", {
             'default': '500',
             'hue-1': '600',
             'hue-2': '700',
             'hue-3': '800'
         })
-        .accentPalette('blue', {
+        .accentPalette('teal', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
+    $mdThemingProvider.theme('teal')
+        .primaryPalette("teal", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('teal', {
             'default': '400',
             'hue-1': '500',
             'hue-2': '600',
@@ -145,6 +165,26 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
             'hue-3': '700'
         });
 
+    $mdThemingProvider.theme('light-blue')
+        .primaryPalette("light-blue", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('light-blue', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
     $mdThemingProvider.theme('cyan')
         .primaryPalette("cyan", {
             'default': '500',
@@ -165,14 +205,15 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
             'hue-3': '700'
         });
 
-    $mdThemingProvider.theme('teal')
-        .primaryPalette("teal", {
+
+    $mdThemingProvider.theme('green')
+        .primaryPalette("green", {
             'default': '500',
             'hue-1': '600',
             'hue-2': '700',
             'hue-3': '800'
         })
-        .accentPalette('teal', {
+        .accentPalette('green', {
             'default': '400',
             'hue-1': '500',
             'hue-2': '600',
@@ -185,14 +226,95 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
             'hue-3': '700'
         });
 
-    $mdThemingProvider.theme('green')
-        .primaryPalette("green", {
+
+    $mdThemingProvider.theme('light-green')
+        .primaryPalette("light-green", {
             'default': '500',
             'hue-1': '600',
             'hue-2': '700',
             'hue-3': '800'
         })
-        .accentPalette('green', {
+        .accentPalette('light-green', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
+    $mdThemingProvider.theme('lime')
+        .primaryPalette("lime", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('lime', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
+    $mdThemingProvider.theme('yellow')
+        .primaryPalette("yellow", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('yellow', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
+    $mdThemingProvider.theme('amber')
+        .primaryPalette("amber", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('amber', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
+    $mdThemingProvider.theme('orange')
+        .primaryPalette("orange", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('orange', {
             'default': '400',
             'hue-1': '500',
             'hue-2': '600',
@@ -225,6 +347,46 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
             'hue-3': '700'
         });
 
+    $mdThemingProvider.theme('brown')
+        .primaryPalette("brown", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('brown', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
+    $mdThemingProvider.theme('grey')
+        .primaryPalette("grey", {
+            'default': '500',
+            'hue-1': '600',
+            'hue-2': '700',
+            'hue-3': '800'
+        })
+        .accentPalette('grey', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .warnPalette('red', {
+            'default': '400',
+            'hue-1': '500',
+            'hue-2': '600',
+            'hue-3': '700'
+        });
+
     $mdThemingProvider.theme('blue-grey')
         .primaryPalette("blue-grey", {
             'default': '500',
@@ -244,6 +406,8 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
             'hue-2': '600',
             'hue-3': '700'
         });
+
+
 
     $mdThemingProvider.alwaysWatchTheme(true);
 }]);

@@ -12,10 +12,10 @@ app.factory('HashtagObjectService', function(){
                 fileUrl: snapshot.val().fileUrl,
                 fileName: snapshot.val().fileName,
                 lastPost: snapshot.val().lastPost,
-                timestamp: snapshot.val().timestamp,
-                views: snapshot.val().views,
-                subscriptions: snapshot.val().subscriptions,
-                $priority: snapshot.getPriority()
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: snapshot.val().views || 0,
+                subscriptions: snapshot.val().subscriptions || 0,
+                $priority: snapshot.getPriority() || -(snapshot.val().lastPost)
             };
         },
 
@@ -26,24 +26,10 @@ app.factory('HashtagObjectService', function(){
                 fileUrl: hashtag.fileUrl,
                 fileName: hashtag.fileName,
                 lastPost: hashtag.lastPost,
-                timestamp: hashtag.timestamp,
-                views: hashtag.views,
-                subscriptions: hashtag.subscriptions,
-                '.priority': hashtag.$priority
-            };
-        },
-
-        buildMinifiedWithPriority: function(hashtag){
-            return {
-                name: hashtag.name,
-                description: hashtag.description,
-                fileUrl: hashtag.fileUrl,
-                fileName: hashtag.fileName,
-                lastPost: hashtag.lastPost,
-                timestamp: hashtag.timestamp,
-                views: hashtag.views,
-                subscriptions: hashtag.subscriptions,
-                '.priority': -(hashtag.lastPost)
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: hashtag.views || 0,
+                subscriptions: hashtag.subscriptions || 0,
+                '.priority': hashtag.$priority || -(hashtag.lastPost)
             };
         },
 
@@ -55,16 +41,15 @@ app.factory('HashtagObjectService', function(){
                 fileUrl: hashtag.fileUrl,
                 fileName: hashtag.fileName,
                 lastPost: hashtag.lastPost,
-                timestamp: hashtag.timestamp,
-                views: hashtag.views,
-                subscriptions: hashtag.subscriptions,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: hashtag.views || 0,
+                subscriptions: hashtag.subscriptions || 0,
                 '.priority': hashtag.$priority
             };
         },
 
-        buildInverse: function(hashtag){
+        buildWithPriority: function(hashtag){
             var currentDate = new Date().getTime();
-            var negativeStamp = -(currentDate);
             return {
                 $id: hashtag.id,
                 name: hashtag.name,
@@ -72,10 +57,10 @@ app.factory('HashtagObjectService', function(){
                 fileUrl: hashtag.fileUrl,
                 fileName: hashtag.fileName,
                 lastPost: currentDate,
-                timestamp: hashtag.timestamp,
-                views: hashtag.views,
-                subscriptions: hashtag.subscriptions,
-                $priority: negativeStamp
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                views: hashtag.views || 0,
+                subscriptions: hashtag.subscriptions || 0,
+                $priority: -(currentDate)
             };
         }
     }

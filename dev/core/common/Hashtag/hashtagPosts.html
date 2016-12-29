@@ -1,18 +1,21 @@
-<section-preloader status="!loading"></section-preloader>
-<md-list flex class="margin-0 padding-0">
+<div hide-xs>
+    <div style="margin-top: 120px;" ng-show="!postsLoaded">
+        <loader show="!postsLoaded"></loader>
+    </div>
+    <div class="s-posts-container">
+        <md-list flex class="padding-0 md-dense">
 
-    <md-list-item class="md-2-line" ng-repeat="post in posts" ng-click="displayPost($event, post)">
-        <img src="{{post.source.fileUrl}}" alt="{{post.source.name}}" class="news-avatar">
-        <div class="md-list-item-text">
-            <h3> {{post.title}} </h3>
-            <p am-time-ago="post.eventDate"> </p>
-        </div>
-    </md-list-item>
+            <md-list-item class="md-2-line zoomInOut-animation"
+                          ng-repeat="post in posts"
+                          ng-click="displayPost($event, post)">
+                <img src="{{post.source.fileUrl}}" alt="{{post.source.name}}" class="media-small">
+                <div class="md-list-item-text" style="padding-left:7px;">
+                    <h3>{{post.title | characters:80}}</h3>
+                    <p am-time-ago="post.eventDate"> </p>
+                </div>
+                <bookmark-post-element post="post"></bookmark-post-element>
+            </md-list-item>
+        </md-list>
+    </div>
+</div>
 
-    <md-list-item ng-click="displayHashtagFeed($event, hashtag)" aria-label="{{hashtag.name}}">
-        <div layout="row" layout-align="center center" flex>
-            <h3 class="md-subhead">Ver Todos</h3>
-        </div>
-    </md-list-item>
-
-</md-list>

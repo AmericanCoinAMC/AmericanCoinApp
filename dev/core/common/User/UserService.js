@@ -85,7 +85,8 @@ app.factory('UserService',[
             user['.priority'] = -(currentStamp);
             user.authority = 0;
             user.preferences = {
-                theme: 'default'
+                theme: 'default',
+                card: 'expand'
             };
             user.isAdmin = false;
             user.birthday = user.birthday.split("/");

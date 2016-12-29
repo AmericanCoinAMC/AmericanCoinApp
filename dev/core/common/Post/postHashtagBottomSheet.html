@@ -1,18 +1,33 @@
 <md-bottom-sheet class="md-list md-has-header">
     <md-list ng-cloak>
-        <md-subheader ng-cloak>{{post.title}}</md-subheader>
+        <div layout="row">
+            <md-subheader ng-cloak>{{post.title}}</md-subheader>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="hide()">
+                <md-tooltip md-direction="left" class="material-tooltip">Esconder</md-tooltip>
+                <md-icon aria-label="keyboard_arrow_down" class="material-icons step">keyboard_arrow_down</md-icon>
+            </md-button>
+        </div>
+
 
         <md-list-item ng-click="displayFeed(post.primaryHashtag)">
-            <div layout="row">
-                <md-icon md-font-icon="fa-hashtag" class="fa color-blue" alt="Hashtag"></md-icon>
-                <span class="md-inline-list-icon-label color-blue">{{ post.primaryHashtag.name }}</span>
+            <div layout="row" flex class="padding-0" layout-align="start center">
+                <img ng-src="assets/icons/hashtag_themes/{{$root.userInfo.preferences.theme}}.png" alt="{{hashtag.name}}" style="max-width: 28px"/>
+                <span class="color-{{$root.userInfo.preferences.theme}} m-left-5" style="font-weight: 500">
+                    {{post.primaryHashtag.name}}
+                </span>&nbsp;
+                <span style="font-size:10px" class="color-{{$root.userInfo.preferences.theme}}">
+                    (<i class="fa fa-asterisk color-{{$root.userInfo.preferences.theme}}" aria-hidden="true"></i>)
+                </span>
             </div>
         </md-list-item>
 
         <md-list-item ng-repeat="hashtag in post.secondaryHashtags" ng-click="displayFeed(hashtag)">
-            <div layout="row">
-                <md-icon md-font-icon="fa-hashtag" class="fa color-blue" alt="Hashtag"></md-icon>
-                <span class="md-inline-list-icon-label color-blue">{{hashtag.name}}</span>
+            <div layout="row" flex class="padding-0" layout-align="start center">
+                <img ng-src="assets/icons/hashtag_themes/{{$root.userInfo.preferences.theme}}.png" alt="{{hashtag.name}}" style="max-width: 28px"/>
+                <span class="color-{{$root.userInfo.preferences.theme}} m-left-5" style="font-weight: 500">
+                    {{hashtag.name}}
+                </span>
             </div>
         </md-list-item>
     </md-list>
