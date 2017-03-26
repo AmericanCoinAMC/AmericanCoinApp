@@ -1,0 +1,23 @@
+{
+  "name": "angularAnimation",
+  "description": "angularAnimation is an animation engine based on Animate.css, compatible with Angular Animate.",
+  "homepage": "http://jessdotjs.github.io/angularAnimation",
+  "repository": "https://github.com/JessDotJS/angularAnimation",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.6.1",
+    "animate.css": "^3.5.2"
+  },
+  "resolutions": {
+    "angular": "1.6.1"
+  },
+  "_release": "0b319616c8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "0b319616c89a522ce4a71d4fd4567045fa33eaec"
+  },
+  "_source": "https://github.com/JessDotJS/angularAnimation.git",
+  "_target": "*",
+  "_originalSource": "angularAnimation"
+}

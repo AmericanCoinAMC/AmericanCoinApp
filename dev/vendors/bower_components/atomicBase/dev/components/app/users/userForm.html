@@ -1,0 +1,55 @@
+<md-dialog aria-label="Peoples" flex="50">
+    <form name="userForm" ng-submit="save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>People</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div ng-show="submitting"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <md-input-container class="md-block md-padding" flex>
+                        <input ng-model="selectedItem.name" name="name" type="text" placeholder="Name"
+                               ng-required="true" md-autofocus>
+                        <div ng-messages="userForm.name.$error">
+                            <div ng-message="required">Enter the name of the person.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div ng-show="itemSelected">
+                        <md-list>
+                            <md-subheader class="md-no-sticky">User Groups</md-subheader>
+                            <md-list-item ng-repeat="item in userGroupsObject.item"
+                                          ng-click="unassignFromGroup(selectedItem, item)">
+                                <p>{{item.name}}</p>
+                            </md-list-item>
+                        </md-list>
+
+                        <md-list>
+                            <md-subheader class="md-no-sticky">All Groups</md-subheader>
+                            <md-list-item ng-repeat="item in groupArray.items"
+                                          ng-disabled="isInUserGroups(selectedItem, item)"
+                                          ng-click="assignToGroup(selectedItem, item)">
+                                <p>{{item.name}}</p>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-warn" ng-disabled="submitting" ng-click="remove(selectedItem)">Remove</md-button>
+            <span flex></span>
+            <md-button type="submit" class="md-primary" ng-disabled="userForm.$invalid || submitting">
+                <span ng-hide="submitting">Save</span>
+                <span ng-show="submitting">Processing...</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

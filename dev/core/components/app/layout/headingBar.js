@@ -8,8 +8,10 @@ app.component('headingBar', {
 
     },
     controller: [
-        '$rootScope','$scope','UserService','SideNavigation',
-        function($rootScope, $scope, UserService, SideNavigation){
+        '$rootScope','$scope','SideNavigation',
+        function($rootScope, $scope, SideNavigation){
+
+            var userClass = new User();
 
             $scope.toggleLeftNav = function(){
                 SideNavigation.toggle('left');
@@ -17,7 +19,7 @@ app.component('headingBar', {
             };
 
             $scope.signUserOut = function(){
-                UserService.signOut();
+                userClass.signOut();
             }
         }]
 });

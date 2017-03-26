@@ -1860,7 +1860,7 @@ function mdCompilerService($q, $templateRequest, $injector, $compile, $controlle
               angular.extend(invokeCtrl.instance, locals);
             }
             var ctrl = invokeCtrl();
-            //See angular-route source for this logic
+            //See angular-route configuration for this logic
             element.data('$ngControllerController', ctrl);
             element.children().data('$ngControllerController', ctrl);
 
@@ -11237,7 +11237,7 @@ function MdDialogProvider($$interimElementProvider) {
               // element is hidden when the dialog closes, we can shrink the dialog
               // back to the same position it expanded from.
               //
-              // Checking if the source is a rect object or a DOM element
+              // Checking if the configuration is a rect object or a DOM element
               var bounds = {top:0,left:0,height:0,width:0};
               var hasFn = angular.isFunction(source[0].getBoundingClientRect);
 
@@ -26667,7 +26667,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) {
     }
 
     if (attrName) {
-      // Use either pre-configured SVG or URL source, respectively.
+      // Use either pre-configured SVG or URL configuration, respectively.
       attr.$observe(attrName, function(attrVal) {
 
         // If using svg-src and the value is static (i.e., is exactly equal to the compile-time
@@ -26743,14 +26743,14 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) {
  *
  * @description
  * `$mdIconProvider` is used only to register icon IDs with URLs. These configuration features allow
- * icons and icon sets to be pre-registered and associated with source URLs **before** the `<md-icon />`
+ * icons and icon sets to be pre-registered and associated with configuration URLs **before** the `<md-icon />`
  * directives are compiled.
  *
  * If using font-icons, the developer is responsible for loading the fonts.
  *
  * If using SVGs, loading of the actual svg files are deferred to on-demand requests and are loaded
  * internally by the `$mdIcon` service using the `$templateRequest` service. When an SVG is
- * requested by name/ID, the `$mdIcon` service searches its registry for the associated source URL;
+ * requested by name/ID, the `$mdIcon` service searches its registry for the associated configuration URL;
  * that URL is used to on-demand load and parse the SVG dynamically.
  *
  * **Notice:** Most font-icons libraries do not support ligatures (for example `fontawesome`).<br/>
@@ -26818,7 +26818,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) {
  * @name $mdIconProvider#icon
  *
  * @description
- * Register a source URL for a specific icon name; the name may include optional 'icon set' name prefix.
+ * Register a configuration URL for a specific icon name; the name may include optional 'icon set' name prefix.
  * These icons  will later be retrieved from the cache using `$mdIcon( <icon name> )`
  *
  * @param {string} id Icon name/id used to register the icon
@@ -26848,7 +26848,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) {
  * @name $mdIconProvider#iconSet
  *
  * @description
- * Register a source URL for a 'named' set of icons; group of SVG definitions where each definition
+ * Register a configuration URL for a 'named' set of icons; group of SVG definitions where each definition
  * has an icon id. Individual icons can be subsequently retrieved from this cached set using
  * `$mdIcon(<icon set name>:<icon name>)`
  *
@@ -26880,7 +26880,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) {
  * @name $mdIconProvider#defaultIconSet
  *
  * @description
- * Register a source URL for the default 'named' set of icons. Unless explicitly registered,
+ * Register a configuration URL for the default 'named' set of icons. Unless explicitly registered,
  * subsequent lookups of icons will failover to search this 'default' icon set.
  * Icon can be retrieved from this cached, default set using `$mdIcon(<name>)`
  *

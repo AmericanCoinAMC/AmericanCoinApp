@@ -1,0 +1,6 @@
+<md-button
+        ng-click="becomeExecutionerHost()"
+        ng-disabled="$root.orionHostObject.item.executioner.status || $root.orionHostObject.item.assigner.user.key == $root.userInfo.$key">
+    <span ng-show="$root.orionHostObject.item.executioner.status">Orion Executioner: ON | Host: {{$root.orionHostObject.item.executioner.user.name}}</span>
+    <span ng-hide="$root.orionHostObject.item.executioner.status">Orion Executioner: OFF</span>
+</md-button>

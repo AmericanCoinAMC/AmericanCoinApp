@@ -1,0 +1,88 @@
+<md-dialog aria-label="Categories" ng-cloak flex="50">
+    <form name="categoryForm" ng-submit="save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Categor&iacute;a</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div ng-show="submitting"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <div layout="row" layout-align="center center">
+                        <md-input-container class="md-block md-padding" flex>
+                            <input ng-model="selectedItem.name" name="name" type="text" placeholder="Nombre" ng-required="true"
+                                   md-autofocus>
+                            <div ng-messages="categoryForm.name.$error">
+                                <div ng-message="required">Ingresa el nombre de la categor&iacute;a.</div>
+                            </div>
+                        </md-input-container>
+
+                        <div>
+                            <md-switch ng-model="selectedItem.autoSave" aria-label="AutoSave">AutoSave</md-switch>
+                        </div>
+                    </div>
+
+
+                    <md-input-container class="md-block md-padding">
+                        <label>Descripci&oacute;n</label>
+                        <textarea
+                                ng-model="selectedItem.description"
+                                name="description"
+                                md-maxlength="300"
+                                ng-required="true"
+                                md-select-on-focus></textarea>
+                        <div ng-messages="categoryForm.description.$error">
+                            <div ng-message="required">Ingresa la descripci&oacute;n de la categor&iacute;a.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="md-padding" ng-show="!itemSelected || updateFile == true">
+                        <lf-ng-md-file-input
+                                name="files"
+                                lf-files="files"
+                                lf-maxcount="5"
+                                lf-filesize="10MB"
+                                lf-totalsize="20MB"
+                                lf-mimetype="image/*"
+                                lf-drag-and-drop-label="Imagen"
+                                drag
+                                preview></lf-ng-md-file-input>
+                        <div ng-messages="categoryForm.files.$error" style="color:red;">
+                            <div ng-message="maxcount">Too many files.</div>
+                            <div ng-message="filesize">File size too large.</div>
+                            <div ng-message="totalsize">Total size too large.</div>
+                            <div ng-message="mimetype">Mimetype error.</div>
+                        </div>
+                        <md-button class="m-top-10 md-warn"
+                                   ng-click="cancelFileChange()"
+                                   ng-show="updateFile">Cancelar Cambio de Imagen</md-button>
+                    </div>
+
+                    <div ng-if="itemSelected && updateFile == false" class="align-center">
+                        <a href="javascript:void(0)" ng-click="changeFile()">
+                            <img ng-src="{{selectedItem.fileUrl}}" class="md-card-image" alt="selectedItem.name">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button
+                    class="md-warn"
+                    ng-disabled="submitting"
+                    ng-show="itemSelected"
+                    ng-click="remove(selectedItem)">Eliminar</md-button>
+            <span flex></span>
+            <md-button type="submit" class="md-primary" ng-disabled="categoryForm.$invalid || submitting">
+                <span ng-hide="submitting">Guardar</span>
+                <span ng-show="submitting">Procesando...</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

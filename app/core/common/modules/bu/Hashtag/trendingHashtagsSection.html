@@ -1,0 +1,24 @@
+<div md-whiteframe="8"
+     style="overflow-y: scroll;" ng-style="{'height': '{{height}}px'}">
+    <div style="margin-top: 50px;" ng-show="!loaded">
+        <loader show="!loaded"></loader>
+    </div>
+    <md-list class="padding-0 md-dense">
+        <md-list-item class="md-2-line zoomInOut-animation"
+                      ng-repeat="hashtag in trendingHashtags"
+                      ng-click="loadFeed($event, hashtag)">
+            <img ng-src="assets/img/hashtag_themes/{{$root.userInfo.preferences.theme}}.png" class="media-sm" alt="{{hashtag.name}}"/>
+            <div class="md-list-item-text" style="margin-left:7px;" layout="column">
+                <h3>{{hashtag.name}}</h3>
+                <p>{{hashtag.description | characters:45}}</p>
+            </div>
+            <trending-hashtag last-post="hashtag.lastPost"></trending-hashtag>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item ui-sref="app.hashtags" aria-label="Wrapper">
+            <div layout="row" layout-align="center center" flex>
+                <p class="margin-0">Ver todos</p>
+            </div>
+        </md-list-item>
+    </md-list>
+</div>

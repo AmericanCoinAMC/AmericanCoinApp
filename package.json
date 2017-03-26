@@ -2,14 +2,11 @@
   "name": "minoticierovenezuela",
   "repository": {
     "type": "git",
-    "url": "https://JessDotJS@bitbucket.org/minoticierovenezuela/main.web.git"
+    "url": "https://JessDotJS@bitbucket.org/minoticiero/admin_web_app.git"
   },
   "version": "1.0.0",
-  "description": "Mi Noticiero's main web app.",
+  "description": "Mi Noticiero's admin web app.",
   "main": "main.js",
-  "scripts": {
-    "start": "http-server"
-  },
   "keywords": [],
   "author": "Jesus Graterol",
   "license": "ISC",

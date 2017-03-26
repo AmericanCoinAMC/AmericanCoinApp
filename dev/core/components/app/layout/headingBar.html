@@ -1,10 +1,10 @@
-<md-toolbar md-whiteframe="7" class="heading-toolbar md-hue-3" md-theme="{{$root.userInfo.preferences.theme}}" md-theme-watch="true">
-    <div class="md-toolbar-tools ">
+<md-toolbar md-whiteframe="7" class="heading-toolbar md-hue-3">
+    <div class="md-toolbar-tools"  style="cursor: default">
         <md-button
-                hide-gt-md
                 ng-click="toggleLeftNav()"
                 class="md-icon-button"
-                aria-label="Menu">
+                aria-label="Menu"
+                ng-show="$root.userAuthenticated">
             <md-icon aria-label="menu" class="material-icons step">menu</md-icon>
         </md-button>
         <div layout="column"
@@ -12,16 +12,19 @@
              layout-align-xs="center center"
              layout-align-sm="center center"
              layout-align-md="center center"
-             style="cursor: pointer;">
-            <img src="assets/img/logo.png" alt="Logo" id="logo" style="max-width: 200px;"
+        >
+            <img src="assets/img/logo.png" alt="Logo" id="logo" style="max-width: 200px;cursor:pointer;"
                  hide-md hide-sm hide-xs
                  ui-sref="app.dashboard">
-            <img src="assets/img/logo-mini.png" alt="Logo" id="logo-mini" style="max-width: 50px;"
+            <img src="assets/img/logo-mini.png" alt="Logo" id="logo-mini" style="max-width: 50px;cursor:pointer;"
                  hide-gt-md
-                 ui-sref="app.dashboard"
-                 >
+                 ui-sref="app.dashboard">
         </div>
 
+
+        <orion-assigner-host></orion-assigner-host>
+
+        <orion-executioner-host></orion-executioner-host>
 
         <md-menu-bar style="padding:0px;">
             <md-menu md-position-mode="target-right target">
@@ -30,22 +33,6 @@
                     <md-icon aria-label="more_vert" class="material-icons step">more_vert</md-icon>
                 </md-button>
                 <md-menu-content>
-
-                    <md-menu-item>
-                        <md-button ng-click="null">
-                            <md-icon md-font-icon="fa-bullhorn" class="fa" alt="Publicidad" style="font-size:19px;"></md-icon> Publicidad
-                        </md-button>
-                    </md-menu-item>
-                    <md-divider class="md-menu-divider"></md-divider>
-
-                    <md-menu-item>
-                        <md-button ng-click="null">
-                            <md-icon aria-label="business" class="material-icons step">business</md-icon> ¿Quiénes Somos?
-                        </md-button>
-                    </md-menu-item>
-
-                    <md-divider class="md-menu-divider"></md-divider>
-
                     <md-menu-item>
                         <md-button ng-click="signUserOut()">
                             <md-icon aria-label="exit_to_app"

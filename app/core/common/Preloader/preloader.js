@@ -1,1 +1,0 @@
-app.directive("preloader",[function(){return{restrict:"E",scope:{status:"="},templateUrl:"/core/common/Preloader/preloader.html",link:function(t,e,r){t.$watch("status",function(e,r){void 0!=e&&(t.status=e)},!0)}}}]);

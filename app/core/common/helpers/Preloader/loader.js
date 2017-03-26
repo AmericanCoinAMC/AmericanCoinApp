@@ -1,0 +1,1 @@
+app.directive("loader",[function(){return{restrict:"E",scope:{show:"=",top:"=",right:"=",left:"=",bottom:"="},templateUrl:"/core/common/helpers/Preloader/loader.html",link:function(o,t,e){o.top=o.top||"15px",o.$watch("show",function(t,e){void 0!=t&&(o.show=t)},!0)}}}]);

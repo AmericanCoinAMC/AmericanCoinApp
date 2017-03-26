@@ -1,0 +1,24 @@
+<md-toolbar md-whiteframe="6">
+    <div class="md-toolbar-tools">
+        <div layout="row" layout-align="center center" flex>
+            <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="Newspaper" style="font-size:19px;"></md-icon>
+            <h2>Manejador de Fuentes</h2>
+            <span flex></span>
+            <toolbar-search></toolbar-search>
+            <md-button aria-label="Agregar" class="md-icon-button" ng-click="showForm($event)">
+                <md-icon aria-label="add" class="material-icons step">add</md-icon>
+            </md-button>
+        </div>
+    </div>
+</md-toolbar>
+
+
+<div layout="row" layout-align="center start" flex class="padding-0">
+    <div flex="35">
+        <atomic-array-wrapper config="config"></atomic-array-wrapper>
+    </div>
+
+    <div flex="65" class="m-top-25">
+        <source-configuration-panel></source-configuration-panel>
+    </div>
+</div>

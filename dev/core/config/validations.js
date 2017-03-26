@@ -1,20 +1,20 @@
 app
     .directive('equalTo', [function () {
-    return {
-        require: "ngModel",
-        restrict: 'A',
-        scope: {
-            otherValue: "=equalTo"
-        },
-        link: function(scope, element, attributes, ngModel) {
-            ngModel.$parsers.push(function(modelValue) {
-                if(!modelValue || modelValue.length == 0) return;
-                ngModel.$setValidity('passwordConfirmed', modelValue == scope.otherValue);
-                return modelValue;
-            })
+        return {
+            require: "ngModel",
+            restrict: 'A',
+            scope: {
+                otherValue: "=equalTo"
+            },
+            link: function(scope, element, attributes, ngModel) {
+                ngModel.$parsers.push(function(modelValue) {
+                    if(!modelValue || modelValue.length == 0) return;
+                    ngModel.$setValidity('passwordConfirmed', modelValue == scope.otherValue);
+                    return modelValue;
+                })
+            }
         }
-    }
-}])
+    }])
     .directive('passwordStrength', [function () {
         return {
             require: "ngModel",
@@ -49,4 +49,5 @@ app
                 })
             }
         }
-    }]);
+    }])
+

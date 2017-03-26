@@ -60,13 +60,6 @@ md-card:focus, md-card:active{
 }
 
 
-/*
-** Prodavinci
-*/
-.send_email_galeria, .send_email_bottom_galeria, .tableauPlaceholder, .size-full{display:none}
-.send_email, .crafty-social-buttons,.twitter-share,.send_email_bottom, .whatsapp, .whatsappb{
-    display:none;
-}
 
 /*
 ** Runrunes

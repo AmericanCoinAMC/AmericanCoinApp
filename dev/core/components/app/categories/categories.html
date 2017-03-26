@@ -1,0 +1,16 @@
+<md-toolbar md-whiteframe="6">
+    <div class="md-toolbar-tools">
+        <div layout="row" layout-align="center center" flex>
+            <md-icon aria-label="view_list" class="material-icons">view_list</md-icon> &nbsp;
+            <h2>Categorías</h2>
+            <span flex></span>
+            <toolbar-search></toolbar-search>
+            <md-button aria-label="Add" class="md-icon-button" ng-click="showForm()" ng-disabled="submitting">
+                <md-icon aria-label="add" class="material-icons step">add</md-icon>
+            </md-button>
+        </div>
+    </div>
+</md-toolbar>
+
+
+<atomic-array-wrapper config="config"></atomic-array-wrapper>

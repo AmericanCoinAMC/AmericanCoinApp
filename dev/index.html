@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="app">
-<head lang="en">
+<head lang="es">
     <meta charset="UTF-8">
-    <title>Mi Noticiero</title>
+    <title>Mi Noticiero - Admin</title>
     <meta name="description" content="Todas tus noticias en un sitio."/>
-    <link rel="icon" type="image/png" href="assets/icons/fav/{{$root.userFav}}">
+    <link rel="icon" type="image/png" href="assets/icons/fav/teal.png">
 
     <!-- Google Icons CDNS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
@@ -13,10 +13,11 @@
     <!-- Angular Material Related Dependencies -->
     <link rel="stylesheet" href="vendors/bower_components/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="vendors/bower_components/lf-ng-md-file-input/dist/lf-ng-md-file-input.min.css">
     <link rel="stylesheet" href="vendors/bower_components/mdPickers/dist/mdPickers.min.css">
+    <link rel="stylesheet" href="vendors/bower_components/angularAnimation/dist/angularAnimation.css">
 
     <!-- Template Layout -->
-    <link rel="stylesheet" href="assets/css/animations.css">
     <link rel="stylesheet" href="assets/css/materialize.css">
     <link rel="stylesheet" href="assets/css/corrector.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -39,11 +40,12 @@
 
 
 
+<!-------------------
+ Front End Dependencies
+-------------------->
 
-<!-- Core Dependencies -->
 
-
-<!-- Front End -->
+<!-- Angular -->
 <script src="vendors/bower_components/angular/angular.min.js"></script>
 <script src="vendors/bower_components/angular-messages/angular-messages.min.js"></script>
 <script src="vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -52,11 +54,8 @@
 <script src="vendors/bower_components/angular-aria/angular-aria.min.js"></script>
 
 
-<!-- Back End -->
-<script src="vendors/bower_components/firebase/firebase.js"></script>
-<script src="vendors/bower_components/angularfire/dist/angularfire.min.js"></script>
-
-
+<!-- File Upload -->
+<script src="vendors/bower_components/lf-ng-md-file-input/dist/lf-ng-md-file-input.js"></script>
 
 <!-- Date Format -->
 <script src="vendors/bower_components/moment/moment.js"></script>
@@ -73,109 +72,83 @@
 <!-- Infinite Scroll -->
 <script src="vendors/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
 
-<!-- User Info API -->
-<script src="vendors/userinfo/dist/userinfo.min.js"></script>
+<!-- Animation Engine -->
+<script src="vendors/bower_components/angularAnimation/dist/angularAnimation.js"></script>
 
+<!-------------------
+ Back End Dependencies
+-------------------->
+
+<script src="vendors/bower_components/firebase/firebase.js"></script>
+
+<!-- Atomic Base -->
+<!--<script src="vendors/bower_components/atomicBase/dist/atomicBase.min.js"></script>-->
+
+<script src="vendors/atomicBase/Database.js"></script>
+<script src="vendors/atomicBase/DatabaseUtilities.js"></script>
+<script src="vendors/atomicBase/RefRegistrator.js"></script>
+<script src="vendors/atomicBase/ValueHandler.js"></script>
+<script src="vendors/atomicBase/Schema.js"></script>
+<script src="vendors/atomicBase/SchemaUtilities.js"></script>
+<script src="vendors/atomicBase/Query.js"></script>
+<script src="vendors/atomicBase/AtomicArray.js"></script>
+<script src="vendors/atomicBase/AtomicObject.js"></script>
+<script src="vendors/atomicBase/AtomicPriority.js"></script>
+<script src="vendors/atomicBase/AtomicFile.js"></script>
+<script src="vendors/atomicBase/Server.js"></script>
+
+
+<!-------------------
+    Angular Init
+-------------------->
 
 <!-- Core -->
 <script src="app.js"></script>
-
 
 <!-- Config -->
 <script src="core/config/run.js"></script>
 <script src="core/config/states.js"></script>
 <script src="core/config/theme.js"></script>
-<script src="core/config/icons.js"></script>
 <script src="core/config/validations.js"></script>
 <script src="core/config/filters.js"></script>
-<!-- Common -->
-
-<!-- Object Builders -->
-<script src="core/common/ObjectBuilder/SourceObjectService.js"></script>
-<script src="core/common/ObjectBuilder/CategoryObjectService.js"></script>
-<script src="core/common/ObjectBuilder/PostObjectService.js"></script>
-<script src="core/common/ObjectBuilder/HashtagObjectService.js"></script>
-<script src="core/common/ObjectBuilder/LeaderObjectService.js"></script>
-<script src="core/common/ObjectBuilder/OrionLogObjectService.js"></script>
 
 
-<!-- Helpers -->
-<script src="core/common/Message/Message.js"></script>
-<script src="core/common/Auth/Auth.js"></script>
-<script src="core/common/SideNavigation/SideNavigation.js"></script>
-<script src="core/common/Dialog/Dialog.js"></script>
-<script src="core/common/GetData/GetDataService.js"></script>
-<script src="core/common/ImageError/OnImageError.js"></script>
-<script src="core/common/Server/Server.js"></script>
+
+
+<!-------------------
+    Common/Helpers
+-------------------->
+<script src="core/common/helpers/AtomicArrayWrapper/atomicArrayWrapper.js"></script>
+
+<script src="core/common/helpers/Message/Message.js"></script>
+
+<script src="core/common/helpers/SideNavigation/SideNavigation.js"></script>
+
+<script src="core/common/helpers/Dialog/Dialog.js"></script>
+
+<script src="core/common/helpers/ImageError/OnImageError.js"></script>
+
+<script src="core/common/helpers/Search/toolbarSearch.js"></script>
 
 <!-- Preloaders -->
-<script src="core/common/Preloader/preloader.js"></script>
-<script src="core/common/Preloader/loader.js"></script>
-
-<!-- Infinite Display  -->
-<script src="core/common/InfiniteDisplay/InfiniteDisplay.js"></script>
-<script src="core/common/InfiniteDisplay/InfiniteDisplayHelpers.js"></script>
-<script src="core/common/InfiniteDisplay/infiniteDisplayWrapper.js"></script>
-
-
+<script src="core/common/helpers/Preloader/preloader.js"></script>
+<script src="core/common/helpers/Preloader/loader.js"></script>
 
 
 <!-- Feeds -->
-<script src="core/common/Feeds/FeedService.js"></script>
-<script src="core/common/Feeds/HashtagsPostsFeed.js"></script>
-<script src="core/common/Feeds/LeaderFeed.js"></script>
-
-<!-- Posts -->
-<script src="core/common/Post/PostDialogService.js"></script>
-<script src="core/common/Post/postHashtags.js"></script>
-<script src="core/common/Post/postLeaders.js"></script>
-<script src="core/common/Post/postCard.js"></script>
-<script src="core/common/Post/postList.js"></script>
-<script src="core/common/Post/itemWhiteframe.js"></script>
-
-<!-- Sources -->
-<script src="core/common/Source/IgnoredSources.js"></script>
-<script src="core/common/Source/ActiveSources.js"></script>
-<script src="core/common/Source/ignoreSwitch.js"></script>
-
-<!-- Hashtag -->
-<script src="core/common/Hashtag/trendingHashtag.js"></script>
-<script src="core/common/Hashtag/hashtagCard.js"></script>
-<script src="core/common/Hashtag/hashtagPosts.js"></script>
-<script src="core/common/Hashtag/trendingHashtagsSection.js"></script>
-
-<!-- Leader -->
-<script src="core/common/Leader/trendingLeader.js"></script>
-<script src="core/common/Leader/leaderCard.js"></script>
-<script src="core/common/Leader/leaderPosts.js"></script>
-<script src="core/common/Leader/trendingLeadersSection.js"></script>
-
-<!-- User -->
-<script src="core/common/User/UserService.js"></script>
-
-<!-- Bookmarks -->
-<script src="core/common/Bookmark/BookmarkPosts.js"></script>
-<script src="core/common/Bookmark/BookmarkHashtags.js"></script>
-<script src="core/common/Bookmark/BookmarkLeaders.js"></script>
-<script src="core/common/Bookmark/UserBookmarks.js"></script>
-
-<!-- Atomic Updates -->
-<script src="core/common/AtomicUpdates/SourceAtomicUpdates.js"></script>
-<script src="core/common/AtomicUpdates/CategoryAtomicUpdates.js"></script>
-<script src="core/common/AtomicUpdates/PostAtomicUpdates.js"></script>
-<script src="core/common/AtomicUpdates/HashtagAtomicUpdates.js"></script>
-<script src="core/common/AtomicUpdates/LeaderAtomicUpdates.js"></script>
+<script src="core/common/helpers/Feeds/FeedService.js"></script>
+<script src="core/common/helpers/Feeds/HashtagsPostsFeed.js"></script>
+<script src="core/common/helpers/Feeds/LeaderFeed.js"></script>
 
 
 
-<!-- Intro Components -->
-<script src="core/components/intro/intro.js"></script>
-
-<script src="core/components/intro/authentication.js"></script>
-<script src="core/components/intro/accountCreation.js"></script>
 
 
-<!-- App Components -->
+<!----------------------------
+    App Components & Modules
+------------------------------>
+
+<!-- App view-->
 <script src="core/components/app/app.js"></script>
 
 <!-- Layout Components -->
@@ -183,32 +156,128 @@
 <script src="core/components/app/layout/leftNavigation.js"></script>
 <script src="core/components/app/layout/navigationElement.js"></script>
 
-<!-- Preferences Components -->
-<script src="core/components/app/preferences/preferences.js"></script>
 
-<!-- Mi Noticiero Components -->
-<script src="core/components/app/minoticiero/minoticiero.js"></script>
+<!-- Dashboard component-->
+<script src="core/components/app/dashboard/dashboard.js"></script>
 
-<!-- News Components -->
-<script src="core/components/app/news/news.js"></script>
-<script src="core/components/app/news/newsCategory.js"></script>
 
-<!-- Source Post Components -->
-<script src="core/components/app/sourcePosts/sourcePosts.js"></script>
-<script src="core/components/app/sourcePosts/sourcePostsCategory.js"></script>
+<!-------------------
+    Security
+-------------------->
 
-<!-- Hashtags Components -->
-<script src="core/components/app/hashtags/hashtags.js"></script>
+<script src="core/common/modules/User/User.Class.js"></script>
+<script src="core/common/modules/Sections/Sections.Class.js"></script>
+<script src="core/common/modules/ApiKeys/ApiKeys.Class.js"></script>
 
-<!-- Leaders Components -->
-<script src="core/components/app/leaders/leaders.js"></script>
+<!-- Components -->
+<script src="core/components/app/security/users/users.js"></script>
+<script src="core/components/app/security/sections/sections.js"></script>
+<script src="core/components/app/security/apiKeys/apiKeys.js"></script>
+
+<!-------------------
+    Categories
+-------------------->
+
+<script src="core/common/modules/Category/Category.Class.js"></script>
+
+<!-- Components -->
+<script src="core/components/app/categories/categories.js"></script>
+
+
+<!-------------------
+    Sources
+-------------------->
+<script src="core/common/modules/Source/Source.Class.js"></script>
+<script src="core/common/modules/Source/SourceAssignment.Class.js"></script>
+<script src="core/common/modules/Source/SourceExtraction.Class.js"></script>
+<script src="core/common/modules/Source/SourceCategory.Class.js"></script>
+<script src="core/common/modules/Source/SourceCategoryUrl.Class.js"></script>
+
+<!-- Components -->
+<script src="core/components/app/sources/sourceManager.js"></script>
+<script src="core/components/app/sources/configuration/assignments/assignments.js"></script>
+<script src="core/components/app/sources/configuration/configuration.js"></script>
+<script src="core/components/app/sources/configuration/extraction/extraction.js"></script>
+<script src="core/components/app/sources/configuration/categories/categories.js"></script>
+<script src="core/components/app/sources/configuration/categories/urls.js"></script>
+
+<!-------------------
+    Articles
+-------------------->
+<script src="core/common/modules/Article/Article.Class.js"></script>
+<script src="core/common/modules/Article/PendingArticle.Class.js"></script>
+
+<!-- Utilities -->
+<script src="core/common/modules/Article/Utilities/itemWhiteframe.js"></script>
+<script src="core/common/modules/Article/Utilities/ArticleDialog.js"></script>
+<script src="core/common/modules/Article/Utilities/articleCard.js"></script>
+
+<!-- Components -->
+<script src="core/components/app/articles/allArticles.js"></script>
+<script src="core/components/app/articles/allArticlesCategory.js"></script>
+
+
+<!-------------------
+    Orion
+-------------------->
+
+<!-- Orion Tasks -->
+<script src="core/common/modules/Orion/Task/ActiveTask.Class.js"></script>
+<script src="core/common/modules/Orion/Task/CompletedTask.Class.js"></script>
+<script src="core/common/modules/Orion/Task/RejectedTask.Class.js"></script>
+
+<!-- Orion Utilities -->
+<script src="core/common/modules/Orion/OrionUtilities.js"></script>
+
+<!-- Orion Core -->
+<script src="core/common/modules/Orion/OrionSpeed.Class.js"></script>
+<script src="core/common/modules/Orion/OrionStatus.Class.js"></script>
+<script src="core/common/modules/Orion/OrionActivity.Class.js"></script>
+
+<!-- Orion Controllers -->
+<script src="core/common/modules/Orion/OrionAssignerController.js"></script>
+<script src="core/common/modules/Orion/OrionExecutionerController.js"></script>
+
+<!-- Orion Extractor -->
+<script src="core/common/modules/Orion/Extractor/OrionArticleBuilder.js"></script>
+<script src="core/common/modules/Orion/Extractor/OrionCategoryUrlExtractor.js"></script>
+<script src="core/common/modules/Orion/Extractor/OrionOpenGraphExtractor.js"></script>
+<script src="core/common/modules/Orion/Extractor/OrionArticleUrlExtractor.js"></script>
+<script src="core/common/modules/Orion/Extractor/OrionDataPurifier.js"></script>
+
+<!-- Orion Host -->
+<script src="core/common/modules/Orion/Host/OrionHost.Class.js"></script>
+<script src="core/common/modules/Orion/Host/orionAssignerHost.js"></script>
+<script src="core/common/modules/Orion/Host/orionExecutionerHost.js"></script>
+
+<!-- Components -->
+<script src="core/components/app/orionTasks/orion.js"></script>
+<script src="core/components/app/orionTasks/activeTasks.js"></script>
+<script src="core/components/app/orionTasks/completedTasks.js"></script>
+
+
+
+<!-------------------------------
+    Intro Modules & Components
+-------------------------------->
+
+<script src="core/components/intro/intro.js"></script>
+
+
+
+
+
+
 
 <script>
-    // Initialize Firebase
 
     /*
-    * Main init
-    * */
+     * Firebase Initializer
+     * */
+
+    /*
+     * Dev Config
+     * */
     var config = {
         apiKey: "AIzaSyDVvhFyAgsyFmIRd_n6n8BS82omoSe2Kb8",
         authDomain: "minoticierovenezuela.firebaseapp.com",
@@ -216,21 +285,10 @@
         storageBucket: "minoticierovenezuela.appspot.com",
         messagingSenderId: "414043205371"
     };
-    /*
-        Dev Init
-     var config = {
-     apiKey: "AIzaSyA69SsboLf-7z7ReFZkFcaF_sN1fuuxUyo",
-     authDomain: "news-9d456.firebaseapp.com",
-     databaseURL: "https://news-9d456.firebaseio.com",
-     storageBucket: "news-9d456.appspot.com"
-     };
-     */
+
 
 
     firebase.initializeApp(config);
-    var rootRef = firebase.database().ref();
-    var storage = firebase.storage();
-    var storageRef = storage.ref();
 
 
 </script>
@@ -238,7 +296,7 @@
 <script>
     window.twttr = (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
+            t = window.twttr || {};
         if (d.getElementById(id)) return t;
         js = d.createElement(s);
         js.id = id;

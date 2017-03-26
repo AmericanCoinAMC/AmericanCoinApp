@@ -1,0 +1,22 @@
+<div layout="row" layout-fill layout-align="center center">
+    <div md-whiteframe="6" flex="50">
+        <table class="bordered highlight responsive-table">
+            <tbody>
+            <tr ng-repeat="section in atomicArray.items | filter:{'name': parentScope.query}">
+                <td><h3 class="md-title">{{section.name}}</h3></td>
+                <td><strong>Autoridad Requerida:</strong> {{section.authority}}</td>
+                <td layout="row">
+                    <span flex></span>
+                    <md-button aria-label="Editar" class="md-primary md-icon-button" ng-click="parentScope.selectSection($event, section)">
+                        <md-icon aria-label="mode_edit" class="material-icons step">mode_edit</md-icon>
+                    </md-button>
+                    <md-button aria-label="Eliminar" class="md-warn md-icon-button" ng-click="parentScope.confirmRemoval($event, section)">
+                        <md-icon aria-label="delete" class="material-icons step">delete</md-icon>
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

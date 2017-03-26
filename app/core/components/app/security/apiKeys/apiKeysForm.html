@@ -1,0 +1,95 @@
+<md-dialog aria-label="API Keys" ng-cloak flex="70">
+    <form name="apiKeysForm" ng-submit="saveKeys()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>API Keys</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+
+                <div>
+                    <fieldset class="standard md-padding">
+                        <legend>Facebook API</legend>
+
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="apiKeysObject.item.facebookApi.appId" name="fbAppId" type="text" placeholder="App ID" ng-required="true">
+                                <div ng-messages="apiKeysForm.fbAppId.$error">
+                                    <div ng-message="required">Ingresa el App ID de Facebook.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>OGIO API</legend>
+
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="apiKeysObject.item.ogioApi.appId" name="ogioAppId" type="text" placeholder="App ID" ng-required="true">
+                                <div ng-messages="apiKeysForm.ogioAppId.$error">
+                                    <div ng-message="required">Ingresa el App ID de OG.IO.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>PHP Extractor</legend>
+
+                        <div layout="row">
+                            <md-input-container class="md-block" flex="50">
+                                <input ng-model="apiKeysObject.item.articleExtractor.key" name="articleExtractorKey" type="text" placeholder="Article Extractor Key" ng-required="true">
+                                <div ng-messages="apiKeysForm.articleExtractorKey.$error">
+                                    <div ng-message="required">Enter the Article's Extractor Key.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex="50">
+                                <input ng-model="apiKeysObject.item.articleExtractor.url" name="articleExtractorUrl" type="url" placeholder="Article Extractor URL" ng-required="true">
+                                <div ng-messages="apiKeysForm.articleExtractorUrl.$error">
+                                    <div ng-message="required">Enter the Article's Extractor URL.</div>
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>PHP Category Extractor</legend>
+
+                        <div layout="row">
+                            <md-input-container class="md-block" flex="50">
+                                <input ng-model="apiKeysObject.item.categoryUrlsExtractor.key" name="categoryUrlsExtractorKey" type="text" placeholder="PHP Category Extractor Key" ng-required="true">
+                                <div ng-messages="apiKeysForm.categoryUrlsExtractorKey.$error">
+                                    <div ng-message="required">Ingresa el Key del PHP Category Extractor.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex="50">
+                                <input ng-model="apiKeysObject.item.categoryUrlsExtractor.url" name="categoryUrlsExtractorUrl" type="url" placeholder="PHP Category Extractor URL" ng-required="true">
+                                <div ng-messages="apiKeysForm.categoryUrlsExtractorUrl.$error">
+                                    <div ng-message="required">Ingresa el URL del PHP Category Extractor.</div>
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-warn" ng-click="cancel()">
+                Cancelar
+            </md-button>
+            <md-button type="submit" class="md-primary" ng-disabled="apiKeysForm.$invalid || submitting">
+                <span ng-hide="submitting">Guardar</span>
+                <span ng-show="submitting">Procesando...</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,1 @@
+"use strict";var OrionHost=function(){var r=this;r.db=new Database({refs:{primary:"orion/host"},schema:{primary:{assigner:{value:"="},executioner:{value:"="}}}})};

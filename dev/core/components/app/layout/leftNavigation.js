@@ -7,16 +7,25 @@ app.component('leftNavigation', {
 
     },
     controller: [
-        '$scope', 'SideNavigation', '$stateParams', '$rootScope', 'UserBookmarks', '$timeout',
-        function($scope, SideNavigation, $stateParams, $rootScope, UserBookmarks, $timeout){
-            $scope.sourcesExpanded = false;
+        '$scope', 'SideNavigation', '$stateParams', '$rootScope', '$timeout',
+        function($scope, SideNavigation, $stateParams, $rootScope, $timeout){
+            $scope.newsSourceList = false;
+            $scope.settingsSourceList = false;
 
-            $scope.toggleSource = function(){
-                $scope.sourcesExpanded = !$scope.sourcesExpanded;
+            var sourceClass = new Source();
+
+            $scope.sourcesArray = sourceClass.db.atomicArray;
+
+            $scope.sourcesArray.$on({initialLotSize: 1000}).then(function(instanceID){
+                document.addEventListener(instanceID + '_apply_filters', function () {$timeout(function(){})}, false);
+            });
+
+            $scope.toggleNewsSource = function(){
+                $scope.newsSourceList = !$scope.newsSourceList;
             };
 
-            $scope.displayBookmark = function(ev, type){
-                UserBookmarks.load(ev, type);
+            $scope.toggleSettingsSource = function(){
+                $scope.settingsSourceList = !$scope.settingsSourceList;
             };
 
             $scope.toggleLeft = function(){

@@ -1,1 +1,0 @@
-app.factory("InstanceManager",["DI01","DI02","DI03","SI01","TI01","$q","$rootScope",function(a,e,t,n,r,c,s){return{getInstance:function(c){var i;switch(c){case"dynamic":i=a.isAvailable()?a:e.isAvailable()?e:t;break;case"static":i=n;break;case"temporary":s.$broadcast("temporaryInstanceAssigned"),i=r}return i}}}]);

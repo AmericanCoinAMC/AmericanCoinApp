@@ -1,0 +1,45 @@
+{
+  "name": "atomicBase",
+  "authors": [
+    "Jesus Graterol <jesusg@atomicprojects.io>"
+  ],
+  "description": "Firebase Framework",
+  "main": "index.js",
+  "keywords": [
+    "Angularjs",
+    "Firebase",
+    "Javascript",
+    "Real",
+    "Time",
+    "Database",
+    "React"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/JessDotJS/atomicBase",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.6.1",
+    "firebase": "latest",
+    "angular-material": "^1.1.1",
+    "angular-ui-router": "latest",
+    "angularAnimation": "*"
+  },
+  "resolutions": {
+    "angular": "1.6.1"
+  },
+  "_release": "8ae757a2f8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8ae757a2f83568dfb963edc68e1102a06ed85214"
+  },
+  "_source": "https://github.com/JessDotJS/atomicBase.git",
+  "_target": "*",
+  "_originalSource": "atomicBase"
+}

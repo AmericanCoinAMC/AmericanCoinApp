@@ -120,18 +120,18 @@ Media
 */
 
 .media-small{
-    width: 30px;
-    height:30px;
+    max-width: 30px;
+    max-height:30px;
 }
 
 .media-sm{
-    width: 36px;
-    height:36px;
+    max-width: 36px;
+    max-height:36px;
 }
 
 .media-medium{
-    width: 42px;
-    height:42px;
+    max-width: 42px;
+    max-height:42px;
 }
 
 /*
@@ -402,12 +402,6 @@ md-bottom-sheet{
     border-radius: 5px;
 }
 
-.allowed-section{
-    background:#0a931b;
-}
-.not-allowed-section{
-    background:#ff8484;
-}
 
 /*
 * Backgrounds

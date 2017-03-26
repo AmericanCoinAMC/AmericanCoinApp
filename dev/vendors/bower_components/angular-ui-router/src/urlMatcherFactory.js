@@ -54,11 +54,11 @@ var $$UMFP; // reference to $UrlMatcherFactoryProvider
  *   URL matching this matcher (i.e. any string for which {@link ui.router.util.type:UrlMatcher#methods_exec exec()} returns
  *   non-null) will start with this prefix.
  *
- * @property {string} source  The pattern that was passed into the constructor
+ * @property {string} configuration  The pattern that was passed into the constructor
  *
- * @property {string} sourcePath  The path portion of the source property
+ * @property {string} sourcePath  The path portion of the configuration property
  *
- * @property {string} sourceSearch  The search portion of the source property
+ * @property {string} sourceSearch  The search portion of the configuration property
  *
  * @property {string} regex  The constructed regex that will be used to match against the url when
  *   it is time to determine which url will match.

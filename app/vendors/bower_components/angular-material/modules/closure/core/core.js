@@ -2526,7 +2526,7 @@ function mdCompilerService($q, $templateRequest, $injector, $compile, $controlle
               angular.extend(invokeCtrl.instance, locals);
             }
             var ctrl = invokeCtrl();
-            //See angular-route source for this logic
+            //See angular-route configuration for this logic
             element.data('$ngControllerController', ctrl);
             element.children().data('$ngControllerController', ctrl);
 

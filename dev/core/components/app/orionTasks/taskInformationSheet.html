@@ -1,0 +1,35 @@
+<md-bottom-sheet class="md-list md-has-header">
+
+    <md-button class="md-icon-button" style="float:right;" ng-click="hide()">
+        <md-tooltip md-direction="left" class="material-tooltip">Esconder</md-tooltip>
+        <md-icon aria-label="keyboard_arrow_down" class="material-icons step">keyboard_arrow_down</md-icon>
+    </md-button>
+    <table>
+        <tbody>
+            <tr>
+                <td><strong>Article URL</strong></td>
+                <td><p>{{task.articleUrl}}</p></td>
+            </tr>
+            <tr>
+                <td><strong>Category URL</strong></td>
+                <td><p>{{task.categoryUrl}}</p></td>
+            </tr>
+            <tr>
+                <td><strong>Source Key</strong></td>
+                <td><p>{{task.sourceKey}}</p></td>
+            </tr>
+            <tr>
+                <td><strong>Category Key</strong></td>
+                <td><p>{{task.categoryKey}}</p></td>
+            </tr>
+            <tr ng-if="task.reason">
+                <td><strong>Reason</strong></td>
+                <td><p>{{task.reason}}</p></td>
+            </tr>
+            <tr>
+                <td><strong>Creation Date</strong></td>
+                <td><p>{{task.creationTS | date: 'medium'}}</p></td>
+            </tr>
+        </tbody>
+    </table>
+</md-bottom-sheet>

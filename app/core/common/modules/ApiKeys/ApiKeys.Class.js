@@ -1,0 +1,1 @@
+"use strict";var ApiKeys=function(){var a=this;a.db=new Database({refs:{primary:"security/apiKeys"},schema:{primary:{facebookApi:{value:"="},ogioApi:{value:"="},categoryUrlsExtractor:{value:"="},articleExtractor:{value:"="}}}})};

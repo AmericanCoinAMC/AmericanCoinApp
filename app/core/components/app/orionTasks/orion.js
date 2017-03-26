@@ -1,0 +1,1 @@
+app.component("orion",{templateUrl:"/core/components/app/orionTasks/orion.html",controller:["$rootScope","$scope",function(o,n){}]});

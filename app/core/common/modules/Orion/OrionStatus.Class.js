@@ -1,0 +1,1 @@
+"use strict";var OrionStatus=function(){var a=this;a.db=new Database({refs:{primary:"orion/status"},schema:{primary:{assigner:{value:"="},executioner:{value:"="}}}})};

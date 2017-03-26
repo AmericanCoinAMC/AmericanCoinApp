@@ -1,195 +1,260 @@
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+app.config([
+    '$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider){
+        var sectionClass = new Section();
 
-    $urlRouterProvider.otherwise("/intro");
+        $urlRouterProvider.otherwise("/intro");
 
-    $stateProvider
+        $stateProvider
 
-        .state('intro', {
-            url: '/intro',
-            template: '<intro></intro>',
-            resolve: {
+        /*
+         * Intro View
+         * */
+            .state('intro', {
+                url: '/intro',
+                template: '<intro></intro>',
+                resolve: {
 
-            }
-        })
+                }
+            })
 
-        .state('app', {
-            url: '/app',
-            abstract: true,
-            template: '<app categories-data="$resolve.categoriesData"></app>',
-            resolve: {
-                categoriesData: ['$firebaseArray', function($firebaseArray){
-                    return $firebaseArray(rootRef.child('categories').orderByPriority()).$loaded();
-                }],
-                activeSources: ['ActiveSources', '$rootScope', '$q', function(ActiveSources, $rootScope, $q){
-                    var defer = $q.defer();
-                    ActiveSources(rootRef.child('sources').orderByChild('status/active').equalTo(true)).$loaded()
-                        .then(function(activeSources){
-                            $rootScope.activeSources = activeSources;
-                            defer.resolve(activeSources);
-                        });
-                    return defer.promise;
-                }],
-                userIgnoredSources: [
-                    '$q', 'IgnoredSources', 'Auth', '$rootScope',
-                    function($q, IgnoredSources, Auth, $rootScope){
-                    var defer = $q.defer();
-                    Auth.$requireSignIn().then(function(){
-                        var userInfo = Auth.$getAuth();
-                        IgnoredSources(rootRef.child('ignoredSources/' + userInfo.uid))
-                            .$loaded().then(function(userIgnoredSources){
-                                $rootScope.userIgnoredSources = userIgnoredSources;
-                                defer.resolve(userIgnoredSources);
-                            }).catch(function(err){
+
+            /*
+             * App View
+             * */
+
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                template: '<app></app>'
+            })
+
+            /*
+             * Dashboard Related States
+             * */
+            .state('app.dashboard', {
+                url: '/dashboard',
+                template: '<dashboard></dashboard>',
+                resolve: {
+                    authorized: [
+                        '$q', '$rootScope',
+                        function($q, $rootScope){
+                            var defer = $q.defer();
+                            sectionClass.isAuthorized($rootScope.userInfo, 'dashboard')
+                                .then(function(isAuthorized){
+                                    defer.resolve(isAuthorized);
+                                })
+                                .catch(function(err){defer.reject(err);});
+                            return defer.promise;
+                        }]
+                }
+            })
+
+            /*
+             * Article Related States
+             * */
+
+            .state('app.articles', {
+                url: '/articles',
+                abstract: true,
+                template: '<ui-view></ui-view>',
+                resolve: {
+                    authorized: [
+                        '$q', '$rootScope',
+                        function($q, $rootScope){
+                            var defer = $q.defer();
+                            sectionClass.isAuthorized($rootScope.userInfo, 'articles')
+                                .then(function(isAuthorized){
+                                    defer.resolve(isAuthorized);
+                                })
+                                .catch(function(err){defer.reject(err);});
+                            return defer.promise;
+                        }]
+                }
+            })
+
+            .state('app.articles.all', {
+                url: '/all',
+                template: '<all-articles></all-articles>',
+                resolve: {
+
+                }
+            })
+
+            .state('app.articles.all.category', {
+                url: '/category/:categoryId',
+                template: '<all-articles-category></all-articles-category>',
+                params: {
+                    categoryId: null
+                },
+                resolve: {
+
+                }
+            })
+
+            /*
+            .state('app.posts.sourcePosts', {
+                url: '/posts/configuration',
+                template: '<configuration-posts configuration-data="$resolve.sourceData" configuration-categories-data="$resolve.sourceCategoriesData"></configuration-posts>',
+                params: {
+                    sourceId: null
+                },
+                resolve: {
+                    sourceData: [
+                        '$rootScope', 'GetDataService', '$stateParams', '$q',
+                        function($rootScope, GetDataService, $stateParams, $q) {
+                            var defer = $q.defer();
+                            GetDataService.getSourceData($stateParams.sourceId).then(function (sourceObject) {
+                                defer.resolve(sourceObject);
+                            }).catch(function (err) {
                                 console.log(err);
-                                defer.reject(err);
+                                defer.reject('SOURCE_DATA_NOT_FOUND');
                             });
-                    }).catch(function(err){
-                        console.log(err);
-                        defer.reject(err);
-                    });
-                    return defer.promise;
-                }],
-                bookmarkPosts: [
-                    '$q', 'BookmarkPosts', 'Auth', '$rootScope',
-                    function($q, BookmarkPosts, Auth, $rootScope){
-                        var defer = $q.defer();
-                        Auth.$requireSignIn().then(function(){
-                            var userInfo = Auth.$getAuth();
-                            BookmarkPosts(rootRef.child('bookmarkedPosts/' + userInfo.uid))
-                                .$loaded().then(function(bookmarkPosts){
-                                    $rootScope.bookmarkPosts = bookmarkPosts;
-                                    defer.resolve(bookmarkPosts);
-                                }).catch(function(err){
-                                    console.log(err);
-                                    defer.reject(err);
-                                });
-                        }).catch(function(err){
-                            console.log(err);
-                            defer.reject(err);
-                        });
-                        return defer.promise;
-                    }],
-                bookmarkHashtags: [
-                    '$q', 'BookmarkHashtags', 'Auth', '$rootScope',
-                    function($q, BookmarkHashtags, Auth, $rootScope){
-                        var defer = $q.defer();
-                        Auth.$requireSignIn().then(function(){
-                            var userInfo = Auth.$getAuth();
-                            BookmarkHashtags(rootRef.child('bookmarkedHashtags/' + userInfo.uid))
-                                .$loaded().then(function(bookmarkHashtags){
-                                    $rootScope.bookmarkHashtags = bookmarkHashtags;
-                                    defer.resolve(bookmarkHashtags);
-                                }).catch(function(err){
-                                    console.log(err);
-                                    defer.reject(err);
-                                });
-                        }).catch(function(err){
-                            console.log(err);
-                            defer.reject(err);
-                        });
-                        return defer.promise;
-                    }],
-                bookmarkLeaders: [
-                    '$q', 'BookmarkLeaders', 'Auth', '$rootScope',
-                    function($q, BookmarkLeaders, Auth, $rootScope){
-                        var defer = $q.defer();
-                        Auth.$requireSignIn().then(function(){
-                            var userInfo = Auth.$getAuth();
-                            BookmarkLeaders(rootRef.child('bookmarkedLeaders/' + userInfo.uid))
-                                .$loaded().then(function(bookmarkLeaders){
-                                    $rootScope.bookmarkLeaders = bookmarkLeaders;
-                                    defer.resolve(bookmarkLeaders);
-                                }).catch(function(err){
-                                    console.log(err);
-                                    defer.reject(err);
-                                });
-                        }).catch(function(err){
-                            console.log(err);
-                            defer.reject(err);
-                        });
-                        return defer.promise;
+                            return defer.promise;
+                        }],
+                    sourceCategoriesData: ['$firebaseArray', '$stateParams',function($firebaseArray, $stateParams){
+                        return $firebaseArray(rootRef.child('sourcesCategories/' + $stateParams.sourceId)).$loaded();
                     }]
-            }
-        })
+                }
+            })
 
-        .state('app.minoticiero', {
-            url: '/minoticiero',
-            template: '<minoticiero></minoticiero>',
-            resolve: {
+            .state('app.posts.sourcePosts.category', {
+                url: '/configuration/category',
+                template: '<configuration-category-posts></configuration-category-posts>',
+                params: {
+                    sourceId: null,
+                    categoryId: null
+                },
+                resolve: {
 
-            }
-        })
+                }
+            })*/
 
-        .state('app.news', {
-            url: '/news',
-            template: '<news categories-data="$resolve.categoriesData"></news>',
-            resolve: {
 
-            }
-        })
+            .state('app.sourceManager', {
+                url: '/sourceManager',
+                template: '<source-manager></source-manager>',
+                resolve: {
+                    authorized: [
+                        '$q', '$rootScope',
+                        function($q, $rootScope){
+                            var defer = $q.defer();
+                            sectionClass.isAuthorized($rootScope.userInfo, 'sourceManager')
+                                .then(function(isAuthorized){
+                                    defer.resolve(isAuthorized);
+                                })
+                                .catch(function(err){defer.reject(err)});
+                            return defer.promise;
+                        }]
+                }
+            })
 
-        .state('app.news.category', {
-            url: '/:categoryId',
-            template: '<news-category></news-category>',
-            resolve: {
 
-            }
-        })
+            /*
+             * Category Related States
+             * */
 
-        .state('app.sourcePosts', {
-            url: '/sourcePosts',
-            template: '<source-posts source-data="$resolve.sourceData" source-categories-data="$resolve.sourceCategoriesData"></source-posts>',
-            params: {
-                sourceId: null
-            },
-            resolve: {
-                sourceData: [
-                    '$rootScope', 'GetDataService', '$stateParams', '$q',
-                    function($rootScope, GetDataService, $stateParams, $q) {
-                    var defer = $q.defer();
-                    GetDataService.getSourceData($stateParams.sourceId).then(function (sourceObject) {
-                        if (sourceObject) {
-                            defer.resolve(sourceObject);
-                        } else {
-                            defer.reject('SOURCE_DATA_NOT_FOUND');
-                        }
-                    }).catch(function (err) {
-                        console.log(err);
-                        defer.reject('SOURCE_DATA_NOT_FOUND');
-                    });
-                    return defer.promise;
-                }],
-                sourceCategoriesData: ['$firebaseArray', '$stateParams',function($firebaseArray, $stateParams){
-                    return $firebaseArray(rootRef.child('sourcesCategories/' + $stateParams.sourceId).orderByPriority()).$loaded();
-                }]
-            }
-        })
+            .state('app.categories', {
+                url: '/categories',
+                template: '<categories></categories>',
+                resolve: {
+                    authorized: [
+                        '$q', '$rootScope',
+                        function($q, $rootScope){
+                            var defer = $q.defer();
+                            sectionClass.isAuthorized($rootScope.userInfo, 'categories')
+                                .then(function(isAuthorized){
+                                    defer.resolve(isAuthorized);
+                                })
+                                .catch(function(err){defer.reject(err);});
+                            return defer.promise;
+                        }]
+                }
+            })
 
-        .state('app.sourcePosts.category', {
-            url: '/category',
-            template: '<source-posts-category></source-posts-category>',
-            params: {
-                sourceId: null,
-                categoryId: null
-            },
-            resolve: {
 
-            }
-        })
 
-        .state('app.hashtags', {
-            url: '/hashtags',
-            template: '<hashtags></hashtags>',
-            resolve: {
+            /*
+             * Orion Related State
+             * */
+            .state('app.orion', {
+                url: '/orionTasks',
+                template: '<orion></orion>',
+                resolve: {
+                    authorized: [
+                        '$q', '$rootScope',
+                        function($q, $rootScope){
+                            var defer = $q.defer();
+                            sectionClass.isAuthorized($rootScope.userInfo, 'orion')
+                                .then(function(isAuthorized){
+                                    defer.resolve(isAuthorized);
+                                })
+                                .catch(function(err){defer.reject(err);});
+                            return defer.promise;
+                        }]
+                }
+            })
 
-            }
-        })
+            /*
+             * Security Related State
+             * */
 
-        .state('app.leaders', {
-            url: '/leaders',
-            template: '<leaders></leaders>',
-            resolve: {
+            .state('app.security', {
+                url: '/security',
+                template: '<ui-view></ui-view>',
+                abstract: true,
+                resolve: {
+                    authorized: [
+                        '$q', '$rootScope',
+                        function($q, $rootScope){
+                            var defer = $q.defer();
+                            sectionClass.isAuthorized($rootScope.userInfo, 'security')
+                                .then(function(isAuthorized){
+                                    defer.resolve(isAuthorized);
+                                })
+                                .catch(function(err){defer.reject(err);});
+                            return defer.promise;
+                        }],
+                    usersArray: [function(){
+                        var userClass = new User();
+                        var usersArray = userClass.db.atomicArray;
+                        usersArray.$on({
+                            'initialLotSize': 1000000
+                        });
+                        return usersArray;
+                    }],
+                    sectionsArray: [function(){
+                        var sectionsArray = sectionClass.db.atomicArray;
+                        sectionsArray.$on({
+                            'initialLotSize': 1000000
+                        });
+                        return sectionsArray;
+                    }]
+                }
+            })
 
-            }
-        })
-}]);
+            .state('app.security.users', {
+                url: '/users',
+                template: '<security-users users-array="$resolve.usersArray" sections-array="$resolve.sectionsArray"></security-users>',
+                resolve: {
+
+                }
+            })
+
+            .state('app.security.sections', {
+                url: '/sections',
+                template: '<security-sections sections-array="$resolve.sectionsArray"></security-sections>',
+                resolve: {
+
+                }
+            })
+
+            .state('app.security.apiKeys', {
+                url: '/apiKeys',
+                template: '<security-api-keys></security-api-keys>',
+                resolve: {
+
+                }
+            })
+
+    }]);

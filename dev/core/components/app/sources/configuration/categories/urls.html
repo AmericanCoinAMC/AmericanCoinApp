@@ -1,0 +1,30 @@
+<md-list class="margin-0 padding-0">
+    <md-list-item ng-repeat="item in atomicArray.items"
+                  ng-click="loadUrl(item.url)">
+        <div layout="row" layout-align="center center" flex>
+            <md-icon aria-label="link" class="material-icons step">link</md-icon>
+            <p class="margin-0" style="font-size:12px; margin-left:10px;">{{item.url}}</p>
+            <span flex></span>
+            <md-button aria-label="Remove"
+                       class="md-icon-button"
+                       ng-click="remove(item)">
+                <md-icon aria-label="remove_circle" class="material-icons step color-red">remove_circle</md-icon>
+            </md-button>
+        </div>
+    </md-list-item>
+
+
+    <md-list-item flex class="md-padding">
+        <md-input-container class="md-block" flex>
+            <md-icon aria-label="link" class="material-icons step">link</md-icon>
+            <input ng-model="categoryUrlInput" type="url" placeholder="Agrega un URL">
+        </md-input-container>
+
+        <md-button aria-label="Add"
+                   class="md-icon-button"
+                   style="margin-right:-8px;"
+                   ng-click="add()">
+            <md-icon aria-label="add" class="material-icons step">add</md-icon>
+        </md-button>
+    </md-list-item>
+</md-list>

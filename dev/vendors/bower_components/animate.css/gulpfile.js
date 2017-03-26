@@ -81,7 +81,7 @@ gulp.task('addHeader', function() {
 function activateAnimations() {
   var categories = JSON.parse(fs.readFileSync('animate-config.json')),
     category, files, file,
-    target = [ 'source/_base.css' ],
+    target = [ 'configuration/_base.css' ],
     count = 0;
 
   for (category in categories) {
@@ -89,7 +89,7 @@ function activateAnimations() {
       files = categories[category];
 
       for (var i = 0; i < files.length; ++i) {
-        target.push('source/' + category + '/' + files[i] + '.css');
+        target.push('configuration/' + category + '/' + files[i] + '.css');
         count += 1;
       }
     }

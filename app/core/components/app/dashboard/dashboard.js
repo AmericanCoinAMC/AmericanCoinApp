@@ -1,0 +1,1 @@
+app.component("dashboard",{templateUrl:"/core/components/app/dashboard/dashboard.html",bindings:{},controller:["$rootScope","$scope",function(o,a){}]});

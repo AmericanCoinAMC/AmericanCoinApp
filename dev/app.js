@@ -4,16 +4,16 @@
  *
  */
 
-
 var app = angular.module('app', [
-    'firebase',
     'ui.router',
+    'ngMaterial',
     'ngAnimate' ,
     'ngMessages',
-    'ngMaterial',
+    'angularMoment',
     'mdPickers',
     'angularMoment',
     'infinite-scroll',
-    'angularGrid']);
-
-
+    'angularGrid',
+    'lfNgMdFileInput',
+    'angularAnimation'
+]);

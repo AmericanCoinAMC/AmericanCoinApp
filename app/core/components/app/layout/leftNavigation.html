@@ -1,86 +1,74 @@
 <md-sidenav class="md-sidenav-left"
             md-whiteframe="7"
             md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-md')"
             flex>
     <md-content>
         <div layout="column">
             <md-subheader class="md-no-sticky">Principal</md-subheader>
 
             <md-list flex class="padding-0">
-                <md-list-item ui-sref="app.minoticiero">
+                <md-list-item ui-sref="app.dashboard">
                     <div layout="row"
                          layout-align="center center"
                          class="sidenav-item">
                         <md-icon md-svg-src="assets/icons/minoticiero/inactive.svg"
-                                 ng-hide="$root.toState.name == 'app.minoticiero'"></md-icon>
-                        <md-icon md-svg-src="assets/icons/minoticiero/{{$root.userInfo.preferences.theme}}.svg"
-                                 ng-show="$root.toState.name == 'app.minoticiero'"></md-icon>
+                                 ng-hide="$root.toState.name == 'app.dashboard'"></md-icon>
+                        <md-icon md-svg-src="assets/icons/minoticiero/teal.svg"
+                                 ng-show="$root.toState.name == 'app.dashboard'"></md-icon>
                         <p navigation-element
-                           views="['app.minoticiero']"
-                           active="[{'addClass': ['views-active']}]">Mi Noticiero</p>
-                    </div>
-                </md-list-item>
-
-                <md-list-item ng-click="null">
-                    <div layout="row"
-                         layout-align="center center"
-                         flex class="sidenav-item">
-                        <md-icon aria-label="card_membership"
-                                 class="material-icons">card_membership</md-icon>
-                        <p navigation-element
-                           custom-condition="sourcesExpanded"
-                           active="[{'addClass': ['custom-condition']}]">Cuenta Premium</p>
-                        <span flex></span>
-                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">38 Días</div>
+                           views="['app.dashboard']"
+                           active="[{'addClass': ['views-active']}]">Dashboard</p>
                     </div>
                 </md-list-item>
 
                 <md-subheader class="md-no-sticky">Noticias</md-subheader>
 
-                <md-list-item ui-sref="app.news">
+
+                <md-list-item ui-sref="app.articles.all">
                     <div layout="row"
                          layout-align="center center"
                          class="sidenav-item">
-                        <md-icon md-font-icon="fa-paper-plane-o" class="fa" alt="Plane" style="font-size:19px;"
+                        <md-icon md-font-icon="fa-paper-plane-o"
+                                 class="fa"
+                                 alt="Plane"
+                                 style="font-size:19px;"
                                  navigation-element
-                                 views="['app.news', 'app.news.category']"
+                                 views="['app.articles.all']"
                                  active="[{'addClass': ['views-active']}]"></md-icon>
                         <p navigation-element
-                           views="['app.news', 'app.news.category']"
-                           active="[{'addClass': ['views-active']}]">Noticias</p>
+                           views="['app.articles.all']"
+                           active="[{'addClass': ['views-active']}]">Todas las Noticias</p>
                     </div>
                 </md-list-item>
 
 
-                <md-list-item ng-click="toggleSource()">
+                <!--<md-list-item ng-click="toggleNewsSource()">
                     <div layout="row"
                          layout-align="center center"
-                         flex class="sidenav-item">
+                         class="sidenav-item">
                         <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="Newspaper" style="font-size:19px;"
                                  navigation-element
-                                 custom-condition="sourcesExpanded"
+                                 custom-condition="newsSourceList"
                                  active="[{'addClass': ['custom-condition']}]"></md-icon>
                         <p navigation-element
-                           custom-condition="sourcesExpanded"
+                           custom-condition="newsSourceList"
                            active="[{'addClass': ['custom-condition']}]">Fuentes de Noticias</p>
-                        <span flex></span>
-                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.activeSources.getTotal()}}</div>
                     </div>
                 </md-list-item>
 
 
-                <md-list-item ng-repeat="source in $root.activeSources"
-                              ui-sref="app.sourcePosts({sourceId: source.$id})"
-                              ng-show="sourcesExpanded"
+                <md-list-item ng-repeat="source in sourcesArray.items"
+                              ui-sref="app.posts.sourcePosts({sourceId: source.$id})"
+                              ng-show="newsSourceList"
                               aria-label="{{source.name}}">
                     <div layout="row"
                          layout-align="center center"
-                         flex  class="sidenav-item m-left-25"
+                         flex
+                         class="sidenav-item m-left-25"
                          style="padding-right:0px;">
                         <img ng-src="{{source.fileUrl}}" class="media-small margin-0" alt="{{source.name}}" />
                         <p navigation-element
-                           views="['app.sourcePosts', 'app.sourcePosts.category']"
+                           views="['app.posts.sourcePosts', 'app.posts.sourcePosts.category']"
                            custom-condition="$root.toStateParams.sourceId == source.$id"
                            active="[{'addClass': ['views-active', 'custom-condition']}]">{{source.name}}</p>
                         <span flex></span>
@@ -89,78 +77,141 @@
                         </div>
                     </div>
                 </md-list-item>
-                <md-divider ng-show="sourcesExpanded"></md-divider>
+                <md-divider ng-show="newsSourceList"></md-divider>
 
-                <md-list-item ng-click="displayBookmark($event, 'posts')" ng-disabled="$root.bookmarkPosts.getTotal() == 0">
+
+                <md-list-item ui-sref="app.posts.myAssignments">
                     <div layout="row"
-                         layout-align="start center"
-                         flex class="sidenav-item">
-                        <md-icon aria-label="bookmark"
-                                 class="material-icons step" alt="Newspaper">bookmark</md-icon>
-                        <p>Noticias en Marcadores</p>
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon aria-label="assignment_ind"
+                                 navigation-element
+                                 views="['app.posts.myAssignments']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">assignment_ind</md-icon>
+                        <p navigation-element
+                           views="['app.posts.myAssignments']"
+                           active="[{'addClass': ['views-active']}]">Mis Asignaciones</p>
+                    </div>
+                </md-list-item>
+
+                <md-list-item ui-sref="app.posts.allAssignments">
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item" flex>
+                        <md-icon aria-label="assignment"
+                                 navigation-element
+                                 views="['app.posts.allAssignments']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">assignment</md-icon>
+                        <p navigation-element
+                           views="['app.posts.allAssignments']"
+                           active="[{'addClass': ['views-active']}]">Todas las Asignaciones</p>
                         <span flex></span>
-                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.bookmarkPosts.getTotal()}}</div>
+                        <div class="badge bg-teal">{{$root.activeTasksAtomicArray.items.length}}</div>
+                    </div>
+                </md-list-item>-->
+
+
+                <md-subheader class="md-no-sticky">Content Extraction Engine</md-subheader>
+
+                <md-list-item ui-sref="app.orion" >
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon aria-label="android"
+                                 navigation-element
+                                 views="['app.orion']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">android</md-icon>
+                        <p navigation-element
+                           views="['app.orion']"
+                           active="[{'addClass': ['views-active']}]">Orion Tasks</p>
                     </div>
                 </md-list-item>
 
 
+                <md-subheader class="md-no-sticky">Seguridad</md-subheader>
 
-                <md-subheader class="md-no-sticky">Hashtags</md-subheader>
-
-                <md-list-item ui-sref="app.hashtags" >
+                <md-list-item ui-sref="app.security.users">
                     <div layout="row"
                          layout-align="center center"
                          class="sidenav-item">
-                        <md-icon md-font-icon="fa-hashtag" class="fa" alt="Hashtag" style="font-size:19px;"
+                        <md-icon aria-label="people"
                                  navigation-element
-                                 views="['app.hashtags']"
+                                 views="['app.security.users']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">people</md-icon>
+                        <p navigation-element
+                           views="['app.security.users']"
+                           active="[{'addClass': ['views-active']}]">Usuarios</p>
+                    </div>
+                </md-list-item>
+
+                <md-list-item ui-sref="app.security.sections">
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon aria-label="format_list_bulleted"
+                                 navigation-element
+                                 views="['app.security.sections']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">format_list_bulleted</md-icon>
+                        <p navigation-element
+                           views="['app.security.sections']"
+                           active="[{'addClass': ['views-active']}]">Secciones</p>
+                    </div>
+                </md-list-item>
+
+                <md-list-item ui-sref="app.security.apiKeys">
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon aria-label="vpn_key"
+                                 navigation-element
+                                 views="['app.security.apiKeys']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">vpn_key</md-icon>
+                        <p navigation-element
+                           views="['app.security.apiKeys']"
+                           active="[{'addClass': ['views-active']}]">API Keys</p>
+                    </div>
+                </md-list-item>
+
+
+                <md-subheader class="md-no-sticky">Configuración</md-subheader>
+
+                <md-list-item ui-sref="app.sourceManager">
+                    <div layout="row"
+                         layout-align="center center"
+                         class="sidenav-item">
+                        <md-icon md-font-icon="fa-newspaper-o" class="fa" alt="Newspaper" style="font-size:19px;"
+                                 navigation-element
+                                 views="['app.sourceManager']"
                                  active="[{'addClass': ['views-active']}]"></md-icon>
                         <p navigation-element
-                           views="['app.hashtags']"
-                           active="[{'addClass': ['views-active']}]">Hashtags</p>
+                           views="['app.sourceManager']"
+                           active="[{'addClass': ['views-active']}]">Manejador de Fuentes</p>
                     </div>
                 </md-list-item>
 
-                <md-list-item  ng-click="displayBookmark($event, 'hashtags')" ng-disabled="$root.bookmarkHashtags.getTotal() == 0">
+
+
+                <md-list-item ui-sref="app.categories">
                     <div layout="row"
                          layout-align="center center"
-                         flex class="sidenav-item">
-                        <md-icon aria-label="bookmark"
-                                 class="material-icons step" alt="Newspaper">bookmark</md-icon>
-                        <p>Hashtags en Marcadores</p>
-                        <span flex></span>
-                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.bookmarkHashtags.getTotal()}}</div>
-                    </div>
-                </md-list-item>
-
-
-                <md-subheader class="md-no-sticky">Líderes Políticos</md-subheader>
-
-                <md-list-item ui-sref="app.leaders">
-                    <div layout="row"
-                         layout-align="start center"
                          class="sidenav-item">
-                        <md-icon md-svg-src="assets/icons/leaders/inactive.svg"
-                                ng-hide="$root.toState.name == 'app.leaders'"></md-icon>
-                        <md-icon md-svg-src="assets/icons/leaders/{{$root.userInfo.preferences.theme}}.svg"
-                                 ng-show="$root.toState.name == 'app.leaders'"></md-icon>
+                        <md-icon aria-label="view_list"
+                                 navigation-element
+                                 views="['app.categories']"
+                                 active="[{'addClass': ['views-active']}]"
+                                 class="material-icons">view_list</md-icon>
                         <p navigation-element
-                           views="['app.leaders']"
-                           active="[{'addClass': ['views-active']}]">Líderes Políticos</p>
+                           views="['app.categories']"
+                           active="[{'addClass': ['views-active']}]">Categorías</p>
                     </div>
                 </md-list-item>
 
-                <md-list-item  ng-click="displayBookmark($event, 'leaders')" ng-disabled="$root.bookmarkLeaders.getTotal() == 0">
-                    <div layout="row"
-                         layout-align="center center"
-                         flex class="sidenav-item">
-                        <md-icon aria-label="bookmark"
-                                 class="material-icons step" alt="Bookmark">bookmark</md-icon>
-                        <p>Líderes en Marcadores</p>
-                        <span flex></span>
-                        <div class="badge bg-{{$root.userInfo.preferences.theme}}">{{$root.bookmarkLeaders.getTotal()}}</div>
-                    </div>
-                </md-list-item>
             </md-list>
         </div>
     </md-content>

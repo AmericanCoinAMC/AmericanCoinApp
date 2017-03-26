@@ -1,1 +1,1 @@
-app.component("headingBar",{templateUrl:"/core/components/app/layout/headingBar.html",bindings:{},controller:["$rootScope","$scope","UserService","SideNavigation",function(e,n,o,t){n.toggleLeftNav=function(){t.toggle("left")},n.signUserOut=function(){o.signOut()}}]});
+app.component("headingBar",{templateUrl:"/core/components/app/layout/headingBar.html",bindings:{},controller:["$rootScope","$scope","SideNavigation",function(n,e,o){var t=new User;e.toggleLeftNav=function(){o.toggle("left")},e.signUserOut=function(){t.signOut()}}]});

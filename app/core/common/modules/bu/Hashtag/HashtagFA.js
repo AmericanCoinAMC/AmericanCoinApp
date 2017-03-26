@@ -1,0 +1,1 @@
+app.factory("HashtagFA",["$firebaseArray",function(n){var r=n.$extend({getTotal:function(){var n=0;return angular.forEach(this.$list,function(r){n+=1}),n}});return function(n){return new r(n)}}]);

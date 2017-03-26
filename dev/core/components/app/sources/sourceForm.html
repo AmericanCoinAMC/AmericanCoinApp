@@ -1,0 +1,166 @@
+<md-dialog aria-label="Sources" ng-cloak flex="50">
+    <form name="sourceForm" ng-submit="save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Fuente</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div ng-show="submitting"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <fieldset class="standard md-padding">
+                        <legend>Información</legend>
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.name" name="name" type="text" placeholder="Nombre" ng-required="true"
+                                       md-autofocus>
+                                <div ng-messages="sourceForm.name.$error">
+                                    <div ng-message="required">Ingresa el nombre.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex>
+                                <label>Descripci&oacute;n</label>
+                                <textarea
+                                        ng-model="selectedItem.description"
+                                        name="description"></textarea>
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>Estatus</legend>
+                        <div layout="row" layout-align="center center" flex>
+                            <md-list flex>
+                                <md-list-item >
+                                    <p>Fuente Activa</p>
+                                    <md-switch class="md-secondary"
+                                               ng-model="selectedItem.status.active"
+                                               aria-label="Active Source"></md-switch>
+                                </md-list-item>
+                            </md-list>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>Avatar</legend>
+                        <div layout="column">
+                            <div class="md-padding align-center" ng-show="!itemSelected || updateFile == true">
+                                <lf-ng-md-file-input
+                                        name="files"
+                                        lf-files="files"
+                                        lf-maxcount="5"
+                                        lf-filesize="10MB"
+                                        lf-totalsize="20MB"
+                                        lf-mimetype="image/*"></lf-ng-md-file-input>
+                                <div ng-messages="sourceForm.files.$error" style="color:red;">
+                                    <div ng-message="maxcount">Too many files.</div>
+                                    <div ng-message="filesize">File size too large.</div>
+                                    <div ng-message="totalsize">Total size too large.</div>
+                                    <div ng-message="mimetype">Mimetype error.</div>
+                                </div>
+                                <md-button class="m-top-10 md-warn"
+                                           ng-click="cancelFileChange()"
+                                           ng-show="updateFile">Cancelar Cambio de Imagen</md-button>
+                            </div>
+
+                            <div ng-if="itemSelected && updateFile == false" class="align-center">
+                                <a href="javascript:void(0)" ng-click="changeFile()">
+                                    <img ng-src="{{selectedItem.fileUrl}}" class="md-card-image" alt="selectedItem.name">
+                                </a>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>Configuración de los Artículos</legend>
+                        <div layout="row" flex>
+                            <md-list flex>
+                                <md-list-item >
+                                    <p>Título en Artículo</p>
+                                    <md-switch class="md-secondary"
+                                               ng-model="selectedItem.articleConfig.showTitle"
+                                               aria-label="Title on Post"></md-switch>
+                                </md-list-item>
+                            </md-list>
+                            <md-list flex>
+                                <md-list-item >
+                                    <p>Imagen en Artículo</p>
+                                    <md-switch class="md-secondary"
+                                               ng-model="selectedItem.articleConfig.showImage"
+                                               aria-label="Image on Post"></md-switch>
+                                </md-list-item>
+                            </md-list>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="standard md-padding m-top-15">
+                        <legend>Perfiles</legend>
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.profile.website" name="website" type="url" placeholder="Website">
+                                <div ng-messages="sourceForm.website.$error">
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.profile.facebook" name="facebook" type="url" placeholder="Facebook (Opcional)">
+                                <div ng-messages="sourceForm.facebook.$error">
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.profile.googleplus" name="googleplus" type="url" placeholder="Google Plus (Opcional)">
+                                <div ng-messages="sourceForm.googleplus.$error">
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.profile.twitter" name="twitter" type="url" placeholder="Twitter (Opcional)">
+                                <div ng-messages="sourceForm.twitter.$error">
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.profile.instagram" name="instagram" type="url" placeholder="Instagram (Opcional)">
+                                <div ng-messages="sourceForm.instagram.$error">
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <input ng-model="selectedItem.profile.youtube" name="youtube" type="url" placeholder="Youtube (Opcional)">
+                                <div ng-messages="sourceForm.youtube.$error">
+                                    <div ng-message="url">URL no valido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-warn"
+                       ng-disabled="submitting"
+                       ng-show="itemSelected"
+                       ng-click="remove(selectedItem)">Eliminar</md-button>
+            <span flex></span>
+            <md-button type="submit" class="md-primary" ng-disabled="sourceForm.$invalid || submitting">
+                <span ng-hide="submitting">Guardar</span>
+                <span ng-show="submitting">Procesando...</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

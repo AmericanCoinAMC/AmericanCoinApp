@@ -1,0 +1,53 @@
+<md-dialog aria-label="Usuarios" ng-cloak flex="50">
+    <form name="userForm" ng-submit="updateAdmin()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{selectedUser.name}} / {{selectedUser.email}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div ng-show="submitting"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column" class="md-padding">
+                    <div flex><h3 class="md-headline">Autoridad</h3></div>
+                    <div flex>
+                        <md-slider
+                                ng-model="selectedUser.authority"
+                                md-discrete
+                                class="md-primary"
+                                step="1"
+                                min="1"
+                                max="10"
+                                aria-label="Authority">
+                        </md-slider>
+                    </div>
+                    <ul>
+                        <li class="padding-5 margin-5"
+                            style="display: inline;border-radius: 5px;"
+                            ng-repeat="section in sectionsArray.items"
+                            ng-class="{'bg-green': selectedUser.authority >= section.authority, 'bg-red': selectedUser.authority < section.authority}">
+                            <span>{{section.name}} ({{section.authority}})</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-raised md-warn" ng-click="demoteAdmin()" ng-show="selectedUser.isAdmin" ng-disabled="submitting">
+                Degradar Administrador
+            </md-button>
+            <span flex></span>
+            <md-button class="md-warn" ng-click="cancel()" ng-disabled="submitting">
+                Cancelar
+            </md-button>
+            <md-button type="submit" class="md-primary" ng-disabled="userForm.$invalid || submitting">
+                Guardar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

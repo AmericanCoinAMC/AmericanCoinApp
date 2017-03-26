@@ -1,7 +1,9 @@
 /**
  * Created by Jess on 28-Oct-16.
  */
-app.directive('navigationElement', ['$rootScope', '$stateParams', function($rootScope, $stateParams) {
+app.directive('navigationElement', [
+    '$rootScope', '$stateParams',
+    function($rootScope, $stateParams) {
     return {
         restrict: 'A',
         scope: {
@@ -10,9 +12,10 @@ app.directive('navigationElement', ['$rootScope', '$stateParams', function($root
             customCondition: '='
         },
         link: function(scope, element, attrs) {
+            scope.theme = 'teal';
             scope.stateParams = $stateParams;
             scope.currentState = $rootScope.currentState;
-            scope.theme = $rootScope.userInfo.preferences.theme;
+
             scope.navItem = {};
             scope.valid = false;
 
@@ -64,17 +67,6 @@ app.directive('navigationElement', ['$rootScope', '$stateParams', function($root
                 function(event, toState, toParams, fromState, fromParams, options) {
                     scope.init();
                 });
-
-            $rootScope.$watch('userInfo.preferences.theme' ,function(newTheme, oldTheme){
-                if(newTheme != undefined){
-                    if(scope.valid){
-                        element.removeClass('color-' + oldTheme);
-                        element.addClass('color-' + newTheme);
-                    }
-
-                    scope.theme = newTheme;
-                }
-            },true);
 
             scope.$watch('customCondition', function(newVal, oldVal) {
                 if(newVal != undefined){

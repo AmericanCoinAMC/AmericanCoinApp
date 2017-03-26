@@ -1,0 +1,21 @@
+<md-list ng-show="post.primaryHashtag.id" class="margin-0 padding-0">
+    <md-list-item ng-click="displayHashtagFeed($event, post.primaryHashtag)">
+        <div layout="row" flex class="padding-0" layout-align="center center">
+            <img ng-src="assets/img/hashtag_themes/{{$root.userInfo.preferences.theme}}.png" alt="{{hashtag.name}}" style="max-width: 28px"/>
+            <span class="color-{{$root.userInfo.preferences.theme}} m-left-5"
+                  style="font-weight: 500"
+                    ng-show="truncate">
+                {{post.primaryHashtag.name | characters: 25}}
+            </span>
+            <span class="color-{{$root.userInfo.preferences.theme}} m-left-5"
+                  style="font-weight: 500"
+                  ng-hide="truncate">
+                {{post.primaryHashtag.name}}
+            </span>
+            <span flex></span>
+            <md-icon ng-show="post.secondaryHashtags"
+                     aria-label="expand_more"
+                     class="material-icons step color-{{$root.userInfo.preferences.theme}}">expand_more</md-icon>
+        </div>
+    </md-list-item>
+</md-list>

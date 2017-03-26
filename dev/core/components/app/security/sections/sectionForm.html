@@ -1,0 +1,53 @@
+<md-dialog aria-label="Secciones" ng-cloak flex="50">
+    <form name="sectionForm" ng-submit="saveSection()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Seccion</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="close" class="material-icons step">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div ng-show="submitting"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+                <div layout="column">
+                    <md-input-container class="md-block md-padding" flex>
+                        <input ng-model="selectedSection.name"
+                               name="name"
+                               type="text"
+                               placeholder="Nombre"
+                               ng-required="true"
+                               md-autofocus>
+                        <div ng-messages="sectionForm.name.$error">
+                            <div ng-message="required">Ingresa el nombre de la seccion.</div>
+                            <div ng-message="pattern">El nombre de la seccion solo puede contener letras.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block md-padding" flex>
+                        <input ng-model="selectedSection.authority" name="authority" type="number"
+                               placeholder="Autoridad Requerida (1 - 10)" ng-required="true"
+                                min="1" max="10">
+                        <div ng-messages="sectionForm.authority.$error">
+                            <div ng-message="required">Ingresa la autoridad requerida.</div>
+                            <div ng-message="number">La autoridad requerida debe ser un numero del 1 al 10.</div>
+                            <div ng-message="min">La autoridad requerida debe ser un numero del 1 al 10.</div>
+                            <div ng-message="max">La autoridad requerida debe ser un numero del 1 al 10.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-warn" ng-click="cancel()">
+                Cancelar
+            </md-button>
+            <md-button type="submit" class="md-primary" ng-disabled="sectionForm.$invalid">
+                Guardar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

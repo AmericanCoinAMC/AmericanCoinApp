@@ -840,7 +840,7 @@ function MdDialogProvider($$interimElementProvider) {
               // element is hidden when the dialog closes, we can shrink the dialog
               // back to the same position it expanded from.
               //
-              // Checking if the source is a rect object or a DOM element
+              // Checking if the configuration is a rect object or a DOM element
               var bounds = {top:0,left:0,height:0,width:0};
               var hasFn = angular.isFunction(source[0].getBoundingClientRect);
 

@@ -1,0 +1,6 @@
+<md-button
+        ng-click="becomeAssignerHost()"
+        ng-disabled="$root.orionHostObject.item.assigner.status || $root.orionHostObject.item.executioner.user.key == $root.userInfo.$key">
+    <span ng-show="$root.orionHostObject.item.assigner.status">Orion Assigner: ON | Host: {{$root.orionHostObject.item.assigner.user.name}}</span>
+    <span ng-hide="$root.orionHostObject.item.assigner.status">Orion Assigner: OFF</span>
+</md-button>
