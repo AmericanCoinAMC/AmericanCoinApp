@@ -151,6 +151,8 @@ app.directive('atomicArrayWrapper',
                                                 .filter(scope.atomicArray.filters[scope.atomicArray.filters[i]])
                                     }
                                 });
+                            }else{
+                                $timeout(function(){});
                             }
                         };
 
