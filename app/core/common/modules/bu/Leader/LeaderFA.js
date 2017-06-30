@@ -1,1 +1,0 @@
-app.factory("LeaderFA",["$firebaseArray",function(r){var n=r.$extend({getTotal:function(){var r=0;return angular.forEach(this.$list,function(n){r+=1}),r}});return function(r){return new n(r)}}]);

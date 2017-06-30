@@ -1,1 +1,0 @@
-app.directive("postCard",["PostDialogService",function(t){return{restrict:"E",scope:{post:"="},templateUrl:"/core/common/Post/postCard.html",link:function(o,s,i){o.displayPost=function(s){t.displayPost(s,o.post)},o.$watch("post",function(t,s){void 0!=t&&(o.post=t)},!0)}}}]);

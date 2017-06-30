@@ -1,3 +1,0 @@
-[29-Nov-2016 21:36:38 UTC] PHP Notice:  Trying to get property of non-object in /home/jessmanny/public_html/php-extractor/category-extractor.php on line 15
-[29-Nov-2016 21:36:39 UTC] PHP Warning:  gzdecode(): data error in /home/jessmanny/public_html/php-extractor/category-extractor.php on line 26
-[29-Nov-2016 21:36:39 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/jessmanny/public_html/php-extractor/category-extractor.php on line 28

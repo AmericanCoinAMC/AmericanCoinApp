@@ -1,1 +1,0 @@
-"use strict";var SourceCategory=function(e){var r=this;r.source=e,r.db=new Database({refs:{primary:"sources/categories/"+r.source.$key||r.source.key}})};

@@ -1,1 +1,0 @@
-app.config(["$mdIconProvider",function(s){s.icon("hashtag","assets/icons/hashtag.svg").icon("hashtag_circle","assets/icons/hashtag_circle.svg")}]);

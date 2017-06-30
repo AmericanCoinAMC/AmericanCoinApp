@@ -1,1 +1,0 @@
-app.directive("img",function(){return{restrict:"E",link:function(n,i,r){i.on("error",function(){i.css("display","none")})}}});

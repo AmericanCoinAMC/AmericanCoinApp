@@ -1,1 +1,0 @@
-app.factory("FeedService",["HashtagPostsFeed","LeaderFeed",function(e,d){return{loadHashtagFeed:function(d,a){e.loadFeed(d,a)},loadLeaderFeed:function(e,a){d.loadFeed(e,a)}}}]);

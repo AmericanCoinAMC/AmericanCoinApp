@@ -1,1 +1,0 @@
-app.component("app",{templateUrl:"/core/components/app/app.html",bindings:{},controller:["$rootScope","$scope",function(p,o){}]});

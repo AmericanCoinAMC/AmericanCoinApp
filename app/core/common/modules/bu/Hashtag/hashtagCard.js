@@ -1,1 +1,0 @@
-app.directive("hashtagCard",["$rootScope","FeedService",function(a,t){return{restrict:"E",scope:{hashtag:"="},templateUrl:"/core/common/Hashtag/hashtagCard.html",link:function(a,e,h){a.$watch("hashtag",function(t,e){void 0!=t&&(a.hashtag=t)},!0),a.displayHashtagFeed=function(a,e){t.loadHashtagFeed(a,e)}}}}]);

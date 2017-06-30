@@ -1,1 +1,0 @@
-app.directive("leaderCard",["$rootScope","FeedService",function(e,r){return{restrict:"E",scope:{leader:"="},templateUrl:"/core/common/Leader/leaderCard.html",link:function(e,d,a){e.displayLeaderFeed=function(e,d){r.loadLeaderFeed(e,d)},e.$watch("leader",function(r,d){void 0!=r&&(e.leader=r)},!0)}}}]);
