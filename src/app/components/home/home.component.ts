@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 
 
         const blockCypher = require('blockcypher');
+        const WebSocket = require('websocket').w3cwebsocket;
 
         const ethApi = new blockCypher('eth', 'main', 'cce584fb11234db981082469dbe8670e');
 
@@ -30,6 +31,35 @@ export class HomeComponent implements OnInit {
         }).catch(function(err){
             console.log(err);
         });
+
+
+
+
+         
+        const ws = new WebSocket('wss://socket.blockcypher.com/v1/btc/main');
+         
+         
+        ws.onopen = function() {
+            console.log('WebSocket Client Connected');
+             ws.send(JSON.stringify({event: "unconfirmed-tx"})); //listening to unconfirmed transaction events
+        };
+         
+        ws.onmessage = function(e) {
+            console.log('sss');
+            var tx = JSON.parse(e.data);
+            console.log(tx);
+        };
+
+        ws.onerror = function() {
+            console.log('Connection Error');
+        };
+        
+        ws.onclose = function() {
+            console.log('Client Closed');
+        };
+          
+
+
     }
 
 
