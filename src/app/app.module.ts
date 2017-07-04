@@ -53,14 +53,41 @@ import { environment } from '../environments/environment';
 * Components
 * */
 
-//Root Component
+// Root Component
 import { AppComponent } from './app.component';
 
-//Home Component
+// Home Component
 import { HomeComponent } from './components/home/home.component';
 
 
+declare var require: any;
 
+// Web3js Ethereum
+const Web3 = require('web3');
+const keythereum = require('keythereum');
+const ethereumWallet = require('ethereumjs-wallet');
+
+
+const web3 = new Web3(new Web3.providers.HttpProvider('https://api.myetherapi.com/eth'));
+
+
+if (web3.isConnected()) {
+    console.log('Connected');
+}
+
+console.log(web3.eth);
+
+
+
+/*let balance = web3.eth.getBalance('0xea674fdde714fd979de3edf0f56aa9716b898ec8');
+console.log(balance.toNumber());*/
+
+
+
+/*const wallet = keythereum.create({ keyBytes: 32, ivBytes: 16 });
+console.log(wallet);*/
+
+//console.log(ethereumWallet.generate());
 
 
 @NgModule({
