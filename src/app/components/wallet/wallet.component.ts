@@ -10,7 +10,9 @@ import { WalletService } from '../../shared/services/wallet.service';
 export class WalletComponent implements OnInit {
 
 
-    constructor(private _walletService: WalletService) { }
+    constructor(private _walletService: WalletService) {
+
+    }
 
     ngOnInit() {
 

@@ -15,6 +15,7 @@ export class CreateComponent implements OnInit {
     public creatingWallet: boolean;
     public walletFileDownloaded: boolean;
     public passwordVisible: boolean;
+    public walletData: any;
     public walletFile: string;
 
     constructor(private _walletService: WalletService,
@@ -33,14 +34,18 @@ export class CreateComponent implements OnInit {
     public create(password: string): void {
         const self = this;
         self.creatingWallet = true;
+        self._snackbar.open(
+            'Your wallet is being created. This process may take a few minutes.',
+            '', {duration: 3000});
         self._walletService.createWallet(self.password)
-            .then(function(walletFile){
-                self.walletFile = walletFile;
+            .then(function(walletObject){
+                self.walletData = walletObject.data;
+                self.walletFile = walletObject.file;
                 self.walletCreated = true;
                 self.creatingWallet = false;
-                /*self._snackbar.open('Your wallet has been created successfully', '', {
-                    duration: 2000,
-                });*/
+                self._snackbar.open(
+                    'Wallet: ' + self.walletData.address + ' has been created.',
+                    '', {duration: 4000});
             }).catch(function(err){
             console.log(err);
         });
@@ -48,8 +53,14 @@ export class CreateComponent implements OnInit {
 
 
     public downloadFile(): void {
+        const dlAnchorElem = this.document.getElementById('downloadWalletAnchor');
+        dlAnchorElem.setAttribute("href", this.walletFile);
+        dlAnchorElem.setAttribute("download", WalletService.generateWalletName());
+        dlAnchorElem.click();
         this.walletFileDownloaded = true;
-        window.open(this.walletFile);
+        this._snackbar.open(
+            'Wallet File has been downloaded.',
+            '', {duration: 2500});
     }
 
 
@@ -62,4 +73,26 @@ export class CreateComponent implements OnInit {
         this.passwordVisible = !this.passwordVisible;
     }
 
+
+
+
+    /*
+    * Paper Wallet
+    * */
+
+    public printPaperWallet(): void {
+        window.print();
+    }
+
+    public getDate(): any {
+        return new Date();
+    }
+
+    public getBrowser(): string {
+        return navigator.appName;
+    }
+
+    public getPlatform(): string {
+        return navigator.platform;
+    }
 }

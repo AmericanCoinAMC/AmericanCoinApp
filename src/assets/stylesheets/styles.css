@@ -55,3 +55,33 @@ h5{  font-size:22px;  }
 
 
 
+
+/*
+* BG Colors
+*/
+
+.green-bg {  background-color:#43a047;  }
+.blue-bg {  background-color:#0288d1;  }
+.red-bg {  background-color:#d32f2f;  }
+.orange-bg {  background-color:#f57c00;  }
+
+
+
+
+/*
+* Printing
+*/
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .print-area, .print-area * {
+        visibility: visible;
+    }
+    .print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

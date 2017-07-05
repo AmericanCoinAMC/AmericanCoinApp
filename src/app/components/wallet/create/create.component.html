@@ -10,6 +10,7 @@
                            [(ngModel)]="password"
                            id="password-field">
                     <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
+                    <md-hint>Don't share this password with anybody.</md-hint>
                 </md-input-container>
 
                 <div>
@@ -25,16 +26,70 @@
         </div>
 
         <div *ngIf="walletCreated && !walletFileDownloaded" style="text-align:center;">
-            <h3>Wallet Created Successfully</h3>
+            <h3>Download the Wallet File</h3>
 
             <button md-raised-button mdSuffix color="primary" fxflex
                     (click)="downloadFile()">Download your Wallet File</button>
+
+            <p>This file will allow you to decrypt your wallet with your password.</p>
+            <span>*We advice you to store this file in a USB Stick.</span>
+            <a id="downloadWalletAnchor" style="display:none"></a>
         </div>
 
 
         <div *ngIf="walletCreated && walletFileDownloaded">
-            <h3>Keeping your AMC safe</h3>
+            <h3>Print your Paper Wallet</h3>
 
+            <md-card>
+                <md-card-content>
+                    <div class="paper-wallet print-area">
+                        <div fxLayout="column">
+                            <div>
+                                <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                                    <div>
+                                        <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                                            <img src="assets/images/logo.png" alt="Logo">
+                                            <h3 style="margin-left:10px;font-size:25px;">Paper Wallet</h3>
+                                        </div>
+                                    </div>
+                                    <span fxFlex></span>
+                                    <button class="hidden-print"
+                                            md-icon-button
+                                            (click)="printPaperWallet()">
+                                        <md-icon>print</md-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <table>
+                            <tbody>
+
+                            <tr>
+                                <td><strong>Address</strong></td>
+                                <td><p>{{walletData.address}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Private Key</strong></td>
+                                <td><p>{{walletData.private}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Public Key</strong></td>
+                                <td><p>{{walletData.public}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Creation Date</strong></td>
+                                <td>{{getDate()}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Platform</strong></td>
+                                <td>{{getPlatform()}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-card-content>
+            </md-card>
             <p>We have to provide all the information the user needs to keep their AMC
              safe.</p>
         </div>

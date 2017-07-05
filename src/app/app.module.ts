@@ -20,25 +20,29 @@ import {Ng2PageScrollModule} from 'ng2-page-scroll';
 /*
 * Dynamic Meta Tags
 * */
-import { MetaModule } from '@ngx-meta/core';
 
 
 /*
 * Languages
 * */
-import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './shared/languages/index';
 
 
 /*
  * Routing
  * */
 import { routes } from './shared/routes/app.routes';
-
+import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 /*
 * Environment Variables
 * */
 import { environment } from '../environments/environment';
+
+
+/*
+* Pipes
+* */
+import { CapitalizePipe } from './shared/pipes/capitalize/capitalize.pipe';
 
 
 /*
@@ -69,11 +73,11 @@ import { CreateComponent } from './components/wallet/create/create.component';
 
 @NgModule({
     declarations: [
-        TranslatePipe,
         AppComponent,
         HomeComponent,
         WalletComponent,
-        CreateComponent
+        CreateComponent,
+        CapitalizePipe
     ],
     imports: [
         BrowserModule,
@@ -83,10 +87,9 @@ import { CreateComponent } from './components/wallet/create/create.component';
         MaterialModule,
         FlexLayoutModule,
         Ng2PageScrollModule.forRoot(),
-        MetaModule.forRoot(),
         RouterModule.forRoot(routes),
     ],
-    providers: [ TRANSLATION_PROVIDERS, TranslateService, WalletService],
+    providers: [ WalletService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

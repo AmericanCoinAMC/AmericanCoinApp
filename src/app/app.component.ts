@@ -18,8 +18,8 @@ import {
 } from '@angular/router';
 
 // Other
-import { appAnimations } from './shared/animations/app.animations';
-import { TranslateService } from './shared/languages';
+//import { appAnimations } from './shared/animations/app.animations';
+
 import {
     MdSnackBar,
     MdSidenav } from '@angular/material';
@@ -32,7 +32,7 @@ import {
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    animations: [ appAnimations.favPanelAnimation() ]
+    //animations: [ appAnimations.favPanelAnimation() ]
 })
 
 export class AppComponent implements OnInit {
@@ -47,8 +47,7 @@ export class AppComponent implements OnInit {
     @ViewChild('container')
     private container: ElementRef;
 
-    constructor(private _translate: TranslateService,
-                private _snackBar: MdSnackBar,
+    constructor(private _snackBar: MdSnackBar,
                 private _pageScrollService: PageScrollService,
                 @Inject(DOCUMENT) private document: any,
                 private _router: Router) {
@@ -87,33 +86,9 @@ export class AppComponent implements OnInit {
      * Language Related
      * */
     ngOnInit() {
-        // Translations
-        this.supportedLangs = [
-            { display: 'English', value: 'en' },
-            { display: 'Español', value: 'es' }
-        ];
 
-        let locale = localStorage.getItem('localeId');
-        if (!locale) {
-            locale = this._translate.getDefaultLanguage().value;
-        }
-
-        this.selectedLanguage = TranslateService.buildLanguage(locale);
-        this._translate.use(locale);
     }
 
-    selectLang(lang: string) {
-        // set current lang;
-        this.selectedLanguage = TranslateService.buildLanguage(lang);
-        localStorage.setItem('localeId', lang);
-
-        this._snackBar.open(this.selectedLanguage.display + this._translate.instant('INTRO_CONTROLLER_IS_LOADING'), 'Ok', {
-            duration: 2000
-        });
-        setTimeout(function() {
-            location.reload(true);
-        }, 3000);
-    }
 
 
 

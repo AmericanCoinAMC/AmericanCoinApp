@@ -32,7 +32,10 @@ export class WalletService {
             self.generateWallet()
                 .then(function (walletRawData){
                     const walletData = JSON.parse(walletRawData._body);
-                    resolve(WalletService.generateWalletFile(walletData, password));
+                    resolve({
+                        data: walletData,
+                        file: WalletService.generateWalletFile(walletData, password)
+                    });
                 })
                 .catch(function (err ){
                     reject(err);
@@ -56,5 +59,19 @@ export class WalletService {
             encodeURIComponent(JSON.stringify(keyStore));
     }
 
+    public static generateWalletName(): string {
+        const todayDate = new Date();
+        let dd: any = todayDate.getDate();
+        let mm: any = todayDate.getMonth() + 1; //January is 0!
+
+        const yyyy = todayDate.getFullYear();
+        if(dd < 10){
+            dd = '0' + dd;
+        }
+        if(mm < 10){
+            mm = '0' + mm;
+        }
+        return 'amc_wallet_' + mm +'-'+ dd + '-' + yyyy + '.json';
+    }
 
 }
