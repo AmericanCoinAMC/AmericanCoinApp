@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 declare var require: any;
 
-const ethereumWalletJs = require('ethereumjs-wallet');
+const ethereumWalletJs = require('ethereumjs-wallet-browser');
 declare const Buffer;
 
 @Injectable()

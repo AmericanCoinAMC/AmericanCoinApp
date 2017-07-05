@@ -1,6 +1,6 @@
-# AtomicSeed2
+# AmericanCoin - In Decentralization We Trust
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
+Project generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
 
 ## Development server
 
