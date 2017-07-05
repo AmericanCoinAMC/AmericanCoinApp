@@ -57,6 +57,7 @@ import { AppComponent } from './app.component';
 // Home Component
 import { HomeComponent } from './components/home/home.component';
 import { WalletComponent } from './components/wallet/wallet.component';
+import { CreateComponent } from './components/wallet/create/create.component';
 
 
 
@@ -71,7 +72,8 @@ import { WalletComponent } from './components/wallet/wallet.component';
         TranslatePipe,
         AppComponent,
         HomeComponent,
-        WalletComponent
+        WalletComponent,
+        CreateComponent
     ],
     imports: [
         BrowserModule,

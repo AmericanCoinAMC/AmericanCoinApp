@@ -9,6 +9,7 @@ import { WalletService } from '../../shared/services/wallet.service';
 })
 export class WalletComponent implements OnInit {
 
+
     constructor(private _walletService: WalletService) { }
 
     ngOnInit() {
@@ -20,6 +21,6 @@ export class WalletComponent implements OnInit {
 
 
     generateAddress(password: string): void {
-        this._walletService.createWallet(password)
+
     }
 }

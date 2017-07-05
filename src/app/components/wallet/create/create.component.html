@@ -1,0 +1,42 @@
+<md-card>
+    <md-card-content>
+        <div *ngIf="!walletCreated && !walletFileDownloaded">
+            <h3>Create a new Wallet</h3>
+            <div fxLayout="column">
+                <md-input-container>
+                    <input mdInput
+                           placeholder="Enter your password"
+                           type="password"
+                           [(ngModel)]="password"
+                           id="password-field">
+                    <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
+                </md-input-container>
+
+                <div>
+                    <div fxLayout="row">
+                        <span fxFlex></span>
+                        <button md-raised-button (click)="create()" [disabled]="creatingWallet">
+                            <span *ngIf="creatingWallet">Creating Wallet...</span>
+                            <span *ngIf="!creatingWallet">Create Wallet</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="walletCreated && !walletFileDownloaded" style="text-align:center;">
+            <h3>Wallet Created Successfully</h3>
+
+            <button md-raised-button mdSuffix color="primary" fxflex
+                    (click)="downloadFile()">Download your Wallet File</button>
+        </div>
+
+
+        <div *ngIf="walletCreated && walletFileDownloaded">
+            <h3>Keeping your AMC safe</h3>
+
+            <p>We have to provide all the information the user needs to keep their AMC
+             safe.</p>
+        </div>
+    </md-card-content>
+</md-card>
