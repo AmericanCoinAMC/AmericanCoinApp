@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "assets/stylesheets/styles.css",
-        "assets/stylesheets/materialize.css"
+        "assets/stylesheets/materialize.css",
+        "theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -42,6 +42,12 @@ import { environment } from '../environments/environment';
 
 
 /*
+* Services
+* */
+import { WalletService } from './shared/services/wallet.service';
+
+
+/*
 * Components
 * */
 
@@ -50,6 +56,7 @@ import { AppComponent } from './app.component';
 
 // Home Component
 import { HomeComponent } from './components/home/home.component';
+import { WalletComponent } from './components/wallet/wallet.component';
 
 
 
@@ -63,7 +70,8 @@ import { HomeComponent } from './components/home/home.component';
     declarations: [
         TranslatePipe,
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        WalletComponent
     ],
     imports: [
         BrowserModule,
@@ -76,7 +84,7 @@ import { HomeComponent } from './components/home/home.component';
         MetaModule.forRoot(),
         RouterModule.forRoot(routes),
     ],
-    providers: [ TRANSLATION_PROVIDERS, TranslateService],
+    providers: [ TRANSLATION_PROVIDERS, TranslateService, WalletService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

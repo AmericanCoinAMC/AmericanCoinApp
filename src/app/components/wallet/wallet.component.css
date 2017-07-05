@@ -1,0 +1,15 @@
+.wallet-container {
+    padding: 35px;
+    width:100%;
+    height:100%;
+}
+
+
+md-card-header h3{
+    font-size: 26px;
+    font-weight: 200;
+}
+
+md-card{
+    margin:15px;
+}
