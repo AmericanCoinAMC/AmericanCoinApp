@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs/Observable";
+import {BlockCypherService} from './block-cypher.service';
 
 declare var require: any;
 
@@ -18,11 +17,7 @@ export class WalletService {
     private __walletState: any;
     public walletState$: Observable<string>;
 
-    private baseUrl: string;
-    private blockCypherKey: string;
-    private headerOptions: any;
-
-    constructor(private _http: Http) {
+    constructor(private _blockcyber: BlockCypherService) {
         this.initialized = false;
         this.walletDecrypted = false;
 
@@ -32,12 +27,6 @@ export class WalletService {
 
         this.__walletState = new BehaviorSubject<string>('authentication');
         this.walletState$ = this.__walletState.asObservable();
-
-        this.baseUrl = 'https://api.blockcypher.com/v1/eth/main/';
-        this.blockCypherKey = 'cce584fb11234db981082469dbe8670e';
-
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        this.headerOptions = new RequestOptions({ headers: headers });
 
     }
 
@@ -49,7 +38,7 @@ export class WalletService {
     public createWallet(password: string): Promise<any> {
         const self = this;
         return new Promise(function(resolve, reject){
-            self.generateWallet()
+            self._blockcyber.generateWallet()
                 .then(function (walletRawData){
                     const walletData = JSON.parse(walletRawData._body);
                     resolve({
@@ -63,13 +52,7 @@ export class WalletService {
         });
     }
 
-    private generateWallet(): Promise<any> {
-        return this._http.post(
-            this.baseUrl + 'addrs',
-            this.blockCypherKey,
-            this.headerOptions)
-            .toPromise();
-    }
+
 
     private static generateWalletFile(walletData: any, password: string): string {
         const privateKeyBuffer = Buffer.from(walletData.private, 'hex');

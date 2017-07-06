@@ -24,4 +24,8 @@ export class WalletComponent implements OnInit {
     private walletStateSubscriptionEvent(state: string): void {
         this.walletState = state;
     }
+
+    public openUrl (location: string): void {
+        window.open(location, '_blank');
+    }
 }

@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PaperWalletComponent implements OnInit {
 
     @Input()
-    walletData: Object;
+    walletData: any;
 
     browser: string;
     platform: string;

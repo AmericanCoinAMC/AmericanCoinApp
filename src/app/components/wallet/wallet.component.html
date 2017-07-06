@@ -1,16 +1,48 @@
+<md-toolbar class="page-header">
+    <div fxFlex>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <img src="assets/images/logo.png" alt="logo">
+            <h3>AmericanCoin</h3>
+
+            <span fxFlex></span>
+
+            <div fxShow.xs="false" *ngIf="walletState === 'creation' || walletState === 'authentication'">
+                <button md-button (click)="openUrl('https://etherscan.io/token/AmericanCoin')">
+                    <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
+                    Blockchain Explorer
+                </button>
+
+                <button md-button>
+                    <md-icon>email</md-icon> Contact
+                </button>
+
+                <button md-button *ngIf="walletState !== 'dashboard'">
+                    <md-icon>arrow_back</md-icon> Back to Intro
+                </button>
+
+                <button md-button *ngIf="walletState === 'dashboard'">
+                    <md-icon>close</md-icon> Close Wallet
+                </button>
+            </div>
+        </div>
+    </div>
+</md-toolbar>
+
 <div class="wallet-container">
-    <div>
-        <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-            <div fxFlex="75" *ngIf="walletState == 'creation'">
-                <app-create></app-create>
-            </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <div fxFlex>
+            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                <div fxFlex="75" *ngIf="walletState == 'creation'">
+                    <app-create></app-create>
+                </div>
 
-            <div fxFlex="75" *ngIf="walletState == 'authentication'">
-                <app-authentication></app-authentication>
-            </div>
+                <div fxFlex="75" *ngIf="walletState == 'authentication'">
+                    <app-authentication></app-authentication>
+                </div>
 
-            <div fxFlex="100" *ngIf="walletState == 'dashboard'">
-                <app-dashboard></app-dashboard>
+                <div fxFlex="100" *ngIf="walletState == 'dashboard'">
+                    <app-dashboard></app-dashboard>
+                </div>
             </div>
         </div>
     </div>

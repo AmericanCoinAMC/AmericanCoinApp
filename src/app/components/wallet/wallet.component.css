@@ -4,6 +4,28 @@
     height:100%;
 }
 
+.page-header{
+    padding: 0px 10px 0px 10px;
+    background:#071b33;
+    color:#FFFFFF;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+
+.page-header h3{
+    color:#FFFFFF;
+}
+
+.page-header img{
+    max-width: 45px;
+}
+
+.page-header h3{
+    margin-left:10px;
+    font-weight: 300;
+}
+
+
 
 md-card-header h3{
     font-size: 26px;
@@ -13,3 +35,6 @@ md-card-header h3{
 md-card{
     margin:15px;
 }
+
+
+

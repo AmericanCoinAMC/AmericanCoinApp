@@ -49,6 +49,7 @@ import { CapitalizePipe } from './shared/pipes/capitalize/capitalize.pipe';
 * Services
 * */
 import { WalletService } from './shared/services/wallet.service';
+import {BlockCypherService} from './shared/services/block-cypher.service';
 
 
 /*
@@ -95,7 +96,7 @@ import { PaperWalletComponent } from './components/wallet/paper-wallet/paper-wal
         Ng2PageScrollModule.forRoot(),
         RouterModule.forRoot(routes),
     ],
-    providers: [ WalletService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    providers: [ WalletService, BlockCypherService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
