@@ -29,7 +29,8 @@ export class WalletService {
         /*
         * Observable
         * */
-        this.__walletState = new BehaviorSubject<string>('creation');
+
+        this.__walletState = new BehaviorSubject<string>('authentication');
         this.walletState$ = this.__walletState.asObservable();
 
         this.baseUrl = 'https://api.blockcypher.com/v1/eth/main/';
@@ -100,17 +101,55 @@ export class WalletService {
 
     public decryptWithFile(file: any, password: string): Promise<any> {
         const self = this;
-        return new Promise(function(resolve, reject){
-            console.log(ethereumWalletJs.fromV3(file, password));
+        return new Promise(function(resolve, reject) {
+            try {
+                self.readWalletFile(file, function(event) {
+                    const parsedResult = JSON.parse(event.target.result);
+                    const decryptedWallet = ethereumWalletJs.fromV3(parsedResult, password);
+
+                    if(decryptedWallet) {
+                        self.decryptedWallet = decryptedWallet;
+                        self.walletDecrypted = true;
+                        resolve(true);
+                    }else {
+                        self.setWalletDefaults();
+                        resolve(false);
+                    }
+                });
+            }
+            catch (e) {
+                console.log(e);
+                this.setWalletDefaults();
+                resolve(false);
+            }
         });
     }
 
-    public decryptWithPrivateKey(privateKey: string): Promise<any> {
-        const self = this;
-        return new Promise(function(resolve, reject){
+    private readWalletFile(file, onLoadCallback) {
+        const reader = new FileReader();
+        reader.onload = onLoadCallback;
+        reader.readAsText(file);
+    }
+
+
+    public decryptWithPrivateKey(privateKey: string): boolean {
+        try {
             const privateKeyBuffer = Buffer.from(privateKey, 'hex');
-            console.log(ethereumWalletJs.fromPrivateKey(privateKeyBuffer));
-        });
+            const decryptedWallet = ethereumWalletJs.fromPrivateKey(privateKeyBuffer);
+            if(decryptedWallet) {
+                this.decryptedWallet = decryptedWallet;
+                this.walletDecrypted = true;
+                return true;
+            }else {
+                this.setWalletDefaults();
+                return false;
+            }
+        }
+        catch (e) {
+            console.log(e);
+            this.setWalletDefaults();
+            return false;
+        }
     }
 
     /*

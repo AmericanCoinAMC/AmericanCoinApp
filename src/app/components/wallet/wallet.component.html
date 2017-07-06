@@ -1,28 +1,17 @@
 <div class="wallet-container">
     <div>
         <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-            <div fxFlex="70" *ngIf="walletState == 'creation'">
+            <div fxFlex="75" *ngIf="walletState == 'creation'">
                 <app-create></app-create>
             </div>
 
-            <div fxFlex="60" *ngIf="walletState == 'authentication'">
+            <div fxFlex="75" *ngIf="walletState == 'authentication'">
                 <app-authentication></app-authentication>
             </div>
 
             <div fxFlex="100" *ngIf="walletState == 'dashboard'">
                 <app-dashboard></app-dashboard>
             </div>
-
-            <!--<div fxFlex>
-                <md-card>
-                    <md-card-header>
-                        <h3>Open your Wallet</h3>
-                    </md-card-header>
-                    <md-card-content>
-
-                    </md-card-content>
-                </md-card>
-            </div>-->
         </div>
     </div>
 </div>

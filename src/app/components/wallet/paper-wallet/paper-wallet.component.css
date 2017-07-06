@@ -1,0 +1,9 @@
+.paper-wallet img {
+    max-width: 80px;
+}
+
+@media print {
+    .paper-wallet{
+        min-width:100%;
+    }
+}

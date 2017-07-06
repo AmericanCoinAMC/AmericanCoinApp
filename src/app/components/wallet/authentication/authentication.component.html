@@ -33,7 +33,7 @@
                                     color="primary"
                                     (click)="decryptWithFile()"
                                     [disabled]="!walletFileSelected || !password">
-                                Decrypt Wallet
+                                Access Wallet
                             </button>
                         </div>
                     </div>
@@ -48,7 +48,6 @@
                                placeholder="Enter your Private Key"
                                type="text"
                                [(ngModel)]="privateKey">
-                        <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
                     </md-input-container>
 
                     <div style="margin-top:25px;">
@@ -57,7 +56,7 @@
                             <button md-raised-button
                                     color="primary"
                                     (click)="decryptWithPrivateKey()">
-                                Decrypt Wallet
+                                Access Wallet
                             </button>
                         </div>
                     </div>
@@ -69,7 +68,7 @@
 
         <div style="margin-top:50px;">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <p>I don't own an AMC or ETH Wallet</p>
+                <p>I don't own an AmericanCoin Wallet</p>
                 <span fxFlex></span>
                 <button md-button
                         color="primary"

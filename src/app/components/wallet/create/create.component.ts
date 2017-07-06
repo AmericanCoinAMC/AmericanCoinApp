@@ -80,25 +80,4 @@ export class CreateComponent implements OnInit {
     public goto(state: string): void {
         this._walletService.changeState(state);
     }
-
-
-    /*
-    * Paper Wallet
-    * */
-
-    public printPaperWallet(): void {
-        window.print();
-    }
-
-    public getDate(): any {
-        return new Date();
-    }
-
-    public getBrowser(): string {
-        return navigator.appName;
-    }
-
-    public getPlatform(): string {
-        return navigator.platform;
-    }
 }

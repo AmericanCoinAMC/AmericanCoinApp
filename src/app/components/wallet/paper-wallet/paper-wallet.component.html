@@ -1,0 +1,64 @@
+<md-card>
+    <md-card-content>
+        <div class="paper-wallet print-area">
+            <div fxLayout="column">
+                <div>
+                    <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                        <div>
+                            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                                <img src="assets/images/logo.png" alt="Logo">
+                                <h3 style="margin-left:10px;font-size:25px;">Paper Wallet</h3>
+                            </div>
+                        </div>
+                        <span fxFlex></span>
+                        <button class="hidden-print"
+                                md-icon-button
+                                (click)="printPaperWallet()">
+                            <md-icon>print</md-icon>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <table>
+                <tbody>
+
+                <tr>
+                    <td><strong>Address</strong></td>
+                    <td>
+                        <md-input-container color="primary" style="width:100%;">
+                            <textarea mdInput rows="4" disabled style="color:black;">{{walletData.address}}</textarea>
+                            <md-hint>Use your Wallet Address to receive payments.</md-hint>
+                        </md-input-container>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Private Key</strong></td>
+                    <td>
+                        <md-input-container color="primary" style="width:100%;">
+                            <textarea mdInput rows="4" disabled style="color:black;">{{walletData.private}}</textarea>
+                            <md-hint>Use your Private Key to Access your Wallet.</md-hint>
+                        </md-input-container>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Public Key</strong></td>
+                    <td>
+                        <md-input-container color="primary" style="width:100%;">
+                            <textarea mdInput rows="6" disabled style="color:black;">{{walletData.public}}</textarea>
+                            <md-hint>Use your Public Key to Access your Wallet.</md-hint>
+                        </md-input-container>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Platform</strong></td>
+                    <td>{{platform}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-card-content>
+</md-card>
