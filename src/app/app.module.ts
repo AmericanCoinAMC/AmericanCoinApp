@@ -62,6 +62,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CreateComponent } from './components/wallet/create/create.component';
+import { AuthenticationComponent } from './components/wallet/authentication/authentication.component';
+import { DashboardComponent } from './components/wallet/dashboard/dashboard.component';
 
 
 
@@ -77,7 +79,9 @@ import { CreateComponent } from './components/wallet/create/create.component';
         HomeComponent,
         WalletComponent,
         CreateComponent,
-        CapitalizePipe
+        CapitalizePipe,
+        AuthenticationComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,

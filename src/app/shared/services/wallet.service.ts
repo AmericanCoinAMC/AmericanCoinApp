@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/toPromise';
+import {Observable} from "rxjs/Observable";
 
 declare var require: any;
 
@@ -11,6 +13,11 @@ declare const Buffer;
 export class WalletService {
     public initialized: boolean;
     public walletDecrypted: boolean;
+    public decryptedWallet: any;
+
+    private __walletState: any;
+    public walletState$: Observable<string>;
+
     private baseUrl: string;
     private blockCypherKey: string;
     private headerOptions: any;
@@ -18,6 +25,13 @@ export class WalletService {
     constructor(private _http: Http) {
         this.initialized = false;
         this.walletDecrypted = false;
+
+        /*
+        * Observable
+        * */
+        this.__walletState = new BehaviorSubject<string>('creation');
+        this.walletState$ = this.__walletState.asObservable();
+
         this.baseUrl = 'https://api.blockcypher.com/v1/eth/main/';
         this.blockCypherKey = 'cce584fb11234db981082469dbe8670e';
 
@@ -25,6 +39,11 @@ export class WalletService {
         this.headerOptions = new RequestOptions({ headers: headers });
 
     }
+
+
+    /*
+    * Wallet Creation
+    * */
 
     public createWallet(password: string): Promise<any> {
         const self = this;
@@ -74,4 +93,62 @@ export class WalletService {
         return 'amc_wallet_' + mm +'-'+ dd + '-' + yyyy + '.json';
     }
 
+
+    /*
+    * Wallet Decryption
+    * */
+
+    public decryptWithFile(file: any, password: string): Promise<any> {
+        const self = this;
+        return new Promise(function(resolve, reject){
+            console.log(ethereumWalletJs.fromV3(file, password));
+        });
+    }
+
+    public decryptWithPrivateKey(privateKey: string): Promise<any> {
+        const self = this;
+        return new Promise(function(resolve, reject){
+            const privateKeyBuffer = Buffer.from(privateKey, 'hex');
+            console.log(ethereumWalletJs.fromPrivateKey(privateKeyBuffer));
+        });
+    }
+
+    /*
+    * Wallet State Observable Emitter
+    * */
+
+    public changeState(state: string): void {
+        this.stateHandler(state);
+    }
+
+    private stateHandler(state): void {
+        switch(state) {
+            case 'authentication':
+                this.setWalletDefaults();
+                this.__walletState.next(state);
+                break;
+            case 'creation':
+                this.setWalletDefaults();
+                this.__walletState.next(state);
+                break;
+            case 'dashboard':
+                this.walletDecrypted = true;
+                this.__walletState.next(state);
+                break;
+            default:
+                this.setWalletDefaults();
+                this.__walletState.next('authentication');
+                break;
+        }
+    }
+
+
+    /*
+    * Defaults
+    * */
+
+    private setWalletDefaults(): void {
+        this.walletDecrypted = false;
+        this.decryptedWallet = {};
+    }
 }

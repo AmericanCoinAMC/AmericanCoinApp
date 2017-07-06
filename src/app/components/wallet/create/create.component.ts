@@ -24,9 +24,12 @@ export class CreateComponent implements OnInit {
         this.passwordVisible = false;
         this.walletCreated = false;
         this.walletFileDownloaded = false;
+
+
     }
 
     ngOnInit() {
+
     }
 
 
@@ -74,6 +77,9 @@ export class CreateComponent implements OnInit {
     }
 
 
+    public goto(state: string): void {
+        this._walletService.changeState(state);
+    }
 
 
     /*
