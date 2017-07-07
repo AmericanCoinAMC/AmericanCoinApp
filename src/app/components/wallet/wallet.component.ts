@@ -28,4 +28,8 @@ export class WalletComponent implements OnInit {
     public openUrl (location: string): void {
         window.open(location, '_blank');
     }
+
+    public goto(state: string): void {
+        this._walletService.changeState(state);
+    }
 }

@@ -19,8 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/stylesheets/styles.css",
-        "assets/stylesheets/materialize.css",
+        "assets/stylesheets/styles.scss",
+        "assets/stylesheets/materialize.scss",
         "theme.scss"
       ],
       "scripts": [],

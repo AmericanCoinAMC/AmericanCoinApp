@@ -7,6 +7,16 @@
             <span fxFlex></span>
 
             <div fxShow.xs="false" *ngIf="walletState === 'creation' || walletState === 'authentication'">
+                <button md-button (click)="goto('creation')">
+                    <md-icon>library_add</md-icon>
+                    Create Wallet
+                </button>
+
+                <button md-button (click)="goto('authentication')">
+                    <md-icon>exit_to_app</md-icon>
+                    Access Wallet
+                </button>
+
                 <button md-button (click)="openUrl('https://etherscan.io/token/AmericanCoin')">
                     <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
                     Blockchain Explorer
@@ -14,10 +24,6 @@
 
                 <button md-button>
                     <md-icon>email</md-icon> Contact
-                </button>
-
-                <button md-button *ngIf="walletState !== 'dashboard'">
-                    <md-icon>arrow_back</md-icon> Back to Intro
                 </button>
 
                 <button md-button *ngIf="walletState === 'dashboard'">
@@ -32,11 +38,11 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <div fxFlex>
             <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-                <div fxFlex="75" *ngIf="walletState == 'creation'">
+                <div fxFlex="100" *ngIf="walletState == 'creation'">
                     <app-create></app-create>
                 </div>
 
-                <div fxFlex="75" *ngIf="walletState == 'authentication'">
+                <div fxFlex="100" *ngIf="walletState == 'authentication'">
                     <app-authentication></app-authentication>
                 </div>
 

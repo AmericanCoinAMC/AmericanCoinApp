@@ -1,62 +1,88 @@
-<md-card>
-    <md-card-content>
-        <div *ngIf="!walletCreated && !walletFileDownloaded">
-            <h3>Create a new Wallet</h3>
-            <div fxLayout="column">
-                <md-input-container>
-                    <input mdInput
-                           placeholder="Enter your password"
-                           type="password"
-                           [(ngModel)]="password"
-                           id="password-field">
-                    <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
-                    <md-hint>Don't share this password with anybody.</md-hint>
-                </md-input-container>
+<div>
+    <div fxLayout="row" fxLayoutAlign="center center">
 
-                <div>
-                    <div fxLayout="row">
-                        <span fxFlex></span>
-                        <button md-raised-button (click)="create()" [disabled]="creatingWallet">
-                            <span *ngIf="creatingWallet">Creating Wallet...</span>
-                            <span *ngIf="!creatingWallet">Create Wallet</span>
-                        </button>
+        <div *ngIf="!walletCreated && !walletFileDownloaded"
+             fxFlex="50" fxFlex.xs="100" fxFlex.sm="100">
+            <md-card>
+                <md-card-content>
+                    <div>
+                        <h3>Create a new Wallet</h3>
+                        <div fxLayout="column">
+                            <md-input-container>
+                                <input mdInput
+                                       placeholder="Enter your password"
+                                       type="password"
+                                       [(ngModel)]="password"
+                                       id="password-field">
+                                <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
+                                <md-hint>Don't share this password with anybody.</md-hint>
+                            </md-input-container>
+
+                            <div>
+                                <div fxLayout="row">
+                                    <span fxFlex></span>
+                                    <button md-raised-button color="primary" (click)="create()" [disabled]="creatingWallet || !password">
+                                        <span *ngIf="creatingWallet">Creating Wallet...</span>
+                                        <span *ngIf="!creatingWallet">Create Wallet</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+
+        <div *ngIf="walletCreated && !walletFileDownloaded"
+             fxFlex="50" fxFlex.xs="100" fxFlex.sm="100">
+            <md-card>
+                <md-card-content>
+                    <div>
+                        <div *ngIf="walletCreated && !walletFileDownloaded" style="text-align:center;">
+                            <h3>Download the Wallet File</h3>
+
+                            <button md-raised-button mdSuffix color="primary" fxflex
+                                    (click)="downloadFile()">Download your Wallet File</button>
+
+                            <p>This file will allow you to access your wallet with your password.</p>
+                            <span>*We advice you to store this file in a USB Stick.</span>
+                            <a id="downloadWalletAnchor" style="display:none"></a>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+
+        <div *ngIf="walletCreated && walletFileDownloaded" fxFlex="100">
+            <div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+                    <div fxFlex="40" fxFlex.xs="100" fxFlex.sm="100" style="padding:15px;">
+                        <md-card>
+                            <md-card-content>
+                                <div>
+                                    <h3>Print your Paper Wallet</h3>
+                                    <p>Make sure to keep several copies of this file in places where
+                                        nobody can find them.</p>
+                                    <span>In case you don't own a printer, you can still print the
+                                Paper Wallet as a PDF file and store it in a USB Stick.</span>
+
+                                    <div style="text-align:center;">
+                                        <h5>Get Started with AMC</h5>
+                                        <button md-raised-button
+                                                (click)="goto('authentication')">Access my Wallet</button>
+                                    </div>
+                                </div>
+                            </md-card-content>
+                        </md-card>
+                    </div>
+
+                    <div fxFlex="60" fxFlex.xs="100" fxFlex.sm="100" style="padding:15px;">
+                        <app-paper-wallet [walletData]="walletData"></app-paper-wallet>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div *ngIf="walletCreated && !walletFileDownloaded" style="text-align:center;">
-            <h3>Download the Wallet File</h3>
-
-            <button md-raised-button mdSuffix color="primary" fxflex
-                    (click)="downloadFile()">Download your Wallet File</button>
-
-            <p>This file will allow you to decrypt your wallet with your password.</p>
-            <span>*We advice you to store this file in a USB Stick.</span>
-            <a id="downloadWalletAnchor" style="display:none"></a>
-        </div>
-
-
-        <div *ngIf="walletCreated && walletFileDownloaded">
-            <h3>Print your Paper Wallet</h3>
-
-            <app-paper-wallet [walletData]="walletData"></app-paper-wallet>
-            <p>We have to provide all the information the user needs to keep their AMC
-             safe.</p>
-        </div>
-
-
-
-        <div style="margin-top:50px;">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <p>I already own an AmericanCoin Wallet</p>
-                <span fxFlex></span>
-                <button md-button
-                        color="primary"
-                        (click)="goto('authentication')">
-                    Access my Wallet
-                </button>
-            </div>
-        </div>
-    </md-card-content>
-</md-card>
+    </div>
+</div>

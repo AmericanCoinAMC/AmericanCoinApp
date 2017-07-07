@@ -39,7 +39,7 @@ export class CreateComponent implements OnInit {
         self.creatingWallet = true;
         self._snackbar.open(
             'Your wallet is being created. This process may take a few minutes.',
-            '', {duration: 3000});
+            '', {duration: 3700});
         self._walletService.createWallet(self.password)
             .then(function(walletObject){
                 self.walletData = walletObject.data;
@@ -48,7 +48,7 @@ export class CreateComponent implements OnInit {
                 self.creatingWallet = false;
                 self._snackbar.open(
                     'Wallet: ' + self.walletData.address + ' has been created.',
-                    '', {duration: 4000});
+                    '', {duration: 4500});
             }).catch(function(err){
             console.log(err);
         });
@@ -80,4 +80,5 @@ export class CreateComponent implements OnInit {
     public goto(state: string): void {
         this._walletService.changeState(state);
     }
+
 }
