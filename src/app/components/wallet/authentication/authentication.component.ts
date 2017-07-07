@@ -22,6 +22,8 @@ export class AuthenticationComponent implements OnInit {
     }
 
     ngOnInit() {
+
+
     }
 
     public goto(state: string): void {

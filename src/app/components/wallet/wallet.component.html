@@ -33,21 +33,15 @@
 </md-toolbar>
 
 <div class="wallet-container">
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-        <div fxFlex>
-            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-                <div fxFlex="100" *ngIf="walletState == 'creation'">
-                    <app-create></app-create>
-                </div>
+    <div fxFlex="100" [@creationPanel]="creation" [hidden]="creation !== 'enabled'">
+        <app-create></app-create>
+    </div>
 
-                <div fxFlex="100" *ngIf="walletState == 'authentication'">
-                    <app-authentication></app-authentication>
-                </div>
+    <div fxFlex="100" [@authenticationPanel]="authentication" [hidden]="authentication !== 'enabled'">
+        <app-authentication></app-authentication>
+    </div>
 
-                <div fxFlex="100" *ngIf="walletState == 'dashboard'">
-                    <app-dashboard></app-dashboard>
-                </div>
-            </div>
-        </div>
+    <div fxFlex="100" [@dashboardPanel]="dashboard" [hidden]="dashboard !== 'enabled'">
+        <app-dashboard></app-dashboard>
     </div>
 </div>

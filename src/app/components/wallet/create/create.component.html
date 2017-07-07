@@ -1,7 +1,7 @@
 <div>
     <div fxLayout="row" fxLayoutAlign="center center">
 
-        <div *ngIf="!walletCreated && !walletFileDownloaded"
+        <div [@creationPanel]="creation" [hidden]="creation !== 'enabled'"
              fxFlex="50" fxFlex.xs="100" fxFlex.sm="100">
             <md-card>
                 <md-card-content>
@@ -34,7 +34,7 @@
         </div>
 
 
-        <div *ngIf="walletCreated && !walletFileDownloaded"
+        <div [@downloadPanel]="download" [hidden]="download !== 'enabled'"
              fxFlex="50" fxFlex.xs="100" fxFlex.sm="100">
             <md-card>
                 <md-card-content>
@@ -55,7 +55,7 @@
         </div>
 
 
-        <div *ngIf="walletCreated && walletFileDownloaded" fxFlex="100">
+        <div [@printPanel]="print" [hidden]="print !== 'enabled'" fxFlex="100">
             <div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
                     <div fxFlex="40" fxFlex.xs="100" fxFlex.sm="100" style="padding:15px;">

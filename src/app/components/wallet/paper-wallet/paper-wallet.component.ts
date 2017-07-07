@@ -17,7 +17,9 @@ export class PaperWalletComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        if(this.walletData === undefined) {
+            this.walletData = {};
+        }
     }
 
 

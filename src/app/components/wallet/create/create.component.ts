@@ -2,12 +2,17 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { WalletService } from '../../../shared/services/wallet.service';
 import { DOCUMENT } from '@angular/platform-browser';
 import {MdSnackBar} from '@angular/material';
-
+import {appAnimations} from '../../../shared/animations/app.animations';
 
 @Component({
     selector: 'app-create',
     templateUrl: './create.component.html',
-    styleUrls: ['./create.component.css']
+    styleUrls: ['./create.component.css'],
+    animations: [
+        appAnimations.fadeUp('creation'),
+        appAnimations.fadeUp('download'),
+        appAnimations.fadeUp('print')
+    ]
 })
 export class CreateComponent implements OnInit {
     public password: string;
@@ -17,6 +22,10 @@ export class CreateComponent implements OnInit {
     public passwordVisible: boolean;
     public walletData: any;
     public walletFile: string;
+
+    public creation: string;
+    public download: string;
+    public print: string;
 
     constructor(private _walletService: WalletService,
                 @Inject(DOCUMENT) private document: any,
@@ -29,7 +38,7 @@ export class CreateComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.creation = 'enabled'
     }
 
 
@@ -49,6 +58,8 @@ export class CreateComponent implements OnInit {
                 self._snackbar.open(
                     'Wallet: ' + self.walletData.address + ' has been created.',
                     '', {duration: 4500});
+                self.refreshView();
+                self.download = 'enabled';
             }).catch(function(err){
             self._snackbar.open(
                 'There has been an error creating your wallet. Please try again later.',
@@ -68,6 +79,9 @@ export class CreateComponent implements OnInit {
         this._snackbar.open(
             'Wallet File has been downloaded.',
             '', {duration: 2500});
+
+        this.refreshView();
+        this.print = 'enabled';
     }
 
 
@@ -83,6 +97,12 @@ export class CreateComponent implements OnInit {
 
     public goto(state: string): void {
         this._walletService.changeState(state);
+    }
+
+    private refreshView(): void {
+        this.creation = 'disabled';
+        this.download = 'disabled';
+        this.print = 'disabled';
     }
 
 }
