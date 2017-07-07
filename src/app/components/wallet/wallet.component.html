@@ -7,12 +7,14 @@
             <span fxFlex></span>
 
             <div fxShow.xs="false" *ngIf="walletState === 'creation' || walletState === 'authentication'">
-                <button md-button (click)="goto('creation')">
+                <button md-button
+                        (click)="goto('creation')"
+                        [disabled]="walletState === 'creation'">
                     <md-icon>library_add</md-icon>
                     Create Wallet
                 </button>
 
-                <button md-button (click)="goto('authentication')">
+                <button md-button (click)="goto('authentication')" [disabled]="walletState === 'authentication'">
                     <md-icon>exit_to_app</md-icon>
                     Access Wallet
                 </button>
@@ -21,15 +23,11 @@
                     <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
                     Blockchain Explorer
                 </button>
-
-                <button md-button>
-                    <md-icon>email</md-icon> Contact
-                </button>
-
-                <button md-button *ngIf="walletState === 'dashboard'">
-                    <md-icon>close</md-icon> Close Wallet
-                </button>
             </div>
+
+            <button md-button *ngIf="walletState === 'dashboard'">
+                <md-icon>close</md-icon> Close Wallet
+            </button>
         </div>
     </div>
 </md-toolbar>

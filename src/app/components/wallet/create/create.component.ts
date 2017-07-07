@@ -50,8 +50,12 @@ export class CreateComponent implements OnInit {
                     'Wallet: ' + self.walletData.address + ' has been created.',
                     '', {duration: 4500});
             }).catch(function(err){
-            console.log(err);
-        });
+            self._snackbar.open(
+                'There has been an error creating your wallet. Please try again later.',
+                '', {duration: 3700});
+                self.creatingWallet = false;
+                console.log(err);
+            });
     }
 
 

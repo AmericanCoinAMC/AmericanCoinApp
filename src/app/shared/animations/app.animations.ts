@@ -15,7 +15,7 @@ export const appAnimations: any = {
             transition('active => inactive', animate('250ms ease-out'))
         ]);
     },
-    whatisSectionAnimation: function (): any{
+    sectionAnimation: function (): any{
         return trigger('sectionPanel', [
             state('disabled', style({
                 opacity: 0,

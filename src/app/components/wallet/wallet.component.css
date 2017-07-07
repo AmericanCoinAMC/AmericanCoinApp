@@ -25,6 +25,9 @@
     font-weight: 300;
 }
 
+.page-header button:disabled{
+    color:#999999;
+}
 
 
 md-card-header h3{

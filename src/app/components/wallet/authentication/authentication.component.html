@@ -1,82 +1,77 @@
-<md-card>
-    <md-card-content>
-        <h3>Access my Wallet</h3>
+<div>
+    <h2 style="text-align:center;">Access your Wallet</h2>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center center">
 
-        <md-tab-group>
-            <md-tab label="Wallet File + Password">
-                <div fxLayout="column">
-                    <h5>Wallet File + Password</h5>
+        <div fxFlex fxFlex.xs="100" fxFlex.sm="100" style="padding:10px;">
+            <md-card>
+                <md-card-content>
+                    <h5>With Wallet File + Password</h5>
 
-
-                    <div fxFlex>
-                        <div fxLayout="row" fxLayoutAlign="end center" fxflex>
-                            <div fxFlex>
-                                <input id="file" type="file" name="file" (change)="walletFileChanged($event)"
-                                       style="width:100%;"/>
+                    <div fxLayout="column">
+                        <div fxFlex>
+                            <div fxLayout="row" fxLayoutAlign="end center" fxflex>
+                                <div fxFlex>
+                                    <input id="file" type="file" name="file" (change)="walletFileChanged($event)"
+                                           style="width:100%;"/>
+                                </div>
+                                <div fxFlex>
+                                    <md-input-container fxFlex>
+                                        <input mdInput
+                                               placeholder="Enter your password"
+                                               type="password"
+                                               [(ngModel)]="password"
+                                               id="password-field">
+                                        <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
+                                    </md-input-container>
+                                </div>
                             </div>
-                            <div fxFlex>
-                                <md-input-container fxFlex>
-                                    <input mdInput
-                                           placeholder="Enter your password"
-                                           type="password"
-                                           [(ngModel)]="password"
-                                           id="password-field">
-                                    <button md-icon-button mdSuffix (click)="toggleVisibility()"><md-icon>remove_red_eye</md-icon></button>
-                                </md-input-container>
+                        </div>
+
+                        <div style="margin-top:25px;">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <span fxFlex></span>
+                                <button md-raised-button
+                                        color="primary"
+                                        (click)="decryptWithFile()"
+                                        [disabled]="!walletFileSelected || !password">
+                                    Access Wallet
+                                </button>
                             </div>
                         </div>
                     </div>
-
-                    <div style="margin-top:25px;">
-                        <div fxLayout="row" fxLayoutAlign="center center">
-                            <span fxFlex></span>
-                            <button md-raised-button
-                                    color="primary"
-                                    (click)="decryptWithFile()"
-                                    [disabled]="!walletFileSelected || !password">
-                                Access Wallet
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </md-tab>
-            <md-tab label="Private Key">
-                <div fxLayout="column">
-                    <h5>Private Key</h5>
-
-                    <md-input-container>
-                        <input mdInput
-                               placeholder="Enter your Private Key"
-                               type="text"
-                               [(ngModel)]="privateKey">
-                    </md-input-container>
-
-                    <div style="margin-top:25px;">
-                        <div fxLayout="row" fxLayoutAlign="center center">
-                            <span fxFlex></span>
-                            <button md-raised-button
-                                    color="primary"
-                                    (click)="decryptWithPrivateKey()">
-                                Access Wallet
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </md-tab>
-        </md-tab-group>
-
-
-
-        <div style="margin-top:50px;">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <p>I don't own an AmericanCoin Wallet</p>
-                <span fxFlex></span>
-                <button md-button
-                        color="primary"
-                        (click)="goto('creation')">
-                    Create New Wallet
-                </button>
-            </div>
+                </md-card-content>
+            </md-card>
         </div>
-    </md-card-content>
-</md-card>
+
+        <h3>or</h3>
+
+        <div fxFlex fxFlex.xs="100" fxFlex.sm="100" style="padding:10px;">
+            <md-card>
+                <md-card-content>
+                    <h5>With Private Key</h5>
+
+                    <div fxLayout="column">
+                        <md-input-container>
+                            <input mdInput
+                                   placeholder="Enter your Private Key"
+                                   type="text"
+                                   [(ngModel)]="privateKey">
+                        </md-input-container>
+
+                        <div style="margin-top:25px;">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <span fxFlex></span>
+                                <button md-raised-button
+                                        color="primary"
+                                        [disabled]="!privateKey"
+                                        (click)="decryptWithPrivateKey()">
+                                    Access Wallet
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>
