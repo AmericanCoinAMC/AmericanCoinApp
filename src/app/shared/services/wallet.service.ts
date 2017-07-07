@@ -153,6 +153,10 @@ export class WalletService {
                 this.setWalletDefaults();
                 this.__walletState.next(state);
                 break;
+            case 'faq':
+                this.setWalletDefaults();
+                this.__walletState.next(state);
+                break;
             case 'dashboard':
                 this.walletDecrypted = true;
                 this.__walletState.next(state);

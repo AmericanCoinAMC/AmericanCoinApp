@@ -10,7 +10,8 @@ import {Subscription} from 'rxjs/Subscription';
     animations: [
         appAnimations.fadeUp('creation'),
         appAnimations.fadeUp('authentication'),
-        appAnimations.fadeUp('dashboard')
+        appAnimations.fadeUp('dashboard'),
+        appAnimations.fadeUp('faq')
     ]
 })
 export class WalletComponent implements OnInit {
@@ -19,6 +20,7 @@ export class WalletComponent implements OnInit {
     public creation: string;
     public authentication: string;
     public dashboard: string;
+    public faq: string;
 
     constructor(private _walletService: WalletService) {
     }
@@ -26,9 +28,6 @@ export class WalletComponent implements OnInit {
     ngOnInit() {
         this.walletState$$ = this._walletService.walletState$
             .subscribe(state => this.walletStateSubscriptionEvent(state));
-
-
-
     }
 
 
@@ -50,5 +49,6 @@ export class WalletComponent implements OnInit {
         this.creation = 'disabled';
         this.authentication = 'disabled';
         this.dashboard = 'disabled';
+        this.faq = 'disabled';
     }
 }

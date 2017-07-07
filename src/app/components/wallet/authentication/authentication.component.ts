@@ -32,9 +32,9 @@ export class AuthenticationComponent implements OnInit {
 
     public toggleVisibility(): void {
         if(this.passwordVisible) {
-            this.document.getElementById('password-field').type = 'password';
+            this.document.getElementById('passwordFieldAuthenticate').type = 'password';
         } else {
-            this.document.getElementById('password-field').type = 'text';
+            this.document.getElementById('passwordFieldAuthenticate').type = 'text';
         }
         this.passwordVisible = !this.passwordVisible;
     }

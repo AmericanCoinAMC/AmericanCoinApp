@@ -66,6 +66,7 @@ import { CreateComponent } from './components/wallet/create/create.component';
 import { AuthenticationComponent } from './components/wallet/authentication/authentication.component';
 import { DashboardComponent } from './components/wallet/dashboard/dashboard.component';
 import { PaperWalletComponent } from './components/wallet/paper-wallet/paper-wallet.component';
+import { FaqComponent } from './components/wallet/faq/faq.component';
 
 
 
@@ -84,7 +85,8 @@ import { PaperWalletComponent } from './components/wallet/paper-wallet/paper-wal
         CapitalizePipe,
         AuthenticationComponent,
         DashboardComponent,
-        PaperWalletComponent
+        PaperWalletComponent,
+        FaqComponent
     ],
     imports: [
         BrowserModule,

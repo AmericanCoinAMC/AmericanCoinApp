@@ -6,7 +6,7 @@
 
             <span fxFlex></span>
 
-            <div fxShow.xs="false" *ngIf="walletState === 'creation' || walletState === 'authentication'">
+            <div fxShow.xs="false" *ngIf="walletState !== 'dashboard'">
                 <button md-button
                         (click)="goto('creation')"
                         [disabled]="walletState === 'creation'">
@@ -22,6 +22,11 @@
                 <button md-button (click)="openUrl('https://etherscan.io/token/AmericanCoin')">
                     <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
                     Blockchain Explorer
+                </button>
+
+                <button md-button (click)="goto('faq')" [disabled]="walletState === 'faq'">
+                    <md-icon>help</md-icon>
+                    FAQ
                 </button>
             </div>
 
@@ -43,5 +48,9 @@
 
     <div fxFlex="100" [@dashboardPanel]="dashboard" [hidden]="dashboard !== 'enabled'">
         <app-dashboard></app-dashboard>
+    </div>
+
+    <div fxFlex="100" [@faqPanel]="faq" [hidden]="faq !== 'enabled'">
+        <app-faq></app-faq>
     </div>
 </div>

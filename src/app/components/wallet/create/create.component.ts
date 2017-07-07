@@ -87,9 +87,9 @@ export class CreateComponent implements OnInit {
 
     public toggleVisibility(): void {
         if(this.passwordVisible) {
-            this.document.getElementById('password-field').type = 'password';
+            this.document.getElementById('passwordFieldCreate').type = 'password';
         } else {
-            this.document.getElementById('password-field').type = 'text';
+            this.document.getElementById('passwordFieldCreate').type = 'text';
         }
         this.passwordVisible = !this.passwordVisible;
     }
