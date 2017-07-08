@@ -1,3 +1,60 @@
-<p>
-  dashboard works!
-</p>
+<app-paper-wallet [walletData]="paperWalletData" class="print-area"></app-paper-wallet>
+
+
+<div>
+    <div fxLayout="column">
+        <div class="dashboard-header">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayout.sm="column">
+                <div fxFlex>
+                    <div>
+                        <div fxLayout="column">
+                            <h3>Be Your Own Bank</h3>
+                            <div>
+                                <button md-raised-button (click)="sendFunds()">
+                                    <md-icon>file_upload</md-icon> Send
+                                </button>
+                                <button md-raised-button (click)="receiveFunds()">
+                                    <md-icon>file_download</md-icon> Receive
+                                </button>
+                                <button md-icon-button
+                                        ngxClipboard
+                                        mdTooltip="Copy your Address"
+                                        [mdTooltipPosition]="'after'"
+                                        [cbContent]="'2b9f520b87cbc6e4c4195e5398cf449104af5101'"
+                                        (cbOnSuccess)="showMessage('Your wallet address has been copied. Use Control + V to paste it.')">
+                                    <md-icon>content_copy</md-icon>
+                                </button>
+                                <input type="hidden" value="2b9f520b87cbc6e4c4195e5398cf449104af5101" #inputTarget>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div fxLayout="column" style="text-align:center;">
+                        <h5 class="balance-big">521,584.58214789 AMC</h5>
+                        <span>My Balance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <hr>
+
+        <div class="dashboard-content">
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+                <div fxFlex="60" fxFlex.xs="100" fxFlex.sm="100">
+                    <h4>My Transactions</h4>
+                    <div fxLayout="column">
+                        <app-transactions></app-transactions>
+                    </div>
+                </div>
+
+                <div fxFlex="40">
+                    <app-balance-details></app-balance-details>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

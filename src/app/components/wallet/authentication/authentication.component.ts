@@ -14,11 +14,16 @@ export class AuthenticationComponent implements OnInit {
     public password: string;
     public passwordVisible: boolean;
     public privateKey: string;
+    public decryptingWallet: boolean;
+    public walletDecrypted: any;
+
     constructor(private _walletService: WalletService,
                 private _snackbar: MdSnackBar,
                 @Inject(DOCUMENT) private document: any) {
         this.walletFileSelected = false;
         this.passwordVisible = false;
+        this.decryptingWallet = false;
+        this.walletDecrypted = {};
     }
 
     ngOnInit() {
@@ -27,6 +32,7 @@ export class AuthenticationComponent implements OnInit {
     }
 
     public goto(state: string): void {
+        this.decryptingWallet = false;
         this._walletService.changeState(state);
     }
 
@@ -41,12 +47,21 @@ export class AuthenticationComponent implements OnInit {
 
     public decryptWithFile(): void {
         const self = this;
+        self.decryptingWallet = true;
+        self._snackbar.open(
+            'Decrypting Wallet. This process may take a few minutes',
+            '', {duration: 3000});
+
         self._walletService.decryptWithFile(this.walletFile, this.password)
             .then(function(response) {
+                self.decryptingWallet = false;
                 if(response) {
+                    self.password = '';
                     self._snackbar.open(
                         'Wallet Decrypted Successfully.',
                         '', {duration: 3000});
+
+                    self.goto('dashboard');
                 }else {
                     self._snackbar.open(
                         'Incorrect Wallet File or Password.',
@@ -60,11 +75,16 @@ export class AuthenticationComponent implements OnInit {
 
     public decryptWithPrivateKey(): void {
         this.privateKey = this.privateKey.replace(/\s+/g, '');
+        this.decryptingWallet = true;
         if(this._walletService.decryptWithPrivateKey(this.privateKey)) {
+            this.decryptingWallet = false;
+            this.privateKey = '';
             this._snackbar.open(
                 'Wallet Decrypted Successfully.',
                 '', {duration: 3000});
+            this.goto('dashboard');
         }else {
+            this.decryptingWallet = false;
             this._snackbar.open(
                 'Incorrect Private Key.',
                 '', {duration: 3000});

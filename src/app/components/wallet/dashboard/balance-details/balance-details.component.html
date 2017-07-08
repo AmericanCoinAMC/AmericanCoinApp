@@ -1,0 +1,94 @@
+<md-card class="balance-card" style="margin:0px;">
+    <md-card-content>
+        <div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="start center">
+                <h3 >Details</h3>
+                <span fxFlex></span>
+                <div style="text-align:center;">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center center">
+                        <div fxFlex>
+                            <button [disabled]="amc == 'enabled'"
+                                    (click)="viewBalanceDetails('amc')"
+                                    md-button>
+                                <img src="assets/images/logo.png" alt="amc">
+                            </button>
+                        </div>
+                        <div fxFlex>
+                            <button [disabled]="eth == 'enabled'" (click)="viewBalanceDetails('eth')" md-button>
+                                <img src="assets/images/eth.png" alt="eth">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div [@amcPanel]="amc" [hidden]="amc !== 'enabled'">
+            <h5 style="margin-left:5px;">AmericanCoin</h5>
+
+            <table>
+                <tbody>
+                <tr>
+                    <td>Total Received</td>
+                    <td>412.85555865 AMC</td>
+                </tr>
+                <tr>
+                    <td>Total Sent</td>
+                    <td>110.54111452 AMC</td>
+                </tr>
+                <tr>
+                    <td>Unconfirmed</td>
+                    <td>10.00000000 AMC</td>
+                </tr>
+                <tr>
+                    <td>Balance</td>
+                    <td>1154.00000000 AMC</td>
+                </tr>
+                <tr>
+                    <td>Final Balance</td>
+                    <td>1164.00000000 AMC</td>
+                </tr>
+                <tr>
+                    <td>Transactions</td>
+                    <td>850</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div [@ethPanel]="eth" [hidden]="eth !== 'enabled'">
+            <h5 style="margin-left:5px;">Ethereum (Ether)</h5>
+
+
+            <table>
+                <tbody>
+                <tr>
+                    <td>Total Received</td>
+                    <td>412.85555865 ETH</td>
+                </tr>
+                <tr>
+                    <td>Total Sent</td>
+                    <td>110.54111452 ETH</td>
+                </tr>
+                <tr>
+                    <td>Unconfirmed</td>
+                    <td>10.00000000 ETH</td>
+                </tr>
+                <tr>
+                    <td>Balance</td>
+                    <td>1154.00000000 ETH</td>
+                </tr>
+                <tr>
+                    <td>Final Balance</td>
+                    <td>1164.00000000 ETH</td>
+                </tr>
+                <tr>
+                    <td>Transactions</td>
+                    <td>850</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-card-content>
+</md-card>

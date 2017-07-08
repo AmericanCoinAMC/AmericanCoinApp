@@ -39,8 +39,9 @@
                                 <button md-raised-button
                                         color="primary"
                                         (click)="decryptWithFile()"
-                                        [disabled]="!walletFileSelected || !password">
-                                    Access Wallet
+                                        [disabled]="!walletFileSelected || !password || decryptingWallet">
+                                    <span *ngIf="!decryptingWallet">Access Wallet</span>
+                                    <span *ngIf="decryptingWallet">Accessing Wallet...</span>
                                 </button>
                             </div>
                         </div>
@@ -71,7 +72,8 @@
                                         color="primary"
                                         [disabled]="!privateKey"
                                         (click)="decryptWithPrivateKey()">
-                                    Access Wallet
+                                    <span *ngIf="!decryptingWallet">Access Wallet</span>
+                                    <span *ngIf="decryptingWallet">Accessing Wallet...</span>
                                 </button>
                             </div>
                         </div>

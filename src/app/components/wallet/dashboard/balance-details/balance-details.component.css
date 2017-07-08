@@ -1,0 +1,28 @@
+.balance-card{
+
+}
+
+.balance-card img{
+    max-width: 40px;
+    max-height:40px;
+}
+
+.balance-card .coin-header{
+    margin:0;
+    padding:0;
+}
+
+tr td:last-child {
+    text-align:right;
+    font-size:13px;
+}
+
+
+img{
+    margin:10px;
+}
+
+
+button:disabled{
+    background: #eef1f5;
+}

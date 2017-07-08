@@ -18,9 +18,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
 /*
-* Dynamic Meta Tags
+* Copy to Clipboard
 * */
-
+import { ClipboardModule } from 'ngx-clipboard';
 
 /*
 * Languages
@@ -67,6 +67,10 @@ import { AuthenticationComponent } from './components/wallet/authentication/auth
 import { DashboardComponent } from './components/wallet/dashboard/dashboard.component';
 import { PaperWalletComponent } from './components/wallet/paper-wallet/paper-wallet.component';
 import { FaqComponent } from './components/wallet/faq/faq.component';
+import { SendDialogComponent } from './components/wallet/dashboard/send-dialog/send-dialog.component';
+import { ReceiveDialogComponent } from './components/wallet/dashboard/receive-dialog/receive-dialog.component';
+import { BalanceDetailsComponent } from './components/wallet/dashboard/balance-details/balance-details.component';
+import { TransactionsComponent } from './components/wallet/dashboard/transactions/transactions.component';
 
 
 
@@ -86,7 +90,11 @@ import { FaqComponent } from './components/wallet/faq/faq.component';
         AuthenticationComponent,
         DashboardComponent,
         PaperWalletComponent,
-        FaqComponent
+        FaqComponent,
+        SendDialogComponent,
+        ReceiveDialogComponent,
+        BalanceDetailsComponent,
+        TransactionsComponent
     ],
     imports: [
         BrowserModule,
@@ -95,10 +103,12 @@ import { FaqComponent } from './components/wallet/faq/faq.component';
         BrowserAnimationsModule,
         MaterialModule,
         FlexLayoutModule,
+        ClipboardModule,
         Ng2PageScrollModule.forRoot(),
         RouterModule.forRoot(routes),
     ],
     providers: [ WalletService, BlockCypherService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [SendDialogComponent, ReceiveDialogComponent]
 })
 export class AppModule { }

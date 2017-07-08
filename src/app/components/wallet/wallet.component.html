@@ -2,14 +2,14 @@
     <div fxFlex>
         <div fxLayout="row" fxLayoutAlign="start center">
             <img src="assets/images/logo.png" alt="logo">
-            <h3>AmericanCoin</h3>
+            <h3  fxShow.xs="false"  fxShow.sm="false">AmericanCoin</h3>
 
             <span fxFlex></span>
 
-            <div fxShow.xs="false" *ngIf="walletState !== 'dashboard'">
+            <div fxShow.xs="false"  fxShow.sm="false" *ngIf="walletState !== 'dashboard'">
                 <button md-button
-                        (click)="goto('creation')"
-                        [disabled]="walletState === 'creation'">
+                        (click)="goto('walletCreation')"
+                        [disabled]="walletState === 'walletCreation'">
                     <md-icon>library_add</md-icon>
                     Create Wallet
                 </button>
@@ -19,7 +19,7 @@
                     Access Wallet
                 </button>
 
-                <button md-button (click)="openUrl('https://etherscan.io/token/AmericanCoin')">
+                <button md-button (click)="openUrl('https://etherscan.io/token/GOLEM')">
                     <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
                     Blockchain Explorer
                 </button>
@@ -30,20 +30,28 @@
                 </button>
             </div>
 
-            <button md-button *ngIf="walletState === 'dashboard'">
-                <md-icon>close</md-icon> Close Wallet
+            <button md-icon-button *ngIf="walletState === 'dashboard'">
+                <md-icon>refresh</md-icon>
+            </button>
+
+            <button md-button (click)="printPaperWallet()" fxShow.xs="false" fxShow.sm="false" *ngIf="walletState === 'dashboard'">
+                <md-icon>print</md-icon> <span >Print Paper Wallet</span>
+            </button>
+
+            <button md-button (click)="goto('authentication')" *ngIf="walletState === 'dashboard'">
+                <md-icon>close</md-icon> <span  fxShow.xs="false"  fxShow.sm="false">Close Wallet</span>
             </button>
         </div>
     </div>
 </md-toolbar>
 
-<div class="wallet-container">
-    <div fxFlex="100" [@creationPanel]="creation" [hidden]="creation !== 'enabled'">
-        <app-create></app-create>
-    </div>
-
+<div class="wallet-container" style="max-width: 100%;">
     <div fxFlex="100" [@authenticationPanel]="authentication" [hidden]="authentication !== 'enabled'">
         <app-authentication></app-authentication>
+    </div>
+
+    <div fxFlex="100" [@walletCreationPanel]="walletCreation" [hidden]="walletCreation !== 'enabled'">
+        <app-create></app-create>
     </div>
 
     <div fxFlex="100" [@dashboardPanel]="dashboard" [hidden]="dashboard !== 'enabled'">

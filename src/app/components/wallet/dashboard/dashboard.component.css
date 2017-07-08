@@ -1,0 +1,30 @@
+.dashboard-header {
+    margin:0px 0px 0 0px;
+    padding:0px;
+}
+.dashboard-header h3{
+    margin-top:0px;
+}
+
+.balance-big{
+    margin-bottom:0px;
+}
+
+
+hr {
+    border-top: 1px solid #dddfe0;
+    width:100%;
+    margin:25px 0 15px 0;
+}
+
+
+
+.print-area{
+    display:none;
+}
+
+@media print {
+    .print-area{
+        display:block;
+    }
+}

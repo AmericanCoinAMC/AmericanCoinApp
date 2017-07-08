@@ -9,7 +9,7 @@ import {appAnimations} from '../../../shared/animations/app.animations';
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.css'],
     animations: [
-        appAnimations.fadeUp('creation'),
+        appAnimations.fadeUp('walletCreation'),
         appAnimations.fadeUp('download'),
         appAnimations.fadeUp('print')
     ]
@@ -22,8 +22,7 @@ export class CreateComponent implements OnInit {
     public passwordVisible: boolean;
     public walletData: any;
     public walletFile: string;
-
-    public creation: string;
+    public walletCreation: string;
     public download: string;
     public print: string;
 
@@ -33,17 +32,15 @@ export class CreateComponent implements OnInit {
         this.passwordVisible = false;
         this.walletCreated = false;
         this.walletFileDownloaded = false;
-
-
     }
 
     ngOnInit() {
-        this.creation = 'enabled'
+        this.walletCreation = 'enabled'
     }
 
 
 
-    public create(password: string): void {
+    public create(): void {
         const self = this;
         self.creatingWallet = true;
         self._snackbar.open(
@@ -79,7 +76,6 @@ export class CreateComponent implements OnInit {
         this._snackbar.open(
             'Wallet File has been downloaded.',
             '', {duration: 2500});
-
         this.refreshView();
         this.print = 'enabled';
     }
@@ -100,7 +96,7 @@ export class CreateComponent implements OnInit {
     }
 
     private refreshView(): void {
-        this.creation = 'disabled';
+        this.walletCreation = 'disabled';
         this.download = 'disabled';
         this.print = 'disabled';
     }

@@ -20,12 +20,13 @@ export class WalletService {
     constructor(private _blockcyber: BlockCypherService) {
         this.initialized = false;
         this.walletDecrypted = false;
+        this.decryptedWallet = {};
 
         /*
         * Observable
         * */
 
-        this.__walletState = new BehaviorSubject<string>('authentication');
+        this.__walletState = new BehaviorSubject<string>('dashboard');
         this.walletState$ = this.__walletState.asObservable();
 
     }
@@ -149,7 +150,7 @@ export class WalletService {
                 this.setWalletDefaults();
                 this.__walletState.next(state);
                 break;
-            case 'creation':
+            case 'walletCreation':
                 this.setWalletDefaults();
                 this.__walletState.next(state);
                 break;

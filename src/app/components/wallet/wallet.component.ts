@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs/Subscription';
     templateUrl: './wallet.component.html',
     styleUrls: ['./wallet.component.css'],
     animations: [
-        appAnimations.fadeUp('creation'),
+        appAnimations.fadeUp('walletCreation'),
         appAnimations.fadeUp('authentication'),
         appAnimations.fadeUp('dashboard'),
         appAnimations.fadeUp('faq')
@@ -17,7 +17,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class WalletComponent implements OnInit {
     public walletState: string;
     private walletState$$: Subscription;
-    public creation: string;
+    public walletCreation: string;
     public authentication: string;
     public dashboard: string;
     public faq: string;
@@ -46,9 +46,13 @@ export class WalletComponent implements OnInit {
     }
 
     private refreshView(): void {
-        this.creation = 'disabled';
+        this.walletCreation = 'disabled';
         this.authentication = 'disabled';
         this.dashboard = 'disabled';
         this.faq = 'disabled';
+    }
+
+    public printPaperWallet(): void {
+        window.print();
     }
 }
