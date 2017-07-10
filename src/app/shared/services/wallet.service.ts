@@ -11,22 +11,25 @@ declare const Buffer;
 @Injectable()
 export class WalletService {
     public initialized: boolean;
+
     public walletDecrypted: boolean;
+    public walletInstance: any;
     public decryptedWallet: any;
 
     private __walletState: any;
     public walletState$: Observable<string>;
 
-    constructor(private _blockcyber: BlockCypherService) {
+    constructor(private _blockcypher: BlockCypherService) {
         this.initialized = false;
         this.walletDecrypted = false;
+        this.walletInstance = {};
         this.decryptedWallet = {};
 
         /*
         * Observable
         * */
 
-        this.__walletState = new BehaviorSubject<string>('dashboard');
+        this.__walletState = new BehaviorSubject<string>('authentication');
         this.walletState$ = this.__walletState.asObservable();
 
     }
@@ -39,11 +42,15 @@ export class WalletService {
     public createWallet(password: string): Promise<any> {
         const self = this;
         return new Promise(function(resolve, reject){
-            self._blockcyber.generateWallet()
+            self._blockcypher.generateWallet()
                 .then(function (walletRawData){
                     const walletData = JSON.parse(walletRawData._body);
                     resolve({
-                        data: walletData,
+                        data: {
+                            privateKey: walletData.private,
+                            publicKey: walletData.public,
+                            address: walletData.address,
+                        },
                         file: WalletService.generateWalletFile(walletData, password)
                     });
                 })
@@ -89,11 +96,16 @@ export class WalletService {
             try {
                 self.readWalletFile(file, function(event) {
                     const parsedResult = JSON.parse(event.target.result);
-                    const decryptedWallet = ethereumWalletJs.fromV3(parsedResult, password);
+                    const walletInstance = ethereumWalletJs.fromV3(parsedResult, password);
 
-                    if(decryptedWallet) {
-                        self.decryptedWallet = decryptedWallet;
+                    if(walletInstance) {
+                        self.walletInstance = walletInstance;
                         self.walletDecrypted = true;
+                        self.decryptedWallet = {
+                            privateKey: walletInstance.getPrivateKey(),
+                            publicKey:  walletInstance.getPublicKey(),
+                            address:  walletInstance.getAddress(),
+                        };
                         resolve(true);
                     }else {
                         self.setWalletDefaults();
@@ -119,9 +131,9 @@ export class WalletService {
     public decryptWithPrivateKey(privateKey: string): boolean {
         try {
             const privateKeyBuffer = Buffer.from(privateKey, 'hex');
-            const decryptedWallet = ethereumWalletJs.fromPrivateKey(privateKeyBuffer);
-            if(decryptedWallet) {
-                this.decryptedWallet = decryptedWallet;
+            const walletInstance = ethereumWalletJs.fromPrivateKey(privateKeyBuffer);
+            if(walletInstance) {
+                this.walletInstance = walletInstance;
                 this.walletDecrypted = true;
                 return true;
             }else {
@@ -135,6 +147,19 @@ export class WalletService {
             return false;
         }
     }
+
+
+
+    /*
+    * Wallet Data Populator
+    * */
+
+    private populateWalletData(): void {
+
+    }
+
+
+
 
     /*
     * Wallet State Observable Emitter
@@ -176,6 +201,7 @@ export class WalletService {
 
     private setWalletDefaults(): void {
         this.walletDecrypted = false;
+        this.walletInstance = {};
         this.decryptedWallet = {};
     }
 }
