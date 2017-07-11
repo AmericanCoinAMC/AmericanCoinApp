@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-
-declare var require: any;
-
-const ethereumWalletJs = require('ethereumjs-wallet-browser');
-declare const Buffer;
 
 @Injectable()
 export class WalletService {
@@ -59,57 +52,52 @@ export class WalletService {
     * Wallet Creation
     * */
 
-    /*public createWallet(password: string): Promise<any> {
-        const self = this;
-        return new Promise(function(resolve, reject){
-            self._blockcypher.generateWallet()
-                .then(function (walletRawData){
-     const walletData = JSON.parse(walletRawData._body);
-                    resolve({
-                        data: {
-                            privateKey: walletData.private,
-                            publicKey: walletData.public,
-                            address: walletData.address,
-                        },
-                        file: WalletService.generateWalletFile(walletData, password)
-                    });
-                })
-                .catch(function (err ){
-                    reject(err);
-                });
-        });
-    }*/
-
-    /*public createWallet(password: string): Promise<any> {
-        const self = this;
-        return new Promise(function(resolve, reject){
-            self._http.post(
-                self.baseUrl + '/create?password=' + password,
-                {},
-                self.headerOptions)
-                .toPromise()
-                .then(function (response){
-                    //console.log(response._body);
-                    if(response.ok){
-                        //const walletData = JSON.parse(rawData._body);
-
-                        const responseData = response;
-                         console.log(responseData);
-                    }else{
-                        reject(false);
-                    }
-
-                })
-                .catch(function(err) {reject(err)});
-        });
-    }*/
-
-
-
-
     public createWallet(password: string): Observable<any> {
         return this._http.post(
             this.baseUrl + '/create?password=' + password,
+            {},
+            this.headerOptions)
+            .map(this.handleResponse)
+            .catch(this.handleError);
+    }
+
+
+
+    /*
+    * Wallet Decryption
+    * */
+
+    public decryptWithFile(file: any, password: string): Promise<any> {
+        const self = this;
+        return new Promise(function(resolve, reject) {
+            self.readWalletFile(file, function(event) {
+                console.log(encodeURIComponent(event.target.result));
+                resolve(self._http.post(
+                    self.baseUrl + '/decryptWithFile?password=' + password + '&file=' + event.target.result,
+                    {},
+                    self.headerOptions)
+                    .map(self.handleResponse)
+                    .catch(self.handleError));
+            });
+        });
+
+    }
+
+
+    private readWalletFile(file, onLoadCallback) {
+        const reader = new FileReader();
+        reader.onload = onLoadCallback;
+        reader.readAsText(file);
+    }
+
+
+    /*
+     * Decrypt with Private Key
+     * */
+
+    public decryptWithPrivateKey(privateKey: string): Observable<any> {
+        return this._http.post(
+            this.baseUrl + '/decryptWithPrivateKey?privateKey=' + privateKey,
             {},
             this.headerOptions)
             .map(this.handleResponse)
@@ -133,85 +121,6 @@ export class WalletService {
         console.error(error.message || error);
         return Observable.throw(error.message || error);
     }
-
-    /*
-    * Wallet Decryption
-    * */
-
-    /*public decryptWithFile(file: any, password: string): Promise<any> {
-        const self = this;
-        return new Promise(function(resolve, reject) {
-            try {
-                self.readWalletFile(file, function(event) {
-                    const parsedResult = JSON.parse(event.target.result);
-                    const walletInstance = ethereumWalletJs.fromV3(parsedResult, password);
-
-                    if(walletInstance) {
-                        self.walletInstance = walletInstance;
-                        self.walletDecrypted = true;
-                        self.decryptedWallet = {
-                            privateKey: walletInstance.getPrivateKey(),
-                            publicKey:  walletInstance.getPublicKey(),
-                            address:  walletInstance.getAddress(),
-                        };
-                        resolve(true);
-                    }else {
-                        self.setWalletDefaults();
-                        resolve(false);
-                    }
-                });
-            }
-            catch (e) {
-                console.log(e);
-                this.setWalletDefaults();
-                resolve(false);
-            }
-        });
-    }*/
-
-    public decryptWithFile(file: any, password: string): Observable<any> {
-        const self = this;
-        self.readWalletFile(file, function (e) {
-            const file = JSON.parse(e.target.result);
-            return self._http.post(
-                self.baseUrl + '/decryptWithFile?password=' + password,
-                {},
-                self.headerOptions)
-                .map(this.handleResponse)
-                .catch(this.handleError);
-        });
-    }
-
-
-    private readWalletFile(file, onLoadCallback) {
-        const reader = new FileReader();
-        reader.onload = onLoadCallback;
-        reader.readAsText(file);
-    }
-
-
-
-
-    public decryptWithPrivateKey(privateKey: string): boolean {
-        try {
-            const privateKeyBuffer = Buffer.from(privateKey, 'hex');
-            const walletInstance = ethereumWalletJs.fromPrivateKey(privateKeyBuffer);
-            if(walletInstance) {
-                this.walletInstance = walletInstance;
-                this.walletDecrypted = true;
-                return true;
-            }else {
-                this.setWalletDefaults();
-                return false;
-            }
-        }
-        catch (e) {
-            console.log(e);
-            this.setWalletDefaults();
-            return false;
-        }
-    }
-
 
 
     /*

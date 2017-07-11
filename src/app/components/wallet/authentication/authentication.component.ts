@@ -45,58 +45,67 @@ export class AuthenticationComponent implements OnInit {
         this.passwordVisible = !this.passwordVisible;
     }
 
-    /*public decryptWithFile(): void {
+
+
+    public decryptWithFile(): void {
         const self = this;
         self.decryptingWallet = true;
         self._snackbar.open(
-            'Decrypting Wallet. This process may take a few minutes',
-            '', {duration: 3000});
-
-        self._walletService.decryptWithFile(this.walletFile, this.password)
-            .then(function(response) {
-                self.decryptingWallet = false;
-                if(response) {
-                    self.password = '';
-                    self._snackbar.open(
-                        'Wallet Decrypted Successfully.',
-                        '', {duration: 3000});
-
-                    self.goto('dashboard');
-                }else {
-                    self._snackbar.open(
-                        'Incorrect Wallet File or Password.',
-                        '', {duration: 3000});
-                }
-            })
-            .catch(function(err){
-                console.log(err);
-            });
-    }*/
-
-    public decryptWithFile(): void {
-        this.decryptingWallet = true;
-        this._snackbar.open(
             'Your wallet is being created. This process may take a few minutes.',
             '', {duration: 3700});
+        self._walletService.decryptWithFile(self.walletFile, self.password)
+            .then(function(decryptionObservable) {
+                decryptionObservable.subscribe( walletObject => {
+                        self.decryptingWallet = false;
+                        if(walletObject) {
+                            console.log(walletObject);
+                            self.password = '';
+                            self._snackbar.open(
+                                'Wallet Decrypted Successfully.',
+                                '', {duration: 3000});
 
-        this._walletService.decryptWithFile(this.walletFile, this.password)
+                            self.goto('dashboard');
+                        }else {
+                            self._snackbar.open(
+                                'Incorrect Wallet File or Password.',
+                                '', {duration: 3000});
+                        }
+                    },
+                    error => {
+                        self.decryptingWallet = false;
+                        self._snackbar.open(
+                            'There has been an error creating your wallet. Please try again later.',
+                            '', {duration: 3700});
+                    });
+            })
+            .catch(function(err) {
+                console.log(err);
+                self.decryptingWallet = false;
+                self._snackbar.open(
+                    'There has been an error creating your wallet. Please try again later.',
+                    '', {duration: 3700});
+            });
+    }
+
+
+    public decryptWithPrivateKey(): void {
+        this.privateKey = this.privateKey.replace(/\s+/g, '');
+        this.decryptingWallet = true;
+        this._walletService.decryptWithPrivateKey(this.privateKey)
             .subscribe( walletObject => {
                     this.decryptingWallet = false;
-
-                    /*if(walletObject) {
-                        this.walletCreated = true;
-                        this.createdWallet = walletObject;
-                        this.refreshView();
-                        this.download = 'enabled';
+                    if(walletObject) {
+                        this.privateKey = '';
                         this._snackbar.open(
-                            'Wallet: ' + this.createdWallet.addressString +
-                            ' has been created.',
-                            '', {duration: 4500});
-                    }else {
-                        this._snackbar.open(
-                            'Incorrect Wallet File or Password.',
+                            'Wallet Decrypted Successfully.',
                             '', {duration: 3000});
-                    }*/
+                        this.goto('dashboard');
+                    }else {
+                        this.decryptingWallet = false;
+                        this._snackbar.open(
+                            'Incorrect Private Key.',
+                            '', {duration: 3700});
+                    }
                 },
                 error => {
                     this.decryptingWallet = false;
@@ -104,25 +113,6 @@ export class AuthenticationComponent implements OnInit {
                         'There has been an error creating your wallet. Please try again later.',
                         '', {duration: 3700});
                 });
-    }
-
-
-    public decryptWithPrivateKey(): void {
-        this.privateKey = this.privateKey.replace(/\s+/g, '');
-        this.decryptingWallet = true;
-        if(this._walletService.decryptWithPrivateKey(this.privateKey)) {
-            this.decryptingWallet = false;
-            this.privateKey = '';
-            this._snackbar.open(
-                'Wallet Decrypted Successfully.',
-                '', {duration: 3000});
-            this.goto('dashboard');
-        }else {
-            this.decryptingWallet = false;
-            this._snackbar.open(
-                'Incorrect Private Key.',
-                '', {duration: 3000});
-        }
     }
 
     public walletFileChanged(e: any): void {
