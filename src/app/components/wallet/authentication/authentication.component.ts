@@ -45,7 +45,7 @@ export class AuthenticationComponent implements OnInit {
         this.passwordVisible = !this.passwordVisible;
     }
 
-    public decryptWithFile(): void {
+    /*public decryptWithFile(): void {
         const self = this;
         self.decryptingWallet = true;
         self._snackbar.open(
@@ -71,7 +71,41 @@ export class AuthenticationComponent implements OnInit {
             .catch(function(err){
                 console.log(err);
             });
+    }*/
+
+    public decryptWithFile(): void {
+        this.decryptingWallet = true;
+        this._snackbar.open(
+            'Your wallet is being created. This process may take a few minutes.',
+            '', {duration: 3700});
+
+        this._walletService.decryptWithFile(this.walletFile, this.password)
+            .subscribe( walletObject => {
+                    this.decryptingWallet = false;
+
+                    /*if(walletObject) {
+                        this.walletCreated = true;
+                        this.createdWallet = walletObject;
+                        this.refreshView();
+                        this.download = 'enabled';
+                        this._snackbar.open(
+                            'Wallet: ' + this.createdWallet.addressString +
+                            ' has been created.',
+                            '', {duration: 4500});
+                    }else {
+                        this._snackbar.open(
+                            'Incorrect Wallet File or Password.',
+                            '', {duration: 3000});
+                    }*/
+                },
+                error => {
+                    this.decryptingWallet = false;
+                    this._snackbar.open(
+                        'There has been an error creating your wallet. Please try again later.',
+                        '', {duration: 3700});
+                });
     }
+
 
     public decryptWithPrivateKey(): void {
         this.privateKey = this.privateKey.replace(/\s+/g, '');

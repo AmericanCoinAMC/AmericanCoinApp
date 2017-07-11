@@ -3,6 +3,7 @@ import { WalletService } from '../../../shared/services/wallet.service';
 import { DOCUMENT } from '@angular/platform-browser';
 import {MdSnackBar} from '@angular/material';
 import {appAnimations} from '../../../shared/animations/app.animations';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-create',
@@ -18,19 +19,21 @@ export class CreateComponent implements OnInit {
     public password: string;
     public walletCreated: boolean;
     public creatingWallet: boolean;
+    public createdWallet: any;
     public walletFileDownloaded: boolean;
     public passwordVisible: boolean;
-    public walletData: any;
-    public walletFile: string;
+
+    // States
     public walletCreation: string;
     public download: string;
     public print: string;
 
-    constructor(private _walletService: WalletService,
+    constructor(public _walletService: WalletService,
                 @Inject(DOCUMENT) private document: any,
                 private _snackbar: MdSnackBar) {
         this.passwordVisible = false;
         this.walletCreated = false;
+        this.createdWallet = {};
         this.walletFileDownloaded = false;
     }
 
@@ -39,43 +42,42 @@ export class CreateComponent implements OnInit {
     }
 
 
-
     public create(): void {
-        const self = this;
-        self.creatingWallet = true;
-        self._snackbar.open(
+        this.creatingWallet = true;
+        this._snackbar.open(
             'Your wallet is being created. This process may take a few minutes.',
             '', {duration: 3700});
-        self._walletService.createWallet(self.password)
-            .then(function(walletObject){
-                self.walletData = walletObject.data;
-                self.walletFile = walletObject.file;
-                self.walletCreated = true;
-                self.creatingWallet = false;
-                self._snackbar.open(
-                    'Wallet: ' + self.walletData.address + ' has been created.',
-                    '', {duration: 4500});
-                self.refreshView();
-                self.download = 'enabled';
-            }).catch(function(err){
-            self._snackbar.open(
-                'There has been an error creating your wallet. Please try again later.',
-                '', {duration: 3700});
-                self.creatingWallet = false;
-                console.log(err);
-            });
+
+        this._walletService.createWallet(this.password)
+            .subscribe( walletObject => {
+                    this.creatingWallet = false;
+                    this.walletCreated = true;
+                    this.createdWallet = walletObject;
+                    this.refreshView();
+                    this.download = 'enabled';
+                    this._snackbar.open(
+                        'Wallet: ' + this.createdWallet.addressString +
+                        ' has been created.',
+                        '', {duration: 4500});
+                },
+                error => {
+                    this.creatingWallet = false;
+                    this._snackbar.open(
+                        'There has been an error creating your wallet. Please try again later.',
+                        '', {duration: 3700});
+                });
     }
 
 
     public downloadFile(): void {
         const dlAnchorElem = this.document.getElementById('downloadWalletAnchor');
-        dlAnchorElem.setAttribute("href", this.walletFile);
-        dlAnchorElem.setAttribute("download", WalletService.generateWalletName());
+        dlAnchorElem.setAttribute("href", this.createdWallet.walletFile);
+        dlAnchorElem.setAttribute("download", this.createdWallet.walletFileName);
         dlAnchorElem.click();
-        this.walletFileDownloaded = true;
         this._snackbar.open(
             'Wallet File has been downloaded.',
             '', {duration: 2500});
+        this.walletFileDownloaded = true;
         this.refreshView();
         this.print = 'enabled';
     }

@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
 import 'rxjs/add/operator/toPromise';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from "rxjs/Observable";
-import {BlockCypherService} from './block-cypher.service';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 declare var require: any;
 
@@ -13,9 +16,6 @@ declare const Buffer;
 @Injectable()
 export class WalletService {
     public initialized: boolean;
-
-    public walletCreated: boolean;
-    public createdWallet: any;
 
     public walletDecrypted: boolean;
     public walletInstance: any;
@@ -30,6 +30,7 @@ export class WalletService {
 
     constructor(private _http: Http) {
         this.initialized = false;
+
         this.walletDecrypted = false;
         this.walletInstance = {};
         this.decryptedWallet = {};
@@ -63,7 +64,7 @@ export class WalletService {
         return new Promise(function(resolve, reject){
             self._blockcypher.generateWallet()
                 .then(function (walletRawData){
-                    const walletData = JSON.parse(walletRawData._body);
+     const walletData = JSON.parse(walletRawData._body);
                     resolve({
                         data: {
                             privateKey: walletData.private,
@@ -79,52 +80,65 @@ export class WalletService {
         });
     }*/
 
-    public createWallet(password: string): Promise<any> {
+    /*public createWallet(password: string): Promise<any> {
         const self = this;
         return new Promise(function(resolve, reject){
             self._http.post(
-                self.baseUrl + '/create',
-                {password: password},
+                self.baseUrl + '/create?password=' + password,
+                {},
                 self.headerOptions)
                 .toPromise()
                 .then(function (response){
-                    console.log(response);
+                    //console.log(response._body);
+                    if(response.ok){
+                        //const walletData = JSON.parse(rawData._body);
+
+                        const responseData = response;
+                         console.log(responseData);
+                    }else{
+                        reject(false);
+                    }
+
                 })
                 .catch(function(err) {reject(err)});
         });
+    }*/
+
+
+
+
+    public createWallet(password: string): Observable<any> {
+        return this._http.post(
+            this.baseUrl + '/create?password=' + password,
+            {},
+            this.headerOptions)
+            .map(this.handleResponse)
+            .catch(this.handleError);
     }
 
 
+    /*
+     * Observables Handling
+     * */
 
-    private static generateWalletFile(walletData: any, password: string): string {
-        const privateKeyBuffer = Buffer.from(walletData.private, 'hex');
-        const wallet = ethereumWalletJs.fromPrivateKey(privateKeyBuffer);
-        const keyStore = wallet.toV3String(password);
-        return "data:text/json;charset=utf-8," +
-            encodeURIComponent(JSON.stringify(keyStore));
-    }
-
-    public static generateWalletName(): string {
-        const todayDate = new Date();
-        let dd: any = todayDate.getDate();
-        let mm: any = todayDate.getMonth() + 1; //January is 0!
-
-        const yyyy = todayDate.getFullYear();
-        if(dd < 10){
-            dd = '0' + dd;
+    private handleResponse(res: Response) {
+        if(res.text() == 'false'){
+            return false;
+        }else {
+            return JSON.parse(res.text());
         }
-        if(mm < 10){
-            mm = '0' + mm;
-        }
-        return 'amc_wallet_' + mm +'-'+ dd + '-' + yyyy + '.json';
-    }
 
+    }
+    private handleError (error: Response | any) {
+        console.error(error.message || error);
+        return Observable.throw(error.message || error);
+    }
 
     /*
     * Wallet Decryption
     * */
 
-    public decryptWithFile(file: any, password: string): Promise<any> {
+    /*public decryptWithFile(file: any, password: string): Promise<any> {
         const self = this;
         return new Promise(function(resolve, reject) {
             try {
@@ -153,13 +167,29 @@ export class WalletService {
                 resolve(false);
             }
         });
+    }*/
+
+    public decryptWithFile(file: any, password: string): Observable<any> {
+        const self = this;
+        self.readWalletFile(file, function (e) {
+            const file = JSON.parse(e.target.result);
+            return self._http.post(
+                self.baseUrl + '/decryptWithFile?password=' + password,
+                {},
+                self.headerOptions)
+                .map(this.handleResponse)
+                .catch(this.handleError);
+        });
     }
+
 
     private readWalletFile(file, onLoadCallback) {
         const reader = new FileReader();
         reader.onload = onLoadCallback;
         reader.readAsText(file);
     }
+
+
 
 
     public decryptWithPrivateKey(privateKey: string): boolean {
@@ -181,17 +211,6 @@ export class WalletService {
             return false;
         }
     }
-
-
-
-    /*
-    * Wallet Data Populator
-    * */
-
-    private populateWalletData(): void {
-
-    }
-
 
 
 
