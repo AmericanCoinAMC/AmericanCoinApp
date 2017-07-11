@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from "rxjs/Observable";
 import {BlockCypherService} from './block-cypher.service';
@@ -12,6 +14,9 @@ declare const Buffer;
 export class WalletService {
     public initialized: boolean;
 
+    public walletCreated: boolean;
+    public createdWallet: any;
+
     public walletDecrypted: boolean;
     public walletInstance: any;
     public decryptedWallet: any;
@@ -19,7 +24,11 @@ export class WalletService {
     private __walletState: any;
     public walletState$: Observable<string>;
 
-    constructor(private _blockcypher: BlockCypherService) {
+
+    public baseUrl: string;
+    private headerOptions: any;
+
+    constructor(private _http: Http) {
         this.initialized = false;
         this.walletDecrypted = false;
         this.walletInstance = {};
@@ -32,6 +41,16 @@ export class WalletService {
         this.__walletState = new BehaviorSubject<string>('authentication');
         this.walletState$ = this.__walletState.asObservable();
 
+
+        /*
+        * Functions
+        * */
+
+        this.baseUrl =
+            'https://quiet-shore-48971.herokuapp.com/api';
+
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        this.headerOptions = new RequestOptions({ headers: headers });
     }
 
 
@@ -39,7 +58,7 @@ export class WalletService {
     * Wallet Creation
     * */
 
-    public createWallet(password: string): Promise<any> {
+    /*public createWallet(password: string): Promise<any> {
         const self = this;
         return new Promise(function(resolve, reject){
             self._blockcypher.generateWallet()
@@ -57,6 +76,21 @@ export class WalletService {
                 .catch(function (err ){
                     reject(err);
                 });
+        });
+    }*/
+
+    public createWallet(password: string): Promise<any> {
+        const self = this;
+        return new Promise(function(resolve, reject){
+            self._http.post(
+                self.baseUrl + '/create',
+                {password: password},
+                self.headerOptions)
+                .toPromise()
+                .then(function (response){
+                    console.log(response);
+                })
+                .catch(function(err) {reject(err)});
         });
     }
 
