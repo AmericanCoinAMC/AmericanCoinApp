@@ -71,7 +71,6 @@ export class WalletService {
         const self = this;
         return new Promise(function(resolve, reject) {
             self.readWalletFile(file, function(event) {
-                console.log(encodeURIComponent(event.target.result));
                 resolve(self._http.post(
                     self.baseUrl + '/decryptWithFile?password=' + password + '&file=' + event.target.result,
                     {},
@@ -110,7 +109,7 @@ export class WalletService {
      * */
 
     private handleResponse(res: Response) {
-        if(res.text() == 'false'){
+        if (res.text() === 'false') {
             return false;
         }else {
             return JSON.parse(res.text());
@@ -132,7 +131,7 @@ export class WalletService {
     }
 
     private stateHandler(state): void {
-        switch(state) {
+        switch (state) {
             case 'authentication':
                 this.setWalletDefaults();
                 this.__walletState.next(state);

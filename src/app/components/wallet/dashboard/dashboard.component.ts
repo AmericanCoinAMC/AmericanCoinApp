@@ -1,9 +1,9 @@
-import { Component,Inject,  OnInit } from '@angular/core';
+import { Component, Inject,  OnInit } from '@angular/core';
 import { WalletService } from '../../../shared/services/wallet.service';
 import {MdSnackBar, MdDialog, MdDialogRef} from '@angular/material';
 import { DOCUMENT } from '@angular/platform-browser';
-import {SendDialogComponent} from "./send-dialog/send-dialog.component";
-import {ReceiveDialogComponent} from "./receive-dialog/receive-dialog.component";
+import {SendDialogComponent} from './send-dialog/send-dialog.component';
+import {ReceiveDialogComponent} from './receive-dialog/receive-dialog.component';
 
 
 @Component({
@@ -12,17 +12,12 @@ import {ReceiveDialogComponent} from "./receive-dialog/receive-dialog.component"
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-    public paperWalletData: any;
 
   constructor(public _walletService: WalletService,
               private _snackbar: MdSnackBar,
               @Inject(DOCUMENT) private document: any,
               private _dialog: MdDialog) {
-      this.paperWalletData = {
-          private: 'testPrivate',
-          public: 'testPublic',
-          address: 'testAddress'
-      };
+
   }
 
   ngOnInit() {
@@ -30,14 +25,14 @@ export class DashboardComponent implements OnInit {
 
 
   public sendFunds(): void {
-      let dialogRef = this._dialog.open(SendDialogComponent, {width:'800px'});
+      let dialogRef = this._dialog.open(SendDialogComponent, {width: '800px'});
       dialogRef.afterClosed().subscribe(result => {
 
       });
   }
 
     public receiveFunds(): void {
-        let dialogRef = this._dialog.open(ReceiveDialogComponent, {width:'500px'});
+        let dialogRef = this._dialog.open(ReceiveDialogComponent, {width: '500px'});
         dialogRef.afterClosed().subscribe(result => {
 
         });

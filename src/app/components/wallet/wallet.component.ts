@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WalletService } from '../../shared/services/wallet.service';
 import {appAnimations} from '../../shared/animations/app.animations';
 import {Subscription} from 'rxjs/Subscription';
+import {MdSidenav} from '@angular/material';
+
 
 @Component({
     selector: 'app-wallet',
@@ -22,6 +24,8 @@ export class WalletComponent implements OnInit {
     public dashboard: string;
     public faq: string;
 
+    @ViewChild('sidenav') private _sidenav: MdSidenav;
+
     constructor(private _walletService: WalletService) {
     }
 
@@ -39,10 +43,12 @@ export class WalletComponent implements OnInit {
 
     public openUrl (location: string): void {
         window.open(location, '_blank');
+        this._sidenav.close();
     }
 
     public goto(state: string): void {
         this._walletService.changeState(state);
+        this._sidenav.close();
     }
 
     private refreshView(): void {

@@ -1,64 +1,158 @@
-<md-toolbar class="page-header">
-    <div fxFlex>
-        <div fxLayout="row" fxLayoutAlign="start center">
-            <img src="assets/images/logo.png" alt="logo">
-            <h3  fxShow.xs="false"  fxShow.sm="false">AmericanCoin</h3>
 
-            <span fxFlex></span>
+<md-sidenav-container style="height:100%;">
 
-            <div fxShow.xs="false"  fxShow.sm="false" *ngIf="walletState !== 'dashboard'">
-                <button md-button
-                        (click)="goto('walletCreation')"
-                        [disabled]="walletState === 'walletCreation'">
-                    <md-icon>library_add</md-icon>
-                    Create Wallet
-                </button>
 
-                <button md-button (click)="goto('authentication')" [disabled]="walletState === 'authentication'">
-                    <md-icon>exit_to_app</md-icon>
-                    Access Wallet
-                </button>
+    <!-- Top Navigation -->
+    <md-toolbar class="page-header">
+        <div fxFlex>
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <img src="assets/images/logo.png" alt="logo">
+                <h3  fxShow.xs="false"  fxShow.sm="false">AmericanCoin</h3>
 
-                <button md-button (click)="openUrl('https://etherscan.io/token/GOLEM')">
-                    <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
-                    Blockchain Explorer
-                </button>
+                <span fxFlex></span>
 
-                <button md-button (click)="goto('faq')" [disabled]="walletState === 'faq'">
-                    <md-icon>help</md-icon>
-                    FAQ
+                <div fxShow.xs="false"  fxShow.sm="false" *ngIf="walletState !== 'dashboard'">
+                    <button md-button
+                            (click)="goto('walletCreation')"
+                            [disabled]="walletState === 'walletCreation'">
+                        <md-icon>library_add</md-icon>
+                        Create Wallet
+                    </button>
+
+                    <button md-button (click)="goto('authentication')" [disabled]="walletState === 'authentication'">
+                        <md-icon>exit_to_app</md-icon>
+                        Access Wallet
+                    </button>
+
+                    <button md-button (click)="openUrl('https://etherscan.io/token/GOLEM')">
+                        <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
+                        Blockchain Explorer
+                    </button>
+
+                    <button md-button (click)="goto('faq')" [disabled]="walletState === 'faq'">
+                        <md-icon>help</md-icon>
+                        FAQ
+                    </button>
+                </div>
+
+                <div fxShow.xs="false"  fxShow.sm="false" *ngIf="walletState === 'dashboard'">
+                    <button md-icon-button>
+                        <md-icon>refresh</md-icon>
+                    </button>
+
+                    <button md-button (click)="printPaperWallet()">
+                        <md-icon>print</md-icon> <span >Print Paper Wallet</span>
+                    </button>
+
+                    <button md-button (click)="goto('authentication')">
+                        <md-icon>close</md-icon> <span  fxShow.xs="false"  fxShow.sm="false">Close Wallet</span>
+                    </button>
+                </div>
+
+                <button md-icon-button
+                        (click)="sidenav.toggle()"
+                        fxShow.xs="true"
+                        fxShow.sm="true"
+                        fxShow.md="false"
+                        fxShow.lg="false"
+                        fxShow.xl="false">
+                    <md-icon *ngIf="!sidenav.opened">menu</md-icon>
+                    <md-icon *ngIf="sidenav.opened">arrow_forward</md-icon>
                 </button>
             </div>
+        </div>
+    </md-toolbar>
 
-            <button md-icon-button *ngIf="walletState === 'dashboard'">
-                <md-icon>refresh</md-icon>
-            </button>
 
-            <button md-button (click)="printPaperWallet()" fxShow.xs="false" fxShow.sm="false" *ngIf="walletState === 'dashboard'">
-                <md-icon>print</md-icon> <span >Print Paper Wallet</span>
-            </button>
+    <!-- Wallet Content -->
 
-            <button md-button (click)="goto('authentication')" *ngIf="walletState === 'dashboard'">
-                <md-icon>close</md-icon> <span  fxShow.xs="false"  fxShow.sm="false">Close Wallet</span>
-            </button>
+    <div class="wallet-container" style="max-width: 100%;">
+        <div fxFlex="100" [@authenticationPanel]="authentication" [hidden]="authentication !== 'enabled'">
+            <app-authentication></app-authentication>
+        </div>
+
+        <div fxFlex="100" [@walletCreationPanel]="walletCreation" [hidden]="walletCreation !== 'enabled'">
+            <app-create></app-create>
+        </div>
+
+        <div fxFlex="100" [@dashboardPanel]="dashboard" [hidden]="dashboard !== 'enabled'">
+            <app-dashboard></app-dashboard>
+        </div>
+
+        <div fxFlex="100" [@faqPanel]="faq" [hidden]="faq !== 'enabled'">
+            <app-faq></app-faq>
         </div>
     </div>
-</md-toolbar>
 
-<div class="wallet-container" style="max-width: 100%;">
-    <div fxFlex="100" [@authenticationPanel]="authentication" [hidden]="authentication !== 'enabled'">
-        <app-authentication></app-authentication>
-    </div>
 
-    <div fxFlex="100" [@walletCreationPanel]="walletCreation" [hidden]="walletCreation !== 'enabled'">
-        <app-create></app-create>
-    </div>
 
-    <div fxFlex="100" [@dashboardPanel]="dashboard" [hidden]="dashboard !== 'enabled'">
-        <app-dashboard></app-dashboard>
-    </div>
 
-    <div fxFlex="100" [@faqPanel]="faq" [hidden]="faq !== 'enabled'">
-        <app-faq></app-faq>
-    </div>
-</div>
+    <!-- Side Navigation -->
+    <md-sidenav #sidenav class="sidenav" mode="over" align="end">
+        <md-list class="clickable-list" style="text-align:left;" fxFlex>
+            <div *ngIf="walletState !== 'dashboard'">
+                <md-list-item>
+                    <button md-button style="width:100%;text-align:left;"
+                            (click)="goto('walletCreation')"
+                            [disabled]="walletState === 'walletCreation'">
+                        <md-icon>library_add</md-icon>
+                        Create Wallet
+                    </button>
+                </md-list-item>
+
+
+                <md-list-item>
+                    <button md-button
+                            style="width:100%;text-align:left;"
+                            (click)="goto('authentication')"
+                            [disabled]="walletState === 'authentication'">
+                        <md-icon>exit_to_app</md-icon>
+                        Access Wallet
+                    </button>
+                </md-list-item>
+
+                <md-list-item>
+                    <button md-button
+                            style="width:100%;text-align:left;"
+                            (click)="openUrl('https://etherscan.io/token/GOLEM')">
+                        <md-icon style="font-size:21px;margin-right:4px;" fontSet="fa" fontIcon="fa-cubes"></md-icon>
+                        Blockchain Explorer
+                    </button>
+                </md-list-item>
+
+
+                <md-list-item>
+                    <button md-button
+                            style="width:100%;text-align:left;"
+                            (click)="goto('faq')"
+                            [disabled]="walletState === 'faq'">
+                        <md-icon>help</md-icon>
+                        FAQ
+                    </button>
+                </md-list-item>
+            </div>
+
+
+            <div *ngIf="walletState === 'dashboard'">
+                <md-list-item>
+                    <button md-button style="width:100%;text-align:left;" (click)="goto('authentication')">
+                        <md-icon>refresh</md-icon>
+                    </button>
+                </md-list-item>
+
+                <md-list-item>
+                    <button md-button style="width:100%;text-align:left;" (click)="printPaperWallet()">
+                        <md-icon>print</md-icon> <span >Print Paper Wallet</span>
+                    </button>
+                </md-list-item>
+
+
+                <md-list-item>
+                    <button md-button style="width:100%;text-align:left;" (click)="goto('authentication')">
+                        <md-icon>close</md-icon> <span  fxShow.xs="false"  fxShow.sm="false">Close Wallet</span>
+                    </button>
+                </md-list-item>
+            </div>
+        </md-list>
+    </md-sidenav>
+</md-sidenav-container>

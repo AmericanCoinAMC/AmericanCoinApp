@@ -58,7 +58,6 @@ export class AuthenticationComponent implements OnInit {
                 decryptionObservable.subscribe( walletObject => {
                         self.decryptingWallet = false;
                         if(walletObject) {
-                            console.log(walletObject);
                             self.password = '';
                             self._snackbar.open(
                                 'Wallet Decrypted Successfully.',
