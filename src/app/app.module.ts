@@ -49,8 +49,6 @@ import { CapitalizePipe } from './shared/pipes/capitalize/capitalize.pipe';
 * Services
 * */
 import { WalletService } from './shared/services/wallet.service';
-import {BlockCypherService} from './shared/services/block-cypher.service';
-import {EtherScanService} from './shared/services/ether-scan.service';
 
 
 /*
@@ -108,7 +106,7 @@ import { TransactionsComponent } from './components/wallet/dashboard/transaction
         Ng2PageScrollModule.forRoot(),
         RouterModule.forRoot(routes),
     ],
-    providers: [ WalletService, BlockCypherService, EtherScanService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    providers: [ WalletService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
     bootstrap: [AppComponent],
     entryComponents: [SendDialogComponent, ReceiveDialogComponent]
 })
