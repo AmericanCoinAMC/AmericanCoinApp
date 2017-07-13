@@ -136,20 +136,14 @@
             <div *ngIf="walletState === 'dashboard'">
                 <md-list-item>
                     <button md-button style="width:100%;text-align:left;" (click)="goto('authentication')">
-                        <md-icon>refresh</md-icon>
-                    </button>
-                </md-list-item>
-
-                <md-list-item>
-                    <button md-button style="width:100%;text-align:left;" (click)="printPaperWallet()">
-                        <md-icon>print</md-icon> <span >Print Paper Wallet</span>
+                        <md-icon>refresh</md-icon> Refresh
                     </button>
                 </md-list-item>
 
 
                 <md-list-item>
                     <button md-button style="width:100%;text-align:left;" (click)="goto('authentication')">
-                        <md-icon>close</md-icon> <span  fxShow.xs="false"  fxShow.sm="false">Close Wallet</span>
+                        <md-icon>close</md-icon> Close Wallet
                     </button>
                 </md-list-item>
             </div>

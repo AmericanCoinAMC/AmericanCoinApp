@@ -10,14 +10,13 @@ export class PaperWalletComponent implements OnInit {
     @Input()
     walletData: any;
 
-    browser: string;
     platform: string;
     constructor() {
         this.platform = navigator.platform;
     }
 
     ngOnInit() {
-        if(this.walletData === undefined) {
+        if (this.walletData === undefined) {
             this.walletData = {};
         }
     }

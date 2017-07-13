@@ -51,14 +51,16 @@ export class AuthenticationComponent implements OnInit {
         const self = this;
         self.decryptingWallet = true;
         self._snackbar.open(
-            'Your wallet is being created. This process may take a few minutes.',
+            'Your wallet is being decrypted. This process may take a few minutes.',
             '', {duration: 3700});
         self._walletService.decryptWithFile(self.walletFile, self.password)
             .then(function(decryptionObservable) {
                 decryptionObservable.subscribe( walletObject => {
                         self.decryptingWallet = false;
-                        if(walletObject) {
+                        if (walletObject) {
                             self.password = '';
+                            self._walletService.walletDecrypted = true;
+                            self._walletService.decryptedWallet = walletObject;
                             self._snackbar.open(
                                 'Wallet Decrypted Successfully.',
                                 '', {duration: 3000});
@@ -93,8 +95,10 @@ export class AuthenticationComponent implements OnInit {
         this._walletService.decryptWithPrivateKey(this.privateKey)
             .subscribe( walletObject => {
                     this.decryptingWallet = false;
-                    if(walletObject) {
+                    if (walletObject) {
                         this.privateKey = '';
+                        this._walletService.walletDecrypted = true;
+                        this._walletService.decryptedWallet = walletObject;
                         this._snackbar.open(
                             'Wallet Decrypted Successfully.',
                             '', {duration: 3000});
