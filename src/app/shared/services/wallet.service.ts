@@ -41,7 +41,7 @@ export class WalletService {
         * */
 
         this.baseUrl =
-            'https://quiet-shore-48971.herokuapp.com/api';
+            'https://amcapi.herokuapp.com/api';
 
         const headers = new Headers({ 'Content-Type': 'application/json' });
         this.headerOptions = new RequestOptions({ headers: headers });
