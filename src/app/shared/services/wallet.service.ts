@@ -100,8 +100,6 @@ export class WalletService {
             .catch(this.handleError);
     }
 
-
-
     /*
      * Wallet Decrypted Observable Emitter
      * */
