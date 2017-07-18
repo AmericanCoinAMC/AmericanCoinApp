@@ -37,7 +37,7 @@ export class AuthenticationComponent implements OnInit {
     }
 
     public toggleVisibility(): void {
-        if(this.passwordVisible) {
+        if (this.passwordVisible) {
             this.document.getElementById('passwordFieldAuthenticate').type = 'password';
         } else {
             this.document.getElementById('passwordFieldAuthenticate').type = 'text';
@@ -56,11 +56,11 @@ export class AuthenticationComponent implements OnInit {
         self._walletService.decryptWithFile(self.walletFile, self.password)
             .then(function(decryptionObservable) {
                 decryptionObservable.subscribe( walletObject => {
+                        console.log(walletObject);
                         self.decryptingWallet = false;
                         if (walletObject) {
                             self.password = '';
-                            self._walletService.walletDecrypted = true;
-                            self._walletService.decryptedWallet = walletObject;
+                            self._walletService.walletDecryptSuccess(walletObject);
                             self._snackbar.open(
                                 'Wallet Decrypted Successfully.',
                                 '', {duration: 3000});
@@ -75,7 +75,7 @@ export class AuthenticationComponent implements OnInit {
                     error => {
                         self.decryptingWallet = false;
                         self._snackbar.open(
-                            'There has been an error creating your wallet. Please try again later.',
+                            'Incorrect Wallet File or Password.',
                             '', {duration: 3700});
                     });
             })
@@ -83,7 +83,7 @@ export class AuthenticationComponent implements OnInit {
                 console.log(err);
                 self.decryptingWallet = false;
                 self._snackbar.open(
-                    'There has been an error creating your wallet. Please try again later.',
+                    'There has been an error decrypting your wallet. Please try again later.',
                     '', {duration: 3700});
             });
     }
@@ -113,15 +113,15 @@ export class AuthenticationComponent implements OnInit {
                 error => {
                     this.decryptingWallet = false;
                     this._snackbar.open(
-                        'There has been an error creating your wallet. Please try again later.',
+                        'There has been an error decrypting your wallet. Please try again later.',
                         '', {duration: 3700});
                 });
     }
 
     public walletFileChanged(e: any): void {
         const file = e.srcElement.files[0];
-        if(file !== undefined &&
-            file !== null){
+        if (file !== undefined &&
+            file !== null) {
             this.walletFileSelected = true;
             this.walletFile = file;
         }else {

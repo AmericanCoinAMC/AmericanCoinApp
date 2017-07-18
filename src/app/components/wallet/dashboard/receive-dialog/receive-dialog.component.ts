@@ -17,10 +17,11 @@ export class ReceiveDialogComponent implements OnInit {
     }
 
     showMessage(message: string): void {
+        console.log(this._walletService.decryptedWallet);
         this._snackbar.open(message, '', {duration: 4000});
     }
 
-    public close(): void{
+    public close(): void {
         this._dialog.closeAll();
     }
 }

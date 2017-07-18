@@ -29,7 +29,7 @@ export class WalletService {
         this.decryptedWallet = {};
 
         /*
-        * Observable
+        * Observables
         * */
 
         this.__walletState = new BehaviorSubject<string>('authentication');
@@ -104,6 +104,13 @@ export class WalletService {
     }
 
 
+    public walletDecryptSuccess(walletObject): void {
+        //console.log(walletObject);
+        this.decryptedWallet = walletObject;
+        this.walletDecrypted = true;
+    }
+
+
     /*
      * Observables Handling
      * */
@@ -146,6 +153,7 @@ export class WalletService {
                 break;
             case 'dashboard':
                 this.walletDecrypted = true;
+                // console.log(this.decryptedWallet);
                 this.__walletState.next(state);
                 break;
             default:

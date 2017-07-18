@@ -25,14 +25,14 @@ export class DashboardComponent implements OnInit {
 
 
   public sendFunds(): void {
-      let dialogRef = this._dialog.open(SendDialogComponent, {width: '800px'});
+      const dialogRef = this._dialog.open(SendDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
 
       });
   }
 
     public receiveFunds(): void {
-        let dialogRef = this._dialog.open(ReceiveDialogComponent, {width: '500px'});
+        const dialogRef = this._dialog.open(ReceiveDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
 
         });
