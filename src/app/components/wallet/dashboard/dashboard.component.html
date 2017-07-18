@@ -1,4 +1,4 @@
-<app-paper-wallet [walletData]="_walletService.decryptedWallet" class="print-area"></app-paper-wallet>
+<app-paper-wallet [walletData]="decryptedWallet" class="print-area"></app-paper-wallet>
 
 
 <div>
@@ -20,11 +20,11 @@
                                         ngxClipboard
                                         mdTooltip="Copy your Address"
                                         [mdTooltipPosition]="'after'"
-                                        [cbContent]="'_walletService.decryptedWallet.addressString'"
+                                        [cbContent]="decryptedWallet.addressString"
                                         (cbOnSuccess)="showMessage('Your wallet address has been copied. Use Control + V to paste it.')">
                                     <md-icon>content_copy</md-icon>
                                 </button>
-                                <input type="hidden" value="_walletService.decryptedWallet.addressString" #inputTarget>
+                                <input type="hidden" value="{{decryptedWallet.addressString}}" #inputTarget>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                 <div>
                     <div fxLayout="column" style="text-align:center;">
                         <!--<h5 class="balance-big">500.00 AMC</h5>-->
-                        <h5 class="balance-big">{{_walletService.decryptedWallet.balance}} AMC</h5>
+                        <h5 class="balance-big">{{decryptedWallet.balance}} AMC</h5>
                         <span>My Balance</span>
                     </div>
                 </div>
@@ -44,16 +44,34 @@
         <hr>
 
         <div class="dashboard-content">
+            <div>
+                <div fxLayout="column">
+
+                    <div fxFlex>
+                        <div fxLayout="row"
+                             fxLayout.xs="column"
+                             fxLayout.sm="column"
+                             fxLayoutAlign="center center">
+                            <div fxflex>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div fxFlex="70" fxFlex.xs="100" fxFlex.sm="100">
+
+                    </div>
+                </div>
+            </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-                <div fxFlex="60" fxFlex.xs="100" fxFlex.sm="100">
+                <div fxFlex>
                     <h4>My Transactions</h4>
                     <div fxLayout="column">
                         <app-transactions></app-transactions>
                     </div>
-                </div>
-
-                <div fxFlex="40">
-                    <app-balance-details></app-balance-details>
                 </div>
             </div>
         </div>

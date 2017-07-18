@@ -10,12 +10,11 @@ import 'rxjs/add/operator/catch';
 export class WalletService {
     public initialized: boolean;
 
-    public walletDecrypted: boolean;
-    public walletInstance: any;
-    public decryptedWallet: any;
-
     private __walletState: any;
     public walletState$: Observable<string>;
+
+    private __decryptedWallet: any;
+    public decryptedWallet$: Observable<string>;
 
 
     public baseUrl: string;
@@ -24,10 +23,6 @@ export class WalletService {
     constructor(private _http: Http) {
         this.initialized = false;
 
-        this.walletDecrypted = false;
-        this.walletInstance = {};
-        this.decryptedWallet = {};
-
         /*
         * Observables
         * */
@@ -35,13 +30,15 @@ export class WalletService {
         this.__walletState = new BehaviorSubject<string>('authentication');
         this.walletState$ = this.__walletState.asObservable();
 
+        this.__decryptedWallet = new BehaviorSubject<any>({});
+        this.decryptedWallet$ = this.__decryptedWallet.asObservable();
 
         /*
-        * Functions
+        * API
         * */
 
-        this.baseUrl =
-            'https://amcapi.herokuapp.com/api';
+        // this.baseUrl = 'https://amcapi.herokuapp.com/api';
+        this.baseUrl = 'http://localhost:8080/api';
 
         const headers = new Headers({ 'Content-Type': 'application/json' });
         this.headerOptions = new RequestOptions({ headers: headers });
@@ -104,28 +101,18 @@ export class WalletService {
     }
 
 
-    public walletDecryptSuccess(walletObject): void {
-        //console.log(walletObject);
-        this.decryptedWallet = walletObject;
-        this.walletDecrypted = true;
-    }
-
 
     /*
-     * Observables Handling
+     * Wallet Decrypted Observable Emitter
      * */
 
-    private handleResponse(res: Response) {
-        if (res.text() === 'false') {
-            return false;
-        }else {
-            return JSON.parse(res.text());
-        }
-
+    public walletDecryptSuccess(walletObject): void {
+        console.log();
+        this.__decryptedWallet.next(walletObject);
     }
-    private handleError (error: Response | any) {
-        console.error(error.message || error);
-        return Observable.throw(error.message || error);
+
+    public walletEncrypt(): void {
+        this.__decryptedWallet.next({});
     }
 
 
@@ -140,24 +127,22 @@ export class WalletService {
     private stateHandler(state): void {
         switch (state) {
             case 'authentication':
-                this.setWalletDefaults();
+                this.walletEncrypt();
                 this.__walletState.next(state);
                 break;
             case 'walletCreation':
-                this.setWalletDefaults();
+                this.walletEncrypt();
                 this.__walletState.next(state);
                 break;
             case 'faq':
-                this.setWalletDefaults();
+                this.walletEncrypt();
                 this.__walletState.next(state);
                 break;
             case 'dashboard':
-                this.walletDecrypted = true;
-                // console.log(this.decryptedWallet);
                 this.__walletState.next(state);
                 break;
             default:
-                this.setWalletDefaults();
+                this.walletEncrypt();
                 this.__walletState.next('authentication');
                 break;
         }
@@ -165,12 +150,21 @@ export class WalletService {
 
 
     /*
-    * Defaults
-    * */
+     * Observables Handling
+     * */
 
-    private setWalletDefaults(): void {
-        this.walletDecrypted = false;
-        this.walletInstance = {};
-        this.decryptedWallet = {};
+    private handleResponse(res: Response) {
+        console.log(res.text());
+        if (res.text() === 'false') {
+            return false;
+        }else {
+            return JSON.parse(res.text());
+        }
+
     }
+    private handleError (error: Response | any) {
+        console.error(error.message || error);
+        return Observable.throw(error.message || error);
+    }
+
 }

@@ -15,7 +15,6 @@ export class AuthenticationComponent implements OnInit {
     public passwordVisible: boolean;
     public privateKey: string;
     public decryptingWallet: boolean;
-    public walletDecrypted: any;
 
     constructor(private _walletService: WalletService,
                 private _snackbar: MdSnackBar,
@@ -23,7 +22,6 @@ export class AuthenticationComponent implements OnInit {
         this.walletFileSelected = false;
         this.passwordVisible = false;
         this.decryptingWallet = false;
-        this.walletDecrypted = {};
     }
 
     ngOnInit() {
@@ -94,11 +92,11 @@ export class AuthenticationComponent implements OnInit {
         this.decryptingWallet = true;
         this._walletService.decryptWithPrivateKey(this.privateKey)
             .subscribe( walletObject => {
+                    console.log(walletObject);
                     this.decryptingWallet = false;
                     if (walletObject) {
                         this.privateKey = '';
-                        this._walletService.walletDecrypted = true;
-                        this._walletService.decryptedWallet = walletObject;
+                        this._walletService.walletDecryptSuccess(walletObject);
                         this._snackbar.open(
                             'Wallet Decrypted Successfully.',
                             '', {duration: 3000});

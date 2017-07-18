@@ -17,7 +17,6 @@ export class ReceiveDialogComponent implements OnInit {
     }
 
     showMessage(message: string): void {
-        console.log(this._walletService.decryptedWallet);
         this._snackbar.open(message, '', {duration: 4000});
     }
 
