@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import { WalletService } from '../../../../shared/services/wallet.service';
 
 @Component({
   selector: 'app-transactions',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent implements OnInit {
-
-  constructor() { }
+  public decryptedWallet: string;
+  private decryptedWallet$$: Subscription;
+  constructor(private _walletService: WalletService) { }
 
   ngOnInit() {
+    this.decryptedWallet$$ = this._walletService.decryptedWallet$
+            .subscribe(walletObject => {
+                console.log(walletObject);
+                this.decryptedWallet = walletObject;
+            });
   }
 
 }
