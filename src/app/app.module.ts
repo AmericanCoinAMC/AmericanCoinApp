@@ -16,6 +16,7 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import {MdTableModule} from '@angular/material';
 
 /*
 * Copy to Clipboard
@@ -103,6 +104,7 @@ import { TransactionsComponent } from './components/wallet/dashboard/transaction
         MaterialModule,
         FlexLayoutModule,
         ClipboardModule,
+        MdTableModule,
         Ng2PageScrollModule.forRoot(),
         RouterModule.forRoot(routes),
     ],
