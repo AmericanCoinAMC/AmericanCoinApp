@@ -52,7 +52,7 @@ export class ExampleDatabase {
   dataChange: BehaviorSubject<TransactionData[]> = new BehaviorSubject<TransactionData[]>([]);
   get data(): TransactionData[] { return this.dataChange.value; }
 
-  constructor(backendData: any) {
+  constructor(backendData: any) { //IMPORTANT: CHANGE THIS TO THE FORMATED TRANSACTION API.
     for (let obj in backendData) { this.addTrx(obj,backendData[obj]); }
   }
 
