@@ -4,6 +4,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 
 
 @Injectable()
@@ -14,7 +15,7 @@ export class WalletService {
     public walletState$: Observable<string>;
 
     private __decryptedWallet: any;
-    public decryptedWallet$: Observable<string>;
+    public decryptedWallet$: Observable<any>;
 
 
     public baseUrl: string;
@@ -72,6 +73,7 @@ export class WalletService {
                     self.baseUrl + '/decryptWithFile?password=' + password + '&file=' + event.target.result,
                     {},
                     self.headerOptions)
+                    
                     .map(self.handleResponse)
                     .catch(self.handleError));
             });
@@ -96,6 +98,7 @@ export class WalletService {
             this.baseUrl + '/decryptWithPrivateKey?privateKey=' + privateKey,
             {},
             this.headerOptions)
+            
             .map(this.handleResponse)
             .catch(this.handleError);
     }

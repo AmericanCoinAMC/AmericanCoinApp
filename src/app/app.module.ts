@@ -17,6 +17,8 @@ import 'hammerjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
 import {MdTableModule} from '@angular/material';
+import {MdPaginatorModule} from '@angular/material';
+import {CdkTableModule} from '@angular/cdk'
 
 /*
 * Copy to Clipboard
@@ -107,6 +109,9 @@ import { TransactionsComponent } from './components/wallet/dashboard/transaction
         MdTableModule,
         Ng2PageScrollModule.forRoot(),
         RouterModule.forRoot(routes),
+        MdPaginatorModule,
+        CdkTableModule
+        
     ],
     providers: [ WalletService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
     bootstrap: [AppComponent],

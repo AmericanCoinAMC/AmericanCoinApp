@@ -1,39 +1,29 @@
-<md-table #table [dataSource]="dataSource">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Hash -->
-    <ng-container cdkColumnDef="transactionHash">
-      <md-header-cell *cdkHeaderCellDef> TX Hash </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.txHash}} </md-cell>
-    </ng-container>
-
-    <!-- Amount -->
-    <ng-container cdkColumnDef="amount">
-      <md-header-cell *cdkHeaderCellDef> Amount </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.amount}} AMC </md-cell>
-    </ng-container>
-
-    <!-- Address Sending the money -->
-    <ng-container cdkColumnDef="from">
-      <md-header-cell *cdkHeaderCellDef> From </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.from}} </md-cell>
-    </ng-container>
-
-    <!-- CAddress Recieving the money -->
-    <ng-container cdkColumnDef="to">
-      <md-header-cell *cdkHeaderCellDef> To </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.to}} </md-cell>
-    </ng-container>
-
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-  </md-table>
-
-  <md-paginator #paginator
-                [length]="exampleDatabase.data.length"
-                [pageIndex]="0"
-                [pageSize]="25"
-                [pageSizeOptions]="[5, 10, 25, 100]">
-  </md-paginator>
+<div *ngIf="decryptedWallet">
+  <md-card class="example-card">
+    <table>
+      <tr>
+        <th>Hash</th>
+        <th>Amount</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+      </tr>
+    </table>
+  </md-card>
+  <md-card *ngFor="let tx of trxArray" class="example-card">
+    <table>
+      <tr>
+        <td>{{tx.$key}}</td>
+        <td>{{tx.amount}}</td>
+        <td>{{tx.from}}</td>
+        <td>{{tx.to}}</td>
+        <td>{{tx.status}}</td>
+      </tr>
+    </table>
+  </md-card> 
+  <md-paginator [length]="100"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onPageEvent($event)">
+  </md-paginator> 
+</div>
