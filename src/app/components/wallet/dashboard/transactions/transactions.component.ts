@@ -14,6 +14,8 @@ export class TransactionsComponent implements OnInit {
   public pageSizeOptions: number[] = [5,25,75,100];
   public pageSize : number = 25;
   public trxArray: any[];
+  public position: string = 'after';
+  public len: number = 0
   private decryptedWallet$$: Subscription;
 
   constructor(private _walletService: WalletService) { }
@@ -24,13 +26,14 @@ export class TransactionsComponent implements OnInit {
       .subscribe(walletObject => {
           this.decryptedWallet = walletObject;
           this.trxArray = walletObject.transactions;
+          this.len =  (walletObject.transactions) ? walletObject.transactions.length : 0;
           this.trxArray = (this.trxArray) ? this.trxArray.slice(0,this.pageSize) : [];
       });
   }
 
   onPageEvent(pageEvent: PageEvent){
-    let startIndex = this.pageSize*pageEvent.pageIndex;
     this.pageSize = pageEvent.pageSize;
+    let startIndex = this.pageSize*pageEvent.pageIndex;
     this.trxArray = this.decryptedWallet.transactions.slice(startIndex,startIndex+this.pageSize-1);
 
   } 

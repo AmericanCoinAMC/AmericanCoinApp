@@ -1,5 +1,13 @@
 <div *ngIf="decryptedWallet">
   <md-card class="example-card">
+<!-- Change length to the array expression. -->
+  <md-paginator [length]="len" 
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onPageEvent($event)">
+  </md-paginator> 
+  </md-card>
+  <md-card  class="example-card">
     <table>
       <tr>
         <th>Hash</th>
@@ -8,22 +16,13 @@
         <th>To</th>
         <th>Status</th>
       </tr>
-    </table>
-  </md-card>
-  <md-card *ngFor="let tx of trxArray" class="example-card">
-    <table>
-      <tr>
-        <td>{{tx.$key}}</td>
-        <td>{{tx.amount}}</td>
-        <td>{{tx.from}}</td>
-        <td>{{tx.to}}</td>
+      <tr *ngFor="let tx of trxArray">
+        <td><span mdTooltip="{{tx.$key}}" [mdTooltipPosition]="position">{{tx.$key.slice(0,10)}}...</span></td>
+        <td>{{tx.amount | number:'1.2'}}</td>
+        <td><span mdTooltip="{{tx.from}}" [mdTooltipPosition]="position">{{tx.from.slice(0,10)}}...</span></td>
+        <td><span mdTooltip="{{tx.to}}" [mdTooltipPosition]="position">{{tx.to.slice(0,10)}}...</span></td>
         <td>{{tx.status}}</td>
       </tr>
     </table>
   </md-card> 
-  <md-paginator [length]="100"
-                [pageSize]="pageSize"
-                [pageSizeOptions]="pageSizeOptions"
-                (page)="onPageEvent($event)">
-  </md-paginator> 
 </div>
