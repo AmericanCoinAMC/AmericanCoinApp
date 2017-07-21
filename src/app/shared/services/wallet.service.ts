@@ -81,6 +81,14 @@ export class WalletService {
 
     }
 
+    public sendFunds(from: string, to: string, amount: number, privateKey: string): Promise<any> {
+        return new Promise((resolve,reject) => {
+            resolve(this._http.post(this.baseUrl + '/sendFunds?address=' + from + '&to=' + to + '&amount=' + amount + '&privateKey=' + privateKey,{})
+                .map(this.handleResponse)
+                .catch(this.handleError));
+        });
+    }
+
 
     private readWalletFile(file, onLoadCallback) {
         const reader = new FileReader();
