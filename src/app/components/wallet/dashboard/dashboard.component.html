@@ -32,8 +32,7 @@
 
                 <div>
                     <div fxLayout="column" style="text-align:center;">
-                        <!--<h5 class="balance-big">500.00 AMC</h5>-->
-                        <h5 class="balance-big">{{decryptedWallet.balance}} AMC</h5>
+                        <h5 class="balance-big">{{decryptedWallet.balance | number : '1.2-2'}} AMC</h5>
                         <span>My Balance</span>
                     </div>
                 </div>
@@ -44,34 +43,9 @@
         <hr>
 
         <div class="dashboard-content">
-            <div>
-                <div fxLayout="column">
-
-                    <div fxFlex>
-                        <div fxLayout="row"
-                             fxLayout.xs="column"
-                             fxLayout.sm="column"
-                             fxLayoutAlign="center center">
-                            <div fxflex>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div fxFlex="70" fxFlex.xs="100" fxFlex.sm="100">
-
-                    </div>
-                </div>
-            </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
                 <div fxFlex>
-                    <h4>My Transactions</h4>
-                    <div fxLayout="column">
-                        <app-transactions></app-transactions>
-                    </div>
+                    <app-transactions></app-transactions>
                 </div>
             </div>
         </div>

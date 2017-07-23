@@ -54,7 +54,6 @@ export class AuthenticationComponent implements OnInit {
         self._walletService.decryptWithFile(self.walletFile, self.password)
             .then(function(decryptionObservable) {
                 decryptionObservable.subscribe( walletObject => {
-                        console.log(walletObject);
                         self.decryptingWallet = false;
                         if (walletObject) {
                             self.password = '';
@@ -92,7 +91,6 @@ export class AuthenticationComponent implements OnInit {
         this.decryptingWallet = true;
         this._walletService.decryptWithPrivateKey(this.privateKey)
             .subscribe( walletObject => {
-                    console.log(walletObject);
                     this.decryptingWallet = false;
                     if (walletObject) {
                         this.privateKey = '';

@@ -19,7 +19,6 @@ export class ReceiveDialogComponent implements OnInit {
     ngOnInit() {
         this.decryptedWallet$$ = this._walletService.decryptedWallet$
             .subscribe(walletObject => {
-                console.log(walletObject);
                 this.decryptedWallet = walletObject;
             });
     }

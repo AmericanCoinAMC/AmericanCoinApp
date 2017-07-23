@@ -1,3 +1,48 @@
-<p>
-  send-dialog works!
-</p>
+<div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h4 style="margin:0px;">Send Funds</h4>
+        <span fxFlex></span>
+        <button md-icon-button (click)="close()"><md-icon>close</md-icon></button>
+    </div>
+</div>
+
+<md-dialog-content style="width: 600px;" [style.xs]="{'width.px': 300}"  [style.sm]="{'width.px': 450}">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <span mdPrefix>To: &nbsp;</span>
+                        <input type="text" mdInput placeholder="AMC Address">
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <input style="text-align:right;" type="number" mdInput placeholder="Amount">
+                        <span mdSuffix>&nbsp; AMC</span>
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <md-input-container  style="width: 100%">
+                        <textarea mdInput placeholder="Description (Optional)"></textarea>
+                    </md-input-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-dialog-content>
+
+
+<md-dialog-actions>
+    <div fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center center" >
+            <button md-button>Cancel</button>
+            <span fxFlex></span>
+            <button md-raised-button color="primary">Next</button>
+        </div>
+    </div>
+</md-dialog-actions>

@@ -1,28 +1,42 @@
-<div *ngIf="decryptedWallet">
-  <md-card class="example-card">
-<!-- Change length to the array expression. -->
-  <md-paginator [length]="len" 
-                [pageSize]="pageSize"
-                [pageSizeOptions]="pageSizeOptions"
-                (page)="onPageEvent($event)">
-  </md-paginator> 
-  </md-card>
-  <md-card  class="example-card">
-    <table>
-      <tr>
-        <th>Hash</th>
-        <th>Amount</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Status</th>
-      </tr>
-      <tr *ngFor="let tx of trxArray">
-        <td><span mdTooltip="{{tx.$key}}" [mdTooltipPosition]="position">{{tx.$key.slice(0,10)}}...</span></td>
-        <td>{{tx.amount | number:'1.2'}}</td>
-        <td><span mdTooltip="{{tx.from}}" [mdTooltipPosition]="position">{{tx.from.slice(0,10)}}...</span></td>
-        <td><span mdTooltip="{{tx.to}}" [mdTooltipPosition]="position">{{tx.to.slice(0,10)}}...</span></td>
-        <td>{{tx.status}}</td>
-      </tr>
-    </table>
-  </md-card> 
+
+<div class="transactions-container">
+    <div fxLayout="column" fxFlex>
+
+        <div fxFlex>
+            <div fxLayout="row"
+                 fxLayout.xs="column"
+                 fxLayout.sm="column"
+                 fxLayoutAlign="center center">
+
+                <span class="transactions-title">My Transactions</span>
+
+                <span fxFlex></span>
+
+                <button [disabled]="activeFilter === 'all'"
+                        (click)="activateFilter('all')"
+                        md-button>ALL</button>
+                <button [disabled]="activeFilter === 'sent'"
+                        (click)="activateFilter('sent')"
+                        md-button>SENT</button>
+                <button  [disabled]="activeFilter === 'received'"
+                         (click)="activateFilter('received')"
+                         md-button>RECEIVED</button>
+            </div>
+        </div>
+
+        <div style="margin-top:25px;">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div>
+                    <div>
+                        <div fxLayout="column">
+                            <app-transaction-item
+                                    *ngFor="let tx of testTransactions"
+                                    [transaction]="tx"
+                                    [activeFilter]="activeFilter"></app-transaction-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
