@@ -29,19 +29,24 @@
                         Blockchain Explorer
                     </button>
 
-                    <button md-button (click)="goto('faq')" [disabled]="walletState === 'faq'">
+                    <button md-button (click)="showFaqDialog()">
                         <md-icon>help</md-icon>
                         FAQ
                     </button>
                 </div>
 
                 <div fxShow.xs="false"  fxShow.sm="false" *ngIf="walletState === 'dashboard'">
-                    <button md-icon-button>
+                    <!--<button md-icon-button>
                         <md-icon>refresh</md-icon>
-                    </button>
+                    </button>-->
 
                     <button md-button (click)="printPaperWallet()">
-                        <md-icon>print</md-icon> <span >Print Paper Wallet</span>
+                        <md-icon>print</md-icon> <span >Paper Wallet</span>
+                    </button>
+
+                    <button md-button (click)="showFaqDialog()">
+                        <md-icon>help</md-icon>
+                        FAQ
                     </button>
 
                     <button md-button (click)="goto('authentication')">
@@ -77,10 +82,6 @@
 
         <div fxFlex="100" [@dashboardPanel]="dashboard" [hidden]="dashboard !== 'enabled'">
             <app-dashboard></app-dashboard>
-        </div>
-
-        <div fxFlex="100" [@faqPanel]="faq" [hidden]="faq !== 'enabled'">
-            <app-faq></app-faq>
         </div>
     </div>
 
@@ -124,7 +125,7 @@
                 <md-list-item>
                     <button md-button
                             style="width:100%;text-align:left;"
-                            (click)="goto('faq')"
+                            (click)="showFaqDialog()"
                             [disabled]="walletState === 'faq'">
                         <md-icon>help</md-icon>
                         FAQ
@@ -135,8 +136,12 @@
 
             <div *ngIf="walletState === 'dashboard'">
                 <md-list-item>
-                    <button md-button style="width:100%;text-align:left;" (click)="goto('authentication')">
-                        <md-icon>refresh</md-icon> Refresh
+                    <button md-button
+                            style="width:100%;text-align:left;"
+                            (click)="showFaqDialog()"
+                            [disabled]="walletState === 'faq'">
+                        <md-icon>help</md-icon>
+                        FAQ
                     </button>
                 </md-list-item>
 

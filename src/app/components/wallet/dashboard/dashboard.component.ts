@@ -4,6 +4,7 @@ import {MdSnackBar, MdDialog, MdDialogRef} from '@angular/material';
 import { DOCUMENT } from '@angular/platform-browser';
 import {SendDialogComponent} from './send-dialog/send-dialog.component';
 import {ReceiveDialogComponent} from './receive-dialog/receive-dialog.component';
+import { FaqComponent } from '../../../shared/components/faq/faq.component';
 import {Subscription} from 'rxjs/Subscription';
 
 
@@ -25,7 +26,6 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         this.decryptedWallet$$ = this._walletService.decryptedWallet$
             .subscribe(walletObject => {
-                console.log(walletObject);
                 this.decryptedWallet = walletObject;
             });
     }
@@ -45,6 +45,12 @@ export class DashboardComponent implements OnInit {
         });
     }
 
+    public showFaqDialog(): void {
+        const dialogRef = this._dialog.open(FaqComponent);
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
+    }
 
     showMessage(message: string): void {
         this._snackbar.open(message, '', {duration: 4000});

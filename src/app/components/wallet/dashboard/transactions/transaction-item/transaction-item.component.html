@@ -1,0 +1,69 @@
+<md-card class="transaction-card" *ngIf="activeFilter === 'all' || activeFilter === transaction.type">
+    <md-card-content>
+        <button md-icon-button [mdMenuTriggerFor]="menu" class="menu-trigger">
+            <md-icon>keyboard_arrow_down</md-icon>
+        </button>
+        <div>
+            <div fxLayout="row" fxFlex fxLayoutAlign="start center">
+                <img fxHide.xs="true" fxHide.sm="true" class="transaction-img" src="assets/images/{{transaction.type}}.png" alt="{{transaction.type}}">
+
+                <ul class="transaction-details-list">
+                    <li><span class="text-{{transaction.type}}">{{transaction.type | uppercase}}</span></li>
+                    <li><span class="transaction-date">{{transaction.txTS | date:'medium'}}</span></li>
+                </ul>
+
+                <ul class="transaction-details-list" fxHide.xs="true" fxHide.sm="true">
+                    <li *ngIf="transaction.type == 'sent'; else received"><p>To: {{transaction.to}}</p></li>
+                    <ng-template #received><li><p>From: {{transaction.from}}</p></li></ng-template>
+
+                    <li *ngIf="transaction.description"><p>{{transaction.description}}</p></li>
+                </ul>
+
+                <span fxFlex></span>
+
+                <ul class="transaction-details-list" style="text-align:center;">
+                    <li>
+                        <h5 [mdTooltipPosition]="'above'"
+                            mdTooltip="{{transaction.amount | number : '1.2-8'}} AMC"
+                            class="transaction-amount text-{{transaction.type}}">
+                            {{transaction.amount | number : '1.2-2'}} AMC
+                        </h5>
+                        <div *ngIf="transaction.status"
+                             fxHide.xs="true"
+                             fxHide.sm="true">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <span class="transaction-fee">Fee</span>
+                                <span fxFlex></span>
+                                <span class="transaction-fee">
+                                    0.001 ETH
+                                </span>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </md-card-content>
+</md-card>
+
+<md-menu #menu="mdMenu">
+    <button md-menu-item *ngIf="transaction.status; else notConfirmed" (click)="openUrl('https://etherscan.io/tx/' + transaction.$key)">
+        <md-icon style="font-size:22px;margin-left:5px;" fontSet="fa" fontIcon="fa-check-circle-o"></md-icon>
+        <span>Transaction Confirmed</span>
+    </button>
+    <ng-template #notConfirmed>
+        <button md-menu-item (click)="openUrl('https://etherscan.io/tx/' + transaction.$key)">
+            <md-icon style="font-size:22px;margin-left:5px;" fontSet="fa" fontIcon="fa-clock-o"></md-icon>
+            <span>Transaction Pending</span>
+        </button>
+    </ng-template>
+
+
+    <button md-menu-item [disabled]="transaction.blockNumber == -1" (click)="openUrl('https://etherscan.io/block/' + transaction.blockNumber)">
+        <md-icon style="font-size:22px;margin-left:5px;" fontSet="fa" fontIcon="fa-cube"></md-icon>
+        <span>Block # {{transaction.blockNumber}}</span>
+    </button>
+</md-menu>

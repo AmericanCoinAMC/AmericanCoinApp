@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WalletService } from '../../shared/services/wallet.service';
+import { FaqComponent } from '../../shared/components/faq/faq.component';
 import {appAnimations} from '../../shared/animations/app.animations';
 import {Subscription} from 'rxjs/Subscription';
-import {MdSidenav} from '@angular/material';
+import {MdSidenav, MdDialog} from '@angular/material';
 
 
 @Component({
@@ -12,8 +13,7 @@ import {MdSidenav} from '@angular/material';
     animations: [
         appAnimations.fadeUp('walletCreation'),
         appAnimations.fadeUp('authentication'),
-        appAnimations.fadeUp('dashboard'),
-        appAnimations.fadeUp('faq')
+        appAnimations.fadeUp('dashboard')
     ]
 })
 export class WalletComponent implements OnInit {
@@ -22,11 +22,11 @@ export class WalletComponent implements OnInit {
     public walletCreation: string;
     public authentication: string;
     public dashboard: string;
-    public faq: string;
 
     @ViewChild('sidenav') private _sidenav: MdSidenav;
 
-    constructor(private _walletService: WalletService) {
+    constructor(private _walletService: WalletService,
+                private _dialog: MdDialog) {
     }
 
     ngOnInit() {
@@ -55,10 +55,17 @@ export class WalletComponent implements OnInit {
         this.walletCreation = 'disabled';
         this.authentication = 'disabled';
         this.dashboard = 'disabled';
-        this.faq = 'disabled';
     }
 
     public printPaperWallet(): void {
         window.print();
+    }
+
+
+    public showFaqDialog(): void {
+        const dialogRef = this._dialog.open(FaqComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            this._sidenav.close();
+        });
     }
 }

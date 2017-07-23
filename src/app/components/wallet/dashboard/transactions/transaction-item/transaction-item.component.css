@@ -1,0 +1,59 @@
+.transaction-card{
+    margin: 10px 0 10px 0;
+    padding: 5px;
+}
+
+.transaction-img{
+    max-width: 32px;
+    height:auto;
+    margin:15px;
+}
+
+
+.transaction-details-list {
+    margin: 0 15px 0 15px;
+}
+
+.text-sent,.text-received {
+    font-size:18px;
+    font-weight: 200;
+}
+
+.text-sent{color:#b71c1c;}
+.text-received{color:#1b5e20;}
+
+
+
+.transaction-date{
+    font-size: 13px;
+    font-weight: 200;
+}
+
+
+
+.tooltip-container{
+    font-size:30px;
+    background:green;
+}
+
+
+
+.transaction-amount{
+    font-size:18px;
+    font-weight:500;
+    margin:9px 0 0 0;
+}
+
+.transaction-fee{
+    margin:0;padding:0;
+    font-size:11px;
+    font-weight:200;
+}
+
+
+
+.menu-trigger {
+    position: absolute;
+    top:0;
+    right:0;
+}

@@ -13,27 +13,23 @@
             directly to your Wallet.</p>
 
         <div style="margin-top:15px;">
-            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center center" fxFlex>
                 <div fxFlex>
                     <md-input-container style="width: 100%;">
                         <input mdInput
                                placeholder="Your Wallet Address"
-                               type="text" value="_walletService.decryptedWallet.addressString">
+                               type="text" value="{{decryptedWallet.addressString}}">
                     </md-input-container>
                 </div>
+                <button md-raised-button
+                        color="primary"
+                        ngxClipboard
+                        [cbContent]="decryptedWallet.addressString"
+                        (cbOnSuccess)="showMessage('Your wallet address has been copied. Use Control + V to paste it.')">Copy Address</button>
             </div>
         </div>
 
-        <div style="text-align:center;">
-            <button md-raised-button
-                    color="primary"
-                    ngxClipboard
-                    [cbContent]="'a'"
-                    (cbOnSuccess)="showMessage('Your wallet address has been copied. Use Control + V to paste it.')">Copy Address</button>
-        </div>
-
         <span style="font-size:13px;margin-top:15px;">Notice that you can also use your AMC Wallet to receive Ethers (Ethereum).</span>
-
     </div>
 </div>
 

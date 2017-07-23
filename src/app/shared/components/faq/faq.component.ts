@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
 @Component({
     selector: 'app-faq',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class FaqComponent implements OnInit {
 
 
-    constructor() {
+    constructor(private _dialog: MdDialog) {
 
 
     }
@@ -16,4 +17,7 @@ export class FaqComponent implements OnInit {
     ngOnInit() {
     }
 
+    public close(): void {
+        this._dialog.closeAll();
+    }
 }

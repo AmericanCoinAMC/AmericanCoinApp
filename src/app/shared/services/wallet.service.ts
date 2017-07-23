@@ -28,7 +28,7 @@ export class WalletService {
         * Observables
         * */
 
-        this.__walletState = new BehaviorSubject<string>('authentication');
+        this.__walletState = new BehaviorSubject<string>('dashboard');
         this.walletState$ = this.__walletState.asObservable();
 
         this.__decryptedWallet = new BehaviorSubject<any>({});
@@ -73,7 +73,6 @@ export class WalletService {
                     self.baseUrl + '/decryptWithFile?password=' + password + '&file=' + event.target.result,
                     {},
                     self.headerOptions)
-                    
                     .map(self.handleResponse)
                     .catch(self.handleError));
             });
@@ -98,17 +97,16 @@ export class WalletService {
             this.baseUrl + '/decryptWithPrivateKey?privateKey=' + privateKey,
             {},
             this.headerOptions)
-            
             .map(this.handleResponse)
             .catch(this.handleError);
     }
+
 
     /*
      * Wallet Decrypted Observable Emitter
      * */
 
     public walletDecryptSuccess(walletObject): void {
-        console.log();
         this.__decryptedWallet.next(walletObject);
     }
 
@@ -135,10 +133,6 @@ export class WalletService {
                 this.walletEncrypt();
                 this.__walletState.next(state);
                 break;
-            case 'faq':
-                this.walletEncrypt();
-                this.__walletState.next(state);
-                break;
             case 'dashboard':
                 this.__walletState.next(state);
                 break;
@@ -155,7 +149,6 @@ export class WalletService {
      * */
 
     private handleResponse(res: Response) {
-        console.log(res.text());
         if (res.text() === 'false') {
             return false;
         }else {
@@ -168,4 +161,34 @@ export class WalletService {
         return Observable.throw(error.message || error);
     }
 
+
+
+    /*
+    * Utilities
+    * */
+
+    public validAddress(address: string): Observable<any> {
+        return this._http.post(
+            this.baseUrl + '/validAddress?address=' + address,
+            {},
+            this.headerOptions)
+            .map(this.handleResponse)
+            .catch(this.handleError);
+    }
+
+    public removePrefix(key: string): string {
+        if(key[0] === '0' && key[1] === 'x'){
+            return key.substring(2);
+        }else{
+            return key;
+        }
+    }
+
+    public addPrefix(key: string): string {
+        if(key[0] != '0' && key[1] != 'x'){
+            return '0x' + key;
+        }else{
+            return key;
+        }
+    }
 }

@@ -1,29 +1,42 @@
-<div *ngIf="decryptedWallet">
-  <md-card class="example-card">
-    <table>
-      <tr>
-        <th>Hash</th>
-        <th>Amount</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Status</th>
-      </tr>
-    </table>
-  </md-card>
-  <md-card *ngFor="let tx of trxArray" class="example-card">
-    <table>
-      <tr>
-        <td>{{tx.$key}}</td>
-        <td>{{tx.amount}}</td>
-        <td>{{tx.from}}</td>
-        <td>{{tx.to}}</td>
-        <td>{{tx.status}}</td>
-      </tr>
-    </table>
-  </md-card> 
-  <md-paginator [length]="100"
-                [pageSize]="pageSize"
-                [pageSizeOptions]="pageSizeOptions"
-                (page)="onPageEvent($event)">
-  </md-paginator> 
+
+<div class="transactions-container">
+    <div fxLayout="column" fxFlex>
+
+        <div fxFlex>
+            <div fxLayout="row"
+                 fxLayout.xs="column"
+                 fxLayout.sm="column"
+                 fxLayoutAlign="center center">
+
+                <span class="transactions-title">My Transactions</span>
+
+                <span fxFlex></span>
+
+                <button [disabled]="activeFilter === 'all'"
+                        (click)="activateFilter('all')"
+                        md-button>ALL</button>
+                <button [disabled]="activeFilter === 'sent'"
+                        (click)="activateFilter('sent')"
+                        md-button>SENT</button>
+                <button  [disabled]="activeFilter === 'received'"
+                         (click)="activateFilter('received')"
+                         md-button>RECEIVED</button>
+            </div>
+        </div>
+
+        <div style="margin-top:25px;">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div>
+                    <div>
+                        <div fxLayout="column">
+                            <app-transaction-item
+                                    *ngFor="let tx of testTransactions"
+                                    [transaction]="tx"
+                                    [activeFilter]="activeFilter"></app-transaction-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
