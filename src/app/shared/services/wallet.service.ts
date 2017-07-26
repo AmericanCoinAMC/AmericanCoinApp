@@ -18,6 +18,7 @@ export class WalletService {
     public decryptedWallet$: Observable<any>;
 
 
+
     public baseUrl: string;
     private headerOptions: any;
 
@@ -33,6 +34,8 @@ export class WalletService {
 
         this.__decryptedWallet = new BehaviorSubject<any>({});
         this.decryptedWallet$ = this.__decryptedWallet.asObservable();
+
+        
 
         /*
         * API
@@ -80,12 +83,26 @@ export class WalletService {
 
     }
 
+    /**
+     * sendFunds 
+     * @param from 
+     * @param to 
+     * @param amount 
+     * @param privateKey 
+     */
     public sendFunds(from: string, to: string, amount: number, privateKey: string): Promise<any> {
         return new Promise((resolve,reject) => {
             resolve(this._http.post(this.baseUrl + '/sendFunds?address=' + from + '&to=' + to + '&amount=' + amount + '&privateKey=' + privateKey,{})
                 .map(this.handleResponse)
                 .catch(this.handleError));
         });
+    }
+
+
+    public getRefreshData(address: string): Observable<any> {
+        return this._http.post(this.baseUrl+ '/getRefreshData?address=' + address,{})
+            .map(this.handleResponse)
+            .catch(this.handleError)
     }
 
 

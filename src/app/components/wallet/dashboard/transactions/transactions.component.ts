@@ -57,13 +57,29 @@ export class TransactionsComponent implements OnInit {
     }
 
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.decryptedWallet$$ = this._walletService.decryptedWallet$
             .subscribe(walletObject => {
                 this.decryptedWallet = walletObject;
             });
+        this.updateData();
+        
     }
 
+    private updateData(): void {
+        let fun = () => {
+            this._walletService.getRefreshData(this.decryptedWallet.address)
+                .subscribe((addressData) => {
+                    this.decryptedWallet.tansactions = addressData.transactions;
+                    this.decryptedWallet.balance = addressData.balance;
+                    this.decryptedWallet.ethBalance = addressData.ethBalance;
+                    this.decryptedWallet.generalData = addressData.generalData;
+                }
+            );
+            this.updateData();
+        }
+        setTimeout(fun,35000);
+    }
 
     public activateFilter(filter: string): void {
         this.activeFilter = filter;
