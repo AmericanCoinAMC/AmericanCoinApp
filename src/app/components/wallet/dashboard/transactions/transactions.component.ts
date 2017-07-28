@@ -14,6 +14,9 @@ export class TransactionsComponent implements OnInit {
     public decryptedWallet: any;
     private decryptedWallet$$: Subscription;
 
+    private walletState: string = "";
+    private walletState$$: Subscription;
+
     public testTransactions: any[];
 
     constructor(private _walletService: WalletService) {
@@ -60,23 +63,37 @@ export class TransactionsComponent implements OnInit {
     ngOnInit(): void {
         this.decryptedWallet$$ = this._walletService.decryptedWallet$
             .subscribe(walletObject => {
+                console.log(walletObject);
                 this.decryptedWallet = walletObject;
+            });
+        this.walletState$$ = this._walletService.walletState$
+            .subscribe(walletState => {
+                console.log(walletState);
+                this.walletState = walletState;
             });
         this.updateData();
         
     }
 
     private updateData(): void {
-        let fun = () => {
-            this._walletService.getRefreshData(this.decryptedWallet.address)
-                .subscribe((addressData) => {
-                    this.decryptedWallet.tansactions = addressData.transactions;
-                    this.decryptedWallet.balance = addressData.balance;
-                    this.decryptedWallet.ethBalance = addressData.ethBalance;
-                    this.decryptedWallet.generalData = addressData.generalData;
-                }
-            );
-            this.updateData();
+        let fun: () => void; 
+        if (this.walletState !== 'dashboard'){
+            fun = this.updateData;
+            console.log("dashboard disabled");
+        } 
+        else {
+            fun = () => {
+                this._walletService.getRefreshData(this.decryptedWallet.addressString)
+                    .subscribe((addressData) => {
+                        console.log(addressData);
+                        this.decryptedWallet.tansactions = addressData.transactions;
+                        this.decryptedWallet.balance = addressData.balance;
+                        this.decryptedWallet.ethBalance = addressData.ethBalance;
+                        this.decryptedWallet.generalData = addressData.generalData;
+                    }
+                );
+                this.updateData();
+            }
         }
         setTimeout(fun,35000);
     }

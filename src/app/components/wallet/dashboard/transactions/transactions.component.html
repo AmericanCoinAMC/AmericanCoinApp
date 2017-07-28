@@ -30,7 +30,7 @@
                     <div>
                         <div fxLayout="column">
                             <app-transaction-item
-                                    *ngFor="let tx of testTransactions"
+                                    *ngFor="let tx of decryptedWallet.transactions"
                                     [transaction]="tx"
                                     [activeFilter]="activeFilter"></app-transaction-item>
                         </div>
