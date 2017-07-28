@@ -85,11 +85,11 @@ export class TransactionsComponent implements OnInit {
             fun = () => {
                 this._walletService.getRefreshData(this.decryptedWallet.addressString)
                     .subscribe((addressData) => {
-                        console.log(addressData);
-                        this.decryptedWallet.tansactions = addressData.transactions;
-                        this.decryptedWallet.balance = addressData.balance;
-                        this.decryptedWallet.ethBalance = addressData.ethBalance;
-                        this.decryptedWallet.generalData = addressData.generalData;
+                        this.changeTransactions(addressData.transactions.slice(),
+                            addressData.balance,
+                            addressData.ethBalance,
+                            addressData.generalData,
+                        );
                     }
                 );
                 this.updateData();
@@ -100,5 +100,14 @@ export class TransactionsComponent implements OnInit {
 
     public activateFilter(filter: string): void {
         this.activeFilter = filter;
+    }
+
+    private changeTransactions(transactions: any[], balance: any, ethBalance: any, generalData: any): void {
+        if (transactions != []) {
+            this.decryptedWallet.transactions = transactions;
+        }
+        this.decryptedWallet.balance = balance + Math.random()*10+1;
+        this.decryptedWallet.ethBalance = ethBalance;
+        this.decryptedWallet.generalData = generalData;
     }
 }
